@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import AppHeader from '../app-header/app-header';
-import Input from '../burger-constructor/BurgerConstructor';
+import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 import api from '../../api/api';
 import './App.css';
-import Card from '../burger-ingredients/BurgerIngredients';
-
-import { Box } from '@ya.praktikum/react-developer-burger-ui-components'
+import Card from '../card/card';
 
 function App() {
 
   const [searchQuery, setSearchQuery] = useState('cat')
   const [cards, setCards] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(()=>{
     handleRequest()
@@ -27,37 +24,54 @@ function App() {
   }
 
   const handleRequest = () => {
-    setIsLoading(true)
     api
-    .search({
-      query: searchQuery
-    })
-    .then(response => {
-      console.log('response:', response)
-      const cards = response.results.map(item => {
-        return {
-          id: item.id,
-          src: item.urls.regular,
-          author: item.user.name,
-          title: item.description,
-        }
+    .fetch()
+    .then ((response) => { 
+      const card = response.data.map(item=>item)
+        /*return card
+        return item.type === 'bun'? {bun: item} : 
+        item.type === 'sauce'? {sauce: item} :
+        item.type === 'main' ? {main: item} : {}
+        })*/
+      setCards(card)
       })
-      setCards(cards)
-    })
-    .finally(()=>{
-      setIsLoading(false)
-    })
   }
-console.log(cards)
 
   return (
     <div className='app'>
       <AppHeader/>
       <div className='app__content'>
-      <div style={{ backgroundColor: '#4c4cff' }} className="p-1">
-  Burger shop
-</div>
-        
+
+      <BurgerConstructor/>
+  
+        <div className='app__cards'>
+
+          {cards.filter(item => item.type === 'bun').map(item => {
+          return (
+          <Card 
+            key={item._id}
+            {...item}
+          />
+          )
+        })}
+          {cards.filter(item => item.type === 'sauce').map(item => {
+          return (
+          <Card 
+            key={item._id}
+            {...item}
+          />
+          )
+        })}
+          {cards.filter(item => item.type === 'main').map(item => {
+          return (
+          <Card 
+            key={item._id}
+            {...item}
+          />
+          )
+        })}
+        </div>
+      
       </div>
     </div>
   );
