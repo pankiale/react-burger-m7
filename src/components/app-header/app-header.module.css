@@ -2,25 +2,36 @@
 	display: grid;
 	grid-template-columns: 1fr min-content 1fr;
 	width: 100%;
-	max-width: 1440px;
 	margin: 0;
+	box-sizing: border-box;
 }
 
 .header__navigation {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
+	list-style-type: none;
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	list-style-type: none;
 }
-
 
 .header__login {
 	display: flex;
 	flex-wrap: nowrap;
-	align-items: flex-end;
+	justify-content: flex-end;
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
+	box-sizing: border-box;
+}
+
+.header__button {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	box-sizing: border-box;
 }

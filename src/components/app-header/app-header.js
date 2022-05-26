@@ -4,32 +4,34 @@ import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const AppHeader = ({title, children}) => {
+const AppHeader = () => {
     return (
-        <header className={`${styles.header} pl-5`}>
-                <nav className="pl-5 pr-5 pb-4 pt-4">
-                    <ul className={styles.header__navigation}>
-                        <li class="header__button">
-                            <p className='text text_type_main-default'>
-                               <BurgerIcon type="primary" /> Конструктор
-                            </p>
-                        </li>
-                        <li class="header__button">
-                            <a className='text text_type_main-default text_color_inactive' href="profile.html">
-                            <ListIcon type="secondary" /> Лента Заказов
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <Logo/>
-                <nav className="pl-5 pr-5 pb-4 pt-4">
-                    <ul className={styles.header__login}>
-                            <a class="text text_type_main-default" href="profile.html">
-                            <ProfileIcon type="secondary" />Личный кабинет
-                            </a>
-                    </ul>
-                </nav>
-            </header>
+        <header className={`${styles.header} p-4`}>
+            <nav>
+                <ul className={styles.header__navigation}>
+                    <li className={`${styles.header__button} pt-4 pb-4 pl-5 pr-5 mr-2`}>
+                        <BurgerIcon type="primary"/>
+                        <p className='text text_type_main-default ml-2'>Конструктор
+                        </p>
+                    </li>
+                    <li className={`${styles.header__button} pt-4 pb-4 pl-5 pr-5`}>
+                        <ListIcon type="secondary"/>
+                        <p className='text text_type_main-default text_color_inactive ml-2'>Лента Заказов
+                        </p>
+                    </li>
+                </ul>
+            </nav>
+            <Logo/>
+            <nav>
+                <ul className={styles.header__login}>
+                    <li className={`${styles.header__button} pt-4 pb-4 pl-5 pr-5`}>
+                        <ProfileIcon type="secondary"/>
+                        <p class="text text_type_main-default text_color_inactive ml-2">Личный кабинет
+                        </p>
+                    </li>
+                </ul>
+            </nav>
+        </header>
     )
 }
 
