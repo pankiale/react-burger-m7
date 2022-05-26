@@ -1,13 +1,11 @@
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { checkPropTypes } from 'prop-types';
 import Card from '../card/card';
 import styles from './burger-ingredients.module.css'
 
 function BurgerIngredients (props) {
 
 const [current, setCurrent] = React.useState('bun')
-const screenHeight = window.screen.height
 
 const IngredientList = ({title, ingredient, props}) => {
   return (
@@ -16,9 +14,8 @@ const IngredientList = ({title, ingredient, props}) => {
           <ul className={`${styles.ingredients__list} pl-4 pr-4 pt-6`}>
           {props.data.filter(item => item.type === ingredient).map(item => {
           return (
-            <li>
+            <li key={item._id}>
           <Card 
-            key={item._id}
             {...item}
           />
           </li>
@@ -31,7 +28,7 @@ const IngredientList = ({title, ingredient, props}) => {
 }
 
 return (
-    <section className={`${styles.ingredients__section} pl-5 pr-5 pt-8 pb-8`}>
+    <section className={`${styles.ingredients__section} pl-4 pr-5 pt-10 pb-8`}>
       <h1 className="text text_type_main-large mb-5"> Соберите бургер</h1>
     <div style={{ display: 'flex' }}>
         <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
