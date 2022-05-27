@@ -1,46 +1,60 @@
-import React from 'react';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import Card from '../card/card';
-import styles from './burger-constructor.module.css'
+import React from "react";
+import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import Card from "../card/card";
+import styles from "./burger-constructor.module.css";
 
-function BurgerConstructor (props) {
+function BurgerConstructor(props) {
+  props.data[0];
 
-const [current, setCurrent] = React.useState('bun')
-
-const IngredientList = ({title, ingredient, props}) => {
-  return (
-      <div className={styles.ingredients__item}>
-          <ul className={styles.ingredients__list}>
-          {props.data.filter(item => item.type === ingredient).map(item => {
-          return (
-            <li key={item._id}>
-          <DragIcon type="primary" />    
-          <ConstructorElement 
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
+  const IngredientList = ({ title, ingredient, props }) => {
+    return (
+      <div className={`${styles.ingredients__item} pl-4`}>
+        <div className="pr-3">
+          <ConstructorElement
+            type="top"
+            text={`${props.data[0].name} (верх)`}
+            price={props.data[0].price}
+            thumbnail={props.data[0].image}
+            isLocked={true}
           />
-          </li>
-          )
-        })}
-        
-          </ul>
-          </div>
-  )
-}
+        </div>
 
-return (
-    <section className={`${styles.ingredients__section} pl-5 pr-4 pt-25 pb-13`}>
+        <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
+          {props.data
+            .filter((item) => item.type === ingredient)
+            .map((item) => {
+              return (
+                <li className={styles.ingredients__el} key={item._id}>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    text={item.name}
+                    price={item.price}
+                    thumbnail={item.image}
+                    isLocked={false}
+                  />
+                </li>
+              );
+            })}
+        </ul>
+        <div className="pr-3">
+          <ConstructorElement
+            type="bottom"
+            text={`${props.data[0].name} (низ)`}
+            price={props.data[0].price}
+            thumbnail={props.data[0].image}
+            isLocked={true}
+          />
+        </div>
+      </div>
+    );
+  };
 
-    <div style={{ display: 'flex' }}>
-
-    </div>
-
-         <IngredientList title='Соусы' ingredient='sauce' props={props}/>
+  return (
+    <section className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
+      <IngredientList title="Соусы" ingredient="main" props={props} />
     </section>
-        )
+  );
 }
-
 
 export default BurgerConstructor;
