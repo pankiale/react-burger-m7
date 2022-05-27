@@ -26,7 +26,7 @@ const AppHeader = () => {
         <ul className={styles.header__login}>
           <li className={`${styles.header__button} pt-4 pb-4 pl-5 pr-5`}>
             <ProfileIcon type="secondary" />
-            <p class="text text_type_main-default text_color_inactive ml-2">
+            <p className="text text_type_main-default text_color_inactive ml-2">
               Личный кабинет
             </p>
           </li>

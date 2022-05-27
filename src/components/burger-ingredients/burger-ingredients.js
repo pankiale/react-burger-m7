@@ -1,10 +1,28 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Card from "../card/card";
 import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState("bun");
+
+  BurgerIngredients.propTypes = {
+    props: PropTypes.arrayOf({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
+      proteins: PropTypes.number,
+      fat: PropTypes.number,
+      carbohydrates: PropTypes.number,
+      calories: PropTypes.number,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      image_mobile: PropTypes.string,
+      image_large: PropTypes.string,
+      __v: PropTypes.number,
+    }),
+  };
 
   const IngredientList = ({ title, ingredient, props }) => {
     return (
@@ -39,9 +57,11 @@ function BurgerIngredients(props) {
           Начинка
         </Tab>
       </div>
-      <IngredientList title="Булки" ingredient="bun" props={props} />
-      <IngredientList title="Соусы" ingredient="sauce" props={props} />
-      <IngredientList title="Начинки" ingredient="main" props={props} />
+      <div className={styles.ingredients__menu}>
+        <IngredientList title="Булки" ingredient="bun" props={props} />
+        <IngredientList title="Соусы" ingredient="sauce" props={props} />
+        <IngredientList title="Начинки" ingredient="main" props={props} />
+      </div>
     </section>
   );
 }
