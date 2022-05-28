@@ -1,47 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { dataTypes } from "../../utils/const";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Card from "../card/card";
 import styles from "./burger-ingredients.module.css";
+import IngredientList from "../ingredient-list/ingredient-list"
+
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
+};
 
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState("bun");
-
-  BurgerIngredients.propTypes = {
-    props: PropTypes.arrayOf({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    }),
-  };
-
-  const IngredientList = ({ title, ingredient, props }) => {
-    return (
-      <div className={styles.ingredients__item}>
-        <p className="text text_type_main-medium">{title}</p>
-        <ul className={`${styles.ingredients__list} pl-4 pr-4 pt-6`}>
-          {props.data
-            .filter((item) => item.type === ingredient)
-            .map((item) => {
-              return (
-                <li key={item._id}>
-                  <Card {...item} />
-                </li>
-              );
-            })}
-        </ul>
-      </div>
-    );
-  };
 
   return (
     <section className={`${styles.ingredients__section} pl-4 pr-5 pt-10 pb-8`}>
