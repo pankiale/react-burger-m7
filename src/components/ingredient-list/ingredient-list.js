@@ -1,14 +1,15 @@
 import React from "react";
+import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { dataTypes } from "../../utils/const";
 import Card from "../card/card";
 import styles from "./ingredient-list.module.css";
 
-const IngredientList = ({ title, ingredient, data }) => {
+const IngredientList = React.forwardRef (({ title, ingredient, data }, ref) => {
 
   return (
     <div className={styles.ingredients__item}>
-      <p className="text text_type_main-medium">{title}</p>
+      <p ref = {ref} className="text text_type_main-medium">{title}</p>
       <ul className={`${styles.ingredients__list} pl-4 pr-4 pt-6`}>
         {data.data
           .filter((item) => item.type === ingredient)
@@ -22,7 +23,7 @@ const IngredientList = ({ title, ingredient, data }) => {
       </ul>
     </div>
   );
-};
+});
 
 IngredientList.propTypes = {
   title: PropTypes.string.isRequired,
