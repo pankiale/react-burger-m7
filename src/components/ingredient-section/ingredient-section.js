@@ -4,22 +4,22 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
 
-  const IngredientSection = ({ filter, props}) => {
+  const IngredientSection = ({ filter, data}) => {
 
     return (
       <div className={`${styles.ingredients__item} pl-4`}>
         <div className="pr-3">
           <ConstructorElement
             type="top"
-            text={`${props.data[0].name} (верх)`}
-            price={props.data[0].price}
-            thumbnail={props.data[0].image}
+            text={`${data.data[0].name} (верх)`}
+            price={data.data[0].price}
+            thumbnail={data.data[0].image}
             isLocked={true}
           />
         </div>
 
         <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
-          {props.data
+          {data.data
             .filter((item) => item.type === filter)
             .map((item, index) => {
               return (
@@ -38,9 +38,9 @@ import styles from "./ingredient-section.module.css";
         <div className="pr-3">
           <ConstructorElement
             type="bottom"
-            text={`${props.data[0].name} (низ)`}
-            price={props.data[0].price}
-            thumbnail={props.data[0].image}
+            text={`${data.data[0].name} (низ)`}
+            price={data.data[0].price}
+            thumbnail={data.data[0].image}
             isLocked={true}
           />
         </div>
@@ -50,7 +50,7 @@ import styles from "./ingredient-section.module.css";
 
   IngredientSection.propTypes = {
     filter: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
+    data: PropTypes.objectOf(PropTypes.arrayOf(dataTypes.isRequired).isRequired).isRequired,
   };
 
 export default IngredientSection;

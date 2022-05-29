@@ -4,12 +4,13 @@ import { dataTypes } from "../../utils/const";
 import Card from "../card/card";
 import styles from "./ingredient-list.module.css";
 
-const IngredientList = ({ title, ingredient, props }) => {
+const IngredientList = ({ title, ingredient, data }) => {
+
   return (
     <div className={styles.ingredients__item}>
       <p className="text text_type_main-medium">{title}</p>
       <ul className={`${styles.ingredients__list} pl-4 pr-4 pt-6`}>
-        {props.data
+        {data.data
           .filter((item) => item.type === ingredient)
           .map((item) => {
             return (
@@ -26,7 +27,7 @@ const IngredientList = ({ title, ingredient, props }) => {
 IngredientList.propTypes = {
   title: PropTypes.string.isRequired,
   ingredient: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-  data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
+  data: PropTypes.objectOf(PropTypes.arrayOf(dataTypes.isRequired).isRequired).isRequired,
 };
 
 export default IngredientList;

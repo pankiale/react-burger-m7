@@ -26,7 +26,7 @@ function BurgerConstructor(props) {
 
   return (
     <section className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
-      <IngredientSection filter="main" props={props} />
+      <IngredientSection filter="main" data={props} />
       <div className={styles.ingredients__shopping_cart}>
         <TotalBill total={650} />
         <Button type="primary" size="large">

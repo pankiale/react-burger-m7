@@ -28,9 +28,9 @@ function BurgerIngredients(props) {
         </Tab>
       </div>
       <div className={styles.ingredients__menu}>
-        <IngredientList title="Булки" ingredient="bun" props={props} />
-        <IngredientList title="Соусы" ingredient="sauce" props={props} />
-        <IngredientList title="Начинки" ingredient="main" props={props} />
+        <IngredientList title="Булки" ingredient="bun" data={props} />
+        <IngredientList title="Соусы" ingredient="sauce" data={props} />
+        <IngredientList title="Начинки" ingredient="main" data={props} />
       </div>
     </section>
   );
