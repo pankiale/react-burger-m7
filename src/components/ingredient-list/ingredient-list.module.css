@@ -1,20 +1,17 @@
-
 .ingredients__item {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    margin-top: 40px;
-  }
-  
-  .ingredients__list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    column-gap: 24px;
-    row-gap: 32px;
-    box-sizing: border-box;
-    margin: 0;
-    list-style-type: none;
-  }
-  
-  
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 40px;
+}
+
+.ingredients__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  column-gap: 24px;
+  row-gap: 32px;
+  box-sizing: border-box;
+  margin: 0;
+  list-style-type: none;
+}

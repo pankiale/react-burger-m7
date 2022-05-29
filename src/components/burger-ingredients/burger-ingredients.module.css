@@ -4,6 +4,10 @@
   min-width: 600px;
 }
 
+.ingredients__tab {
+  display: flex;
+}
+
 .ingredients__menu {
   display: flex;
   flex-direction: column;

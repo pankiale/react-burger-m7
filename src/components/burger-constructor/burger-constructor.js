@@ -10,7 +10,6 @@ BurgerConstructor.propTypes = {
 };
 
 function BurgerConstructor(props) {
- 
   const TotalBill = ({ total }) => {
     return (
       <div className={styles.ingredients__total}>
