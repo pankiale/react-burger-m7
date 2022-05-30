@@ -1,21 +1,16 @@
 const config = {
-    accessKey: "DlBQ9H4bfxv0xN2AWoHODmE3x5gyJGuSAqrXiRoSzF4",
-    url: "https://api.unsplash.com/"
+    url: "https://norma.nomoreparties.space/api/ingredients"
 }
 
 class API {
-    constructor ({url, accessKey}){
+    constructor ({url}){
         this._url = url;
-        this._accessKey = accessKey;
     }
 
-    search ({query}) {
-        return fetch(`${this._url}search/photos?per_page=9&query=${query}` , {
-            headers: {
-                Authorization: `Client-ID ${this._accessKey}`,
-            }
-        })
+    fetch () {
+        return fetch(`${this._url}`)
         .then (response => response.json()); 
+        
     }
 }
 const api = new API (config);

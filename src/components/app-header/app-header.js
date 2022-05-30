@@ -1,33 +1,39 @@
-import styles from './app-header.module.css'
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from "./app-header.module.css";
+import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
+import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const AppHeader = ({title, children}) => {
-    return (
-        <header className={styles.header}>
-                <nav>
-                    <ul className={styles.header__navigation}>
-                        <li class="header__button">
-                            <p class="header__link">
-                                <img class="header__icon" src="images/courses-icon-active.svg" alt="Курсы"/>Курсы
-                            </p>
-                        </li>
-                        <li class="header__button">
-                            <a class="header__link header__link_active" href="profile.html">
-                                <img class="header__icon" src="images/profile-icon.svg" alt="Профиль"/>Профиль
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <Logo/>
-                <nav>
-                    <ul className={styles.header__login}>
-                            <a class="header__link header__link_active" href="profile.html">
-                                <img class="header__icon" src="images/profile-icon.svg" alt="Профиль"/>Профиль
-                            </a>
-                    </ul>
-                </nav>
-            </header>
-    )
-}
+const AppHeader = () => {
+  return (
+    <header className={`${styles.header} p-4`}>
+      <nav>
+        <ul className={styles.header__navigation}>
+          <li className={`${styles.header__button} pt-4 pb-4 pl-5 pr-5 mr-2`}>
+            <BurgerIcon type="primary" />
+            <p className="text text_type_main-default ml-2">Конструктор</p>
+          </li>
+          <li className={`${styles.header__button} pt-4 pb-4 pl-5 pr-5`}>
+            <ListIcon type="secondary" />
+            <p className="text text_type_main-default text_color_inactive ml-2">
+              Лента Заказов
+            </p>
+          </li>
+        </ul>
+      </nav>
+      <Logo />
+      <nav>
+        <ul className={styles.header__login}>
+          <li className={`${styles.header__button} pt-4 pb-4 pl-5 pr-5`}>
+            <ProfileIcon type="secondary" />
+            <p className="text text_type_main-default text_color_inactive ml-2">
+              Личный кабинет
+            </p>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
 
 export default AppHeader;

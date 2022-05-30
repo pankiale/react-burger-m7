@@ -1,0 +1,18 @@
+.ingredients__section {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+}
+
+.ingredients__total {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.ingredients__shopping_cart {
+  padding-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+}
