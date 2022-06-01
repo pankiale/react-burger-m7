@@ -1,0 +1,39 @@
+.popup {
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.2s linear;
+  }
+
+  .popup__container{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    width: 430px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+  }
+
+  .popup__close_btn {
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  transition: opacity .5s;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+.popup__close-btn:hover {
+  opacity: .6;
+}

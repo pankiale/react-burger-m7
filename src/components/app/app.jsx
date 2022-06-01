@@ -4,7 +4,8 @@ import api from "../../api/api";
 import styles from "./app.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { useEffect, useState } from "react";
-/*Геннадий, гляньте, пожалуйста, API и  scrollIntoView, если будет время, спасибо большое*/
+import Modal from "../modals/modals";
+
 function App() {
   const [cards, setCards] = useState([]);
 
@@ -19,16 +20,21 @@ function App() {
     });
   };
 
-  console.log(cards);
+  const [openModal, setOpenModal] = useState(true)
 
+  const onClick = () => {
+      setOpenModal(true)
+    };
+  
   return (
     <div className={styles.app}>
+      <Modal />
       <AppHeader />
       <main className={styles.app__main}>
         {cards.length && (
           <>
-            <BurgerIngredients data={cards} />
-            <BurgerConstructor data={cards} />
+            <BurgerIngredients сlick={onClick} data={cards} />
+            <BurgerConstructor data={cards} /> 
           </>
         )}
       </main>

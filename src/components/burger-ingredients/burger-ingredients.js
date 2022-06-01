@@ -26,7 +26,7 @@ function BurgerIngredients(props) {
 
   return (
     <section className={`${styles.ingredients__section} pl-4 pr-5 pt-10 pb-8`}>
-      <h1 className="text text_type_main-large mb-5"> Соберите бургер</h1>
+      <h1 onClick={props.click} className="text text_type_main-large mb-5"> Соберите бургер</h1>
       <div className={styles.ingredients__tab}>
         <Tab value="bun" active={current === "bun"} onClick={handleClick}>
           Булки
