@@ -17,7 +17,7 @@ const IngredientList = React.forwardRef(({ title, ingredient, data }, ref) => {
           .map((item) => {
             return (
               <li key={item._id}>
-                <Card {...item} />
+                <Card data={item} clicker={data.handleClick} />
               </li>
             );
           })}
