@@ -20,7 +20,7 @@ function App() {
     });
   };
 
-  const [openModal, setOpenModal] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
 
   const onClick = () => {
       setOpenModal(true)
@@ -28,12 +28,12 @@ function App() {
   
   return (
     <div className={styles.app}>
-      <Modal />
+      {openModal && <Modal />}
       <AppHeader />
       <main className={styles.app__main}>
         {cards.length && (
           <>
-            <BurgerIngredients сlick={onClick} data={cards} />
+            <BurgerIngredients handleClick={onClick} data={cards} />
             <BurgerConstructor data={cards} /> 
           </>
         )}

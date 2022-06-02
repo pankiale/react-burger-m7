@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react";
+import ReactDOM from "react-dom";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import { dataTypes } from "../../utils/const";
