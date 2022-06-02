@@ -24,14 +24,9 @@ function BurgerIngredients(props) {
       : main.current.scrollIntoView();
   }
 
-const handleMandleClick = () => {
-  props.handleClick()
-}
-
   return (
     <section className={`${styles.ingredients__section} pl-4 pr-5 pt-10 pb-8`}>
-      {console.log(props.handleClick)}
-      <h1 onClick={handleMandleClick} className="text text_type_main-large mb-5"> Соберите бургер</h1>
+      <h1 className="text text_type_main-large mb-5"> Соберите бургер</h1>
       <div className={styles.ingredients__tab}>
         <Tab value="bun" active={current === "bun"} onClick={handleClick}>
           Булки

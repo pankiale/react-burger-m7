@@ -1,14 +1,13 @@
 import PropTypes from "prop-types";
 import styles from "./card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from "react";
 
 const Card = ({ data, clicker}) => {
 
-
 const handleClick = () => {
-  clicker()
+  clicker(data)
 }
-
 
   return (
     <div onClick={handleClick} className={styles.card}>
