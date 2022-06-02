@@ -28,11 +28,16 @@ function App() {
       setOpenModalIngr(true)
       setRenderData({data})
     };
+
+  const onCloseBtnClick = () => {
+      setOpenModalIngr(false)
+    };
+  
   
   return (
     <div className={styles.app}>
       {openModalIngr && 
-      <Modal header="Детали ингредиента">
+      <Modal handleCloseClick={onCloseBtnClick} header="Детали ингредиента">
          <img src={renderData.data.image_large} alt={renderData.data.name} className={styles.card__image} />
       <p
         className={`${styles.card__price} text text_type_digits-default mt-1 mb-1`}

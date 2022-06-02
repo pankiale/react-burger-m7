@@ -8,12 +8,18 @@ import styles from "./modals.module.css";
 import IngredientSection from "../ingredient-section/ingredient-section";
 const modalsContainer = document.querySelector("#react-modals");
 
-const Modal = ({header, children}) => {
+const Modal = ({header, children, handleCloseClick}) => {
+
+const closePopup = () => {
+  handleCloseClick()
+}
+
+
   return ReactDOM.createPortal(
     <>
       <section className={styles.popup}>
         <div className={styles.popup__container}>
-          <button type="button" className={styles.popup__close_btn}><CloseIcon/></button>
+          <button onClick={closePopup}  type="button" className={styles.popup__close_btn}><CloseIcon/></button>
           <h1 className='text text_type_main-default' >{header}</h1>
           {children}
         </div>
