@@ -19,7 +19,7 @@ const closePopup = () => {
     <>
       <section className={styles.popup}>
         <div className={styles.popup__container}>
-          <button onClick={closePopup}  type="button" className={styles.popup__close_btn}><CloseIcon/></button>
+          <button onClick={closePopup} type="button" className={styles.popup__close_btn}><div><CloseIcon /></div></button>
           <h1 className='text text_type_main-default' >{header}</h1>
           {children}
         </div>

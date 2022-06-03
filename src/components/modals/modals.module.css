@@ -6,7 +6,6 @@
     position: fixed;
     top: 0;
     z-index: 1;
-    pointer-events: none;
     opacity: 1;
     transition: opacity 0.2s linear;
   }
@@ -31,7 +30,9 @@
   top: 60px;
   right: 40px;
   transition: opacity .5s;
-  background-color: transparent;
+  background-color: red;
+  height: 40px;
+  width: 40px;
   cursor: pointer;
   border: none;
   padding: 0;
