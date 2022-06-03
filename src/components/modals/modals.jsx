@@ -1,17 +1,21 @@
-import React from "react";
+import {useEffect} from "react";
 import ReactDOM from "react-dom";
-import { createPortal } from "react-dom";
-import PropTypes from "prop-types";
-import { dataTypes } from "../../utils/const";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modals.module.css";
-import IngredientSection from "../ingredient-section/ingredient-section";
 const modalsContainer = document.querySelector("#react-modals");
 
-const Modal = ({ header, children, handleCloseClick }) => {
+const Modal = ({ header, children, handleCloseClick, onEscKeydown }) => {
+
   const closePopup = () => {
     handleCloseClick();
   };
+
+  useEffect(() => {
+    document.addEventListener("keydown", onEscKeydown);
+    return () => {
+      document.removeEventListener("keydown", onEscKeydown);
+    };
+  }, []);
 
   return ReactDOM.createPortal(
     <>
@@ -23,7 +27,9 @@ const Modal = ({ header, children, handleCloseClick }) => {
         >
           <CloseIcon />
         </button>
-        <h1 className={`${styles.popup__header} text text_type_main-large`}>{header}</h1>
+        <h1 className={`${styles.popup__header} text text_type_main-large`}>
+          {header}
+        </h1>
         {children}
       </section>
     </>,

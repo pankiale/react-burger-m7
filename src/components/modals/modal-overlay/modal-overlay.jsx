@@ -1,4 +1,3 @@
-
 import styles from "../modals.module.css";
 
 const ModalOverlay = ({handleCloseClick}) => {

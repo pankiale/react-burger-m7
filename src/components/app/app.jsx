@@ -5,9 +5,9 @@ import styles from "./app.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { useEffect, useState } from "react";
 import Modal from "../modals/modals";
-import { render } from "react-dom";
 import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
+import OrderDetails from "../modals/order-details/order-details";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -23,35 +23,60 @@ function App() {
     });
   };
 
-  const [openModalIngr, setOpenModalIngr] = useState(false)
-  const [renderData, setRenderData] = useState([]) 
+  const [openModalIngr, setOpenModalIngr] = useState(false);
+  const [openModalOrder, setOpenModalOrder] = useState(false);
+  const [renderData, setRenderData] = useState([]);
 
-  const onClick = (data) => {
-      setOpenModalIngr(true)
-      setRenderData({data})
-    };
+  const onIngrClick = (data) => {
+    setOpenModalIngr(true);
+    setRenderData({ data });
+  };
+
+  const onOrderClick = () => {
+    setOpenModalOrder(true);
+  };
 
   const onCloseBtnClick = () => {
-      setOpenModalIngr(false)
-    };
-  
-  
+    setOpenModalIngr(false);
+    setOpenModalOrder(false);
+  };
+
+  const handleEscKeydown = (e) => {
+    e.key === "Escape" && onCloseBtnClick();
+  };
+
   return (
     <div className={styles.app}>
-      {openModalIngr && 
-      <>
-      <Modal handleCloseClick={onCloseBtnClick} header="Детали ингредиента">
-        <IngredientDetails data={renderData}/>
-      </Modal>
-      <ModalOverlay handleCloseClick={onCloseBtnClick}/>
-      </>
-      }
+      {openModalIngr && (
+        <>
+          <Modal           
+            handleCloseClick={onCloseBtnClick}
+            onEscKeydown={handleEscKeydown}
+            header="Детали ингредиента"
+          >
+            <IngredientDetails data={renderData} />
+          </Modal>
+          <ModalOverlay handleCloseClick={onCloseBtnClick} />
+        </>
+      )}
+       {openModalOrder && (
+        <>
+          <Modal           
+            handleCloseClick={onCloseBtnClick}
+            onEscKeydown={handleEscKeydown}
+            header=""
+          >
+          <OrderDetails/>
+          </Modal>
+          <ModalOverlay handleCloseClick={onCloseBtnClick} />
+        </>
+      )}
       <AppHeader />
       <main className={styles.app__main}>
         {cards.length && (
           <>
-            <BurgerIngredients handleClick={onClick} data={cards} />
-            <BurgerConstructor data={cards} /> 
+            <BurgerIngredients handleClick={onIngrClick} data={cards} />
+            <BurgerConstructor handleClick={onOrderClick} data={cards} />
           </>
         )}
       </main>

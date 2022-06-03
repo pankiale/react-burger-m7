@@ -10,6 +10,11 @@ BurgerConstructor.propTypes = {
 };
 
 function BurgerConstructor(props) {
+
+  const handleClick = () => {
+    props.handleClick();
+  }
+
   const TotalBill = ({ total }) => {
     return (
       <div className={styles.ingredients__total}>
@@ -28,7 +33,7 @@ function BurgerConstructor(props) {
       <IngredientSection filter="main" data={props} />
       <div className={styles.ingredients__shopping_cart}>
         <TotalBill total={650} />
-        <Button type="primary" size="large">
+        <Button onClick={handleClick} type="primary" size="large">
           Оформить заказ
         </Button>
       </div>
