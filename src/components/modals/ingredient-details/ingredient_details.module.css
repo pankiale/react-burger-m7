@@ -1,0 +1,32 @@
+.ingr__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ingr__info_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.ingr__info_el {
+  display: flex;
+  min-width: 112px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.ingr__title {
+  display: flex;
+  margin: 16px auto 32px;
+}
+
+.ingr__image {
+  object-fit: cover;
+  margin: auto;
+}

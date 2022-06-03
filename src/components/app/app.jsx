@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Modal from "../modals/modals";
 import { render } from "react-dom";
 import ModalOverlay from "../modals/modal-overlay/modal-overlay";
+import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -40,15 +41,7 @@ function App() {
       {openModalIngr && 
       <>
       <Modal handleCloseClick={onCloseBtnClick} header="Детали ингредиента">
-         <img src={renderData.data.image_large} alt={renderData.data.name} className={styles.card__image} />
-      <p
-        className={`${styles.card__price} text text_type_digits-default mt-1 mb-1`}
-      >
-        {renderData.data.proteins}
-      </p>
-      <p className={`${styles.card__title} text text_type_main-default`}>
-        {renderData.data.name}
-      </p>
+        <IngredientDetails data={renderData}/>
       </Modal>
       <ModalOverlay handleCloseClick={onCloseBtnClick}/>
       </>
