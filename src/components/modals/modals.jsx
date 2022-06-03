@@ -14,15 +14,12 @@ const closePopup = () => {
   handleCloseClick()
 }
 
-
   return ReactDOM.createPortal(
     <>
-      <section className={styles.popup}>
-        <div className={styles.popup__container}>
+      <section className={styles.popup__container}>
           <button onClick={closePopup} type="button" className={styles.popup__close_btn}><div><CloseIcon /></div></button>
           <h1 className='text text_type_main-default' >{header}</h1>
           {children}
-        </div>
       </section>
     </>,
     modalsContainer

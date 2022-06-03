@@ -6,6 +6,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { useEffect, useState } from "react";
 import Modal from "../modals/modals";
 import { render } from "react-dom";
+import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -37,6 +38,7 @@ function App() {
   return (
     <div className={styles.app}>
       {openModalIngr && 
+      <>
       <Modal handleCloseClick={onCloseBtnClick} header="Детали ингредиента">
          <img src={renderData.data.image_large} alt={renderData.data.name} className={styles.card__image} />
       <p
@@ -47,7 +49,10 @@ function App() {
       <p className={`${styles.card__title} text text_type_main-default`}>
         {renderData.data.name}
       </p>
-      </Modal>}
+      </Modal>
+      <ModalOverlay handleCloseClick={onCloseBtnClick}/>
+      </>
+      }
       <AppHeader />
       <main className={styles.app__main}>
         {cards.length && (
