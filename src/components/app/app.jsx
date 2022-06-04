@@ -49,7 +49,7 @@ function App() {
     <div className={styles.app}>
       {openModalIngr && (
         <>
-          <Modal           
+          <Modal
             handleCloseClick={onCloseBtnClick}
             onEscKeydown={handleEscKeydown}
             header="Детали ингредиента"
@@ -59,14 +59,14 @@ function App() {
           <ModalOverlay handleCloseClick={onCloseBtnClick} />
         </>
       )}
-       {openModalOrder && (
+      {openModalOrder && (
         <>
-          <Modal           
+          <Modal
             handleCloseClick={onCloseBtnClick}
             onEscKeydown={handleEscKeydown}
             header=""
           >
-          <OrderDetails/>
+            <OrderDetails />
           </Modal>
           <ModalOverlay handleCloseClick={onCloseBtnClick} />
         </>

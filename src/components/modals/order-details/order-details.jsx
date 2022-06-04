@@ -1,6 +1,6 @@
 import styles from "./order_details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import done from "../../../images/done.svg"
 const OrderDetails = () => {
   return (
     <section className={styles.ordr__card}>
@@ -12,18 +12,14 @@ const OrderDetails = () => {
           >
             идентификатор заказа
           </p>
+          <img src={done} alt="иконка" className={styles.ordr__check_icon}/>
           <p
-            className={`${styles.popup__price}`}
-          >
-            <CheckMarkIcon type="primary" />
-          </p>
-          <p
-            className={`${styles.popup__price} text text_type_digits-default text_color_inactive`}
+            className={`${styles.popup__price} text text_type_main-default mb-2`}
           >
             Ваш заказ начали готовить
           </p>
           <p
-            className={`${styles.popup__price} text text_type_main-default text_color_inactive`}
+            className={`${styles.popup__price} text text_type_main-default text_color_inactive mb-15`}
           >
             Дождитесь готовности на орбитальной станции
           </p>

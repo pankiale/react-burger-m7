@@ -10,7 +10,6 @@
   margin: 60px auto 32px;
 }
 
-
 .ordr__info_section {
   display: flex;
   flex-direction: row;
@@ -19,16 +18,11 @@
   gap: 20px;
 }
 
-.ingr__info_el {
+.ordr__check_icon {
   display: flex;
-  min-width: 112px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  border: none;
+  margin: 60px;
 }
-
-
 
 .ingr__image {
   object-fit: cover;
