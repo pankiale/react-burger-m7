@@ -17,10 +17,13 @@ function App() {
   }, []);
 
   const handleRequest = () => {
-    api.fetch().then((response) => {
+    api
+    .getIngredients()
+    .then((response) => {
       const card = response.data.map((item) => item);
       setCards(card);
-    });
+    })
+    .catch((err) => console.log(`Ошибка ${err.status}`));
   };
 
   const [openModalIngr, setOpenModalIngr] = useState(false);
