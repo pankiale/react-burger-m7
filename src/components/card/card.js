@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { dataTypes } from "../../utils/const"
 
 const Card = ({ data, clicker}) => {
 
@@ -25,9 +26,8 @@ const handleClick = () => {
 };
 
 Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
+  data: dataTypes.isRequired,
+  clicker: PropTypes.func.isRequired,
 };
 
 export default Card;

@@ -6,6 +6,7 @@ import styles from "./burger-constructor.module.css";
 import IngredientSection from "../ingredient-section/ingredient-section";
 
 BurgerConstructor.propTypes = {
+  handleClick: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
 };
 

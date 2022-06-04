@@ -29,8 +29,7 @@ const IngredientList = React.forwardRef(({ title, ingredient, data }, ref) => {
 IngredientList.propTypes = {
   title: PropTypes.string.isRequired,
   ingredient: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-  data: PropTypes.objectOf(PropTypes.arrayOf(dataTypes.isRequired).isRequired)
-    .isRequired,
+  data: PropTypes.object.isRequired
 };
 
 export default IngredientList;

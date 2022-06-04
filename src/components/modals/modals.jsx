@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modals.module.css";
@@ -35,6 +36,16 @@ const Modal = ({ header, children, handleCloseClick, onEscKeydown }) => {
     </>,
     modalsContainer
   );
+
 };
+
+Modal.propTypes = {
+  header: PropTypes.string.isRequired, 
+  children: PropTypes.object.isRequired,
+  handleCloseClick: PropTypes.func.isRequired,
+  onEscKeydown: PropTypes.func.isRequired,
+};
+
+
 
 export default Modal;

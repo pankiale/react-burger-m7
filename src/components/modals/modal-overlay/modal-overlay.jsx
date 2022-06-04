@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { dataTypes } from "../../../utils/const";
 import styles from "../modals.module.css";
 
 const ModalOverlay = ({handleCloseClick}) => {
@@ -11,6 +13,10 @@ const closePopup = () => {
       <div onClick={closePopup} className={styles.popup}>
       </div>
 </>)
+};
+
+ModalOverlay.propTypes = {
+  data: PropTypes.func.isRequired,
 };
 
 export default ModalOverlay;

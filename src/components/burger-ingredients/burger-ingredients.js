@@ -6,6 +6,7 @@ import styles from "./burger-ingredients.module.css";
 import IngredientList from "../ingredient-list/ingredient-list";
 
 BurgerIngredients.propTypes = {
+  handleClick: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
 };
 

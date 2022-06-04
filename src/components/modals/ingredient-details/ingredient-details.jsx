@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { dataTypes } from "../../../utils/const";
 import styles from "./ingredient_details.module.css";
 
 const IngredientDetails = ({ data }) => {
@@ -63,6 +65,11 @@ const IngredientDetails = ({ data }) => {
       </div>
     </section>
   );
+};
+
+
+IngredientDetails.propTypes = {
+  data: PropTypes.objectOf(dataTypes).isRequired,
 };
 
 export default IngredientDetails;
