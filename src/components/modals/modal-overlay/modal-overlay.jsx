@@ -16,7 +16,7 @@ const closePopup = () => {
 };
 
 ModalOverlay.propTypes = {
-  data: PropTypes.func.isRequired,
+  handleCloseClick: PropTypes.func.isRequired,
 };
 
 export default ModalOverlay;
