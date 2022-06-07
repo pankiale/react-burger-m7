@@ -1,5 +1,4 @@
 import styles from "./order_details.module.css";
-import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import done from "../../../images/done.svg"
 const OrderDetails = () => {
   return (

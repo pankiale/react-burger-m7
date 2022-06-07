@@ -46,6 +46,4 @@ Modal.propTypes = {
   onEscKeydown: PropTypes.func.isRequired,
 };
 
-
-
 export default Modal;
