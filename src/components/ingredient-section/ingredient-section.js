@@ -49,8 +49,7 @@ const IngredientSection = ({ filter, data }) => {
 
 IngredientSection.propTypes = {
   filter: PropTypes.string.isRequired,
-  data: PropTypes.objectOf(PropTypes.arrayOf(dataTypes.isRequired).isRequired)
-    .isRequired,
+  data: PropTypes.object.isRequired,
 };
 
 export default IngredientSection;

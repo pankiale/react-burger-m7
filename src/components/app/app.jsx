@@ -4,7 +4,7 @@ import api from "../../api/api";
 import styles from "./app.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { useEffect, useState } from "react";
-/*Геннадий, гляньте, пожалуйста, API и  scrollIntoView, если будет время, спасибо большое*/
+
 function App() {
   const [cards, setCards] = useState([]);
 
@@ -13,13 +13,14 @@ function App() {
   }, []);
 
   const handleRequest = () => {
-    api.fetch().then((response) => {
+    api
+    .getIngredients()
+    .then((response) => {
       const card = response.data.map((item) => item);
       setCards(card);
-    });
+    })
+    .catch((err) => console.log(`Ошибка ${err.status}`));
   };
-
-  console.log(cards);
 
   return (
     <div className={styles.app}>

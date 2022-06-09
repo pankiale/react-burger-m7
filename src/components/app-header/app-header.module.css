@@ -35,4 +35,10 @@
   padding: 0;
   list-style-type: none;
   box-sizing: border-box;
+  cursor: pointer;
+}
+
+
+.header__button_active {
+  cursor: default;
 }

@@ -7,10 +7,17 @@ class API {
         this._url = url;
     }
 
-    fetch () {
+    _checkResponse(res) {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      }
+
+
+    getIngredients () {
         return fetch(`${this._url}`)
-        .then (response => response.json()); 
-        
+        .then ( this._checkResponse) 
     }
 }
 const api = new API (config);

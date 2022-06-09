@@ -1,0 +1,30 @@
+.ordr__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ordr__number {
+  display: flex;
+  margin: 60px auto 32px;
+}
+
+.ordr__info_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.ordr__check_icon {
+  display: flex;
+  border: none;
+  margin: 60px;
+}
+
+.ingr__image {
+  object-fit: cover;
+  margin: auto;
+}
