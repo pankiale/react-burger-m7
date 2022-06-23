@@ -3,22 +3,26 @@ import { dataTypes } from "../../utils/const";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
+import { useContext } from "react";
+import { DataContext } from "../../services/dataContext";
 
-const IngredientSection = ({ filter, data }) => {
+const IngredientSection = ({ filter}) => {
+  const {ingredients} = useContext(DataContext)
+
   return (
     <div className={`${styles.ingredients__item} pl-4`}>
       <div className="pr-3">
         <ConstructorElement
           type="top"
-          text={`${data.data[0].name} (верх)`}
-          price={data.data[0].price}
-          thumbnail={data.data[0].image}
+          text={`${ingredients[0].name} (верх)`}
+          price={ingredients[0].price}
+          thumbnail={ingredients[0].image}
           isLocked={true}
         />
       </div>
 
       <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
-        {data.data
+        {ingredients
           .filter((item) => item.type === filter)
           .map((item, index) => {
             return (
@@ -37,9 +41,9 @@ const IngredientSection = ({ filter, data }) => {
       <div className="pr-3">
         <ConstructorElement
           type="bottom"
-          text={`${data.data[0].name} (низ)`}
-          price={data.data[0].price}
-          thumbnail={data.data[0].image}
+          text={`${ingredients[0].name} (низ)`}
+          price={ingredients[0].price}
+          thumbnail={ingredients[0].image}
           isLocked={true}
         />
       </div>

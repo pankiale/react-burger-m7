@@ -12,7 +12,7 @@ BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
 };
 
-function BurgerConstructor(props) {
+function BurgerConstructor() {
   const [openModalOrder, setOpenModalOrder] = useState(false);
 
   const onOrderClick = () => {
@@ -41,7 +41,7 @@ function BurgerConstructor(props) {
         </>
       )}
       <section className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
-        <IngredientSection filter="main" data={props} />
+        <IngredientSection filter="main" />
         <div className={styles.ingredients__shopping_cart}>
           <TotalBill total={650} />
           <Button onClick={onOrderClick} type="primary" size="large">
