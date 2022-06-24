@@ -1,13 +1,25 @@
 import PropTypes from "prop-types";
-import { dataTypes } from "../../utils/const";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../services/dataContext";
+import { TotalPriceContext } from "../../services/totalPriceContext";
 
 const IngredientSection = ({ filter}) => {
   const {ingredients} = useContext(DataContext)
+  const initialSetOfIngredients = ingredients
+    .filter((item) => item.type === filter)
+    .map(item => item);
+
+  const [burgerIngredients, setBurgerIngredients] = useState(initialSetOfIngredients);
+  const {setTotalPrice} = useContext(TotalPriceContext);
+
+  useEffect(()=> {
+    let total = ingredients[0].price * 2;
+    burgerIngredients.map(item => (total += item.price));
+    setTotalPrice(total);
+  }, [burgerIngredients] )
 
   return (
     <div className={`${styles.ingredients__item} pl-4`}>
@@ -22,8 +34,7 @@ const IngredientSection = ({ filter}) => {
       </div>
 
       <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
-        {ingredients
-          .filter((item) => item.type === filter)
+        {burgerIngredients
           .map((item, index) => {
             return (
               <li className={styles.ingredients__el} key={index}>
@@ -33,6 +44,7 @@ const IngredientSection = ({ filter}) => {
                   price={item.price}
                   thumbnail={item.image}
                   isLocked={false}
+                  handleClose={()=>setBurgerIngredients(burgerIngredients.filter(ingr=>ingr._id !== item._id))}
                 />
               </li>
             );
@@ -52,8 +64,7 @@ const IngredientSection = ({ filter}) => {
 };
 
 IngredientSection.propTypes = {
-  filter: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
+  filter: PropTypes.string.isRequired
 };
 
 export default IngredientSection;

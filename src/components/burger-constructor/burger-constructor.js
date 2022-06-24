@@ -7,12 +7,12 @@ import TotalBill from "./total-bill";
 import { useState } from "react";
 import Modal from "../modals/modals";
 import OrderDetails from "../modals/order-details/order-details";
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
-};
+import { TotalPriceContext } from "../../services/totalPriceContext";
 
 function BurgerConstructor() {
+
+  const [totalPrice, setTotalPrice] = useState(0)
+
   const [openModalOrder, setOpenModalOrder] = useState(false);
 
   const onOrderClick = () => {
@@ -29,6 +29,7 @@ function BurgerConstructor() {
 
   return (
     <>
+      <TotalPriceContext.Provider value={{totalPrice, setTotalPrice}}>
       {openModalOrder && (
         <>
           <Modal
@@ -43,12 +44,13 @@ function BurgerConstructor() {
       <section className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
         <IngredientSection filter="main" />
         <div className={styles.ingredients__shopping_cart}>
-          <TotalBill total={650} />
+          <TotalBill />
           <Button onClick={onOrderClick} type="primary" size="large">
             Оформить заказ
           </Button>
         </div>
       </section>
+      </TotalPriceContext.Provider>
     </>
   );
 }
