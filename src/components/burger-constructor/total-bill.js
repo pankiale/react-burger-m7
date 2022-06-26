@@ -1,7 +1,7 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import { useContext } from "react";
-import { TotalPriceContext } from "../../services/totalPriceContext";
+import { TotalPriceContext } from "../../services/burgerConstructorContext";
 
   const TotalBill = () => {
 

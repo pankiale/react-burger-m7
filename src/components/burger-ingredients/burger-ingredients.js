@@ -8,10 +8,6 @@ import Modal from "../modals/modals";
 import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
-};
-
 function BurgerIngredients() {
   const [current, setCurrent] = React.useState("bun");
   const bun = useRef(null);

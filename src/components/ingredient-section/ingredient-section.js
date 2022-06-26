@@ -1,23 +1,19 @@
-import PropTypes from "prop-types";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../services/dataContext";
-import { TotalPriceContext } from "../../services/totalPriceContext";
+import { BurgerIngredientsContext, TotalPriceContext } from "../../services/burgerConstructorContext";
 
-const IngredientSection = ({ filter}) => {
-  const {ingredients} = useContext(DataContext)
-  const initialSetOfIngredients = ingredients
-    .filter((item) => item.type === filter)
-    .map(item => item);
+const IngredientSection = () => {
 
-  const [burgerIngredients, setBurgerIngredients] = useState(initialSetOfIngredients);
   const {setTotalPrice} = useContext(TotalPriceContext);
+  const {burgerIngredients, setBurgerIngredients } = useContext(BurgerIngredientsContext);
 
   useEffect(()=> {
-    let total = ingredients[0].price * 2;
-    burgerIngredients.map(item => (total += item.price));
+    let total = 0
+    burgerIngredients.map((item) => {
+      item.type === 'bun' ? total += item.price * 2 : total += item.price
+    });
     setTotalPrice(total);
   }, [burgerIngredients] )
 
@@ -26,15 +22,16 @@ const IngredientSection = ({ filter}) => {
       <div className="pr-3">
         <ConstructorElement
           type="top"
-          text={`${ingredients[0].name} (верх)`}
-          price={ingredients[0].price}
-          thumbnail={ingredients[0].image}
+          text={`${burgerIngredients[0].name} (верх)`}
+          price={burgerIngredients[0].price}
+          thumbnail={burgerIngredients[0].image}
           isLocked={true}
         />
       </div>
 
       <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
         {burgerIngredients
+          .filter(item=>item.type !== 'bun')
           .map((item, index) => {
             return (
               <li className={styles.ingredients__el} key={index}>
@@ -53,18 +50,14 @@ const IngredientSection = ({ filter}) => {
       <div className="pr-3">
         <ConstructorElement
           type="bottom"
-          text={`${ingredients[0].name} (низ)`}
-          price={ingredients[0].price}
-          thumbnail={ingredients[0].image}
+          text={`${burgerIngredients[0].name} (низ)`}
+          price={burgerIngredients[0].price}
+          thumbnail={burgerIngredients[0].image}
           isLocked={true}
         />
       </div>
     </div>
   );
-};
-
-IngredientSection.propTypes = {
-  filter: PropTypes.string.isRequired
 };
 
 export default IngredientSection;

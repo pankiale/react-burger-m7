@@ -32,7 +32,6 @@ const IngredientList = React.forwardRef(({ title, ingredient, openModal }, ref) 
 IngredientList.propTypes = {
   title: PropTypes.string.isRequired,
   ingredient: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-  dataForCards: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
   openModal: PropTypes.func.isRequired
 };
 
