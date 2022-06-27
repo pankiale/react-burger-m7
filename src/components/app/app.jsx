@@ -4,9 +4,10 @@ import api from "../../api/api";
 import styles from "./app.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { useEffect, useState } from "react";
+import {DataContext} from "../../services/dataContext";
 
 function App() {
-  const [cards, setCards] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     handleRequest();
@@ -17,7 +18,7 @@ function App() {
     .getIngredients()
     .then((response) => {
       const card = response.data.map((item) => item);
-      setCards(card);
+      setIngredients(card);
     })
     .catch((err) => console.log(`Ошибка ${err.status}`));
   };
@@ -26,10 +27,12 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.app__main}>
-        {cards.length && (
+        {ingredients.length && (
           <>
-            <BurgerIngredients data={cards} />
-            <BurgerConstructor data={cards} />
+            <DataContext.Provider value={{ingredients}}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </DataContext.Provider>
           </>
         )}
       </main>

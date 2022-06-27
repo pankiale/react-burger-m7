@@ -1,10 +1,11 @@
 import styles from "./order_details.module.css";
 import done from "../../../images/done.svg"
-const OrderDetails = () => {
+import PropTypes from "prop-types";
+const OrderDetails = ({orderNumber}) => {
   return (
     <section className={styles.ordr__card}>
       <p className={`${styles.ordr__number} text text_type_digits-large`}>
-        034536
+        {orderNumber}
       </p>
           <p
             className="text text_type_main-medium"
@@ -24,6 +25,10 @@ const OrderDetails = () => {
           </p>
     </section>
   );
+};
+
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.number.isRequired,
 };
 
 export default OrderDetails;

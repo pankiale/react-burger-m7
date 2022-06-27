@@ -8,11 +8,7 @@ import Modal from "../modals/modals";
 import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(dataTypes.isRequired).isRequired,
-};
-
-function BurgerIngredients({data}) {
+function BurgerIngredients() {
   const [current, setCurrent] = React.useState("bun");
   const bun = useRef(null);
   const sauce = useRef(null);
@@ -75,7 +71,6 @@ function BurgerIngredients({data}) {
             ref={bun}
             title="Булки"
             ingredient="bun"
-            dataForCards={data}
             openModal={onIngrClick}
 
           />
@@ -83,14 +78,12 @@ function BurgerIngredients({data}) {
             ref={sauce}
             title="Соусы"
             ingredient="sauce"
-            dataForCards={data}
             openModal={onIngrClick}
           />
           <IngredientList
             ref={main}
             title="Начинки"
             ingredient="main"
-            dataForCards={data}
             openModal={onIngrClick}
           />
         </div>
