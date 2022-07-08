@@ -1,27 +1,26 @@
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import api from "../../api/api";
 import styles from "./app.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {DataContext} from "../../services/dataContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getItems } from "../../services/actions/ingredients";
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
+  const dispatch = useDispatch();
+  const {ingredients}
+    = useSelector(
+    state => state.ingredients
+  );
+  useEffect(
+    () => {
+      dispatch(getItems());
+    },
+    []
+  );
 
-  useEffect(() => {
-    handleRequest();
-  }, []);
-
-  const handleRequest = () => {
-    api
-    .getIngredients()
-    .then((response) => {
-      const card = response.data.map((item) => item);
-      setIngredients(card);
-    })
-    .catch((err) => console.log(`Ошибка ${err.status}`));
-  };
+  console.log(ingredients)
 
   return (
     <div className={styles.app}>
