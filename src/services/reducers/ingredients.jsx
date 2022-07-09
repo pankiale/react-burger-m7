@@ -22,7 +22,10 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
     case GET_ITEMS_SUCCESS: {
-      return { ...state, ingredientsFailed: false, ingredients: action.ingredients, ingredientsRequest: false };
+      return { ...state,
+        ingredientsFailed: false,
+        ingredients: [...action.ingredients].map( item => ({ ...item, counter: 0 })),
+        ingredientsRequest: false };
     }
     case GET_ITEMS_FAILED: {
       return { ...state, ingredientsFailed: true, ingredientsRequest: false };

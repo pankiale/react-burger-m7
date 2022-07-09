@@ -1,38 +1,51 @@
-import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
-import { dataTypes } from "../../utils/const";
+import React, { useEffect, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients.module.css";
 import IngredientList from "../ingredient-list/ingredient-list";
 import Modal from "../modals/modals";
-import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
+import { useDispatch, useSelector } from "react-redux";
+import { TAB_SWITCH, TOGGLE_MODAL } from "../../services/actions/burgerIngredients";
 
 function BurgerIngredients() {
-  const [current, setCurrent] = React.useState("bun");
+  const dispatch = useDispatch();
+  const {currentTub, isModalOpen} = useSelector(state => state.burgerIngredients);
+
   const bun = useRef(null);
   const sauce = useRef(null);
   const main = useRef(null);
 
-  function handleClick(value) {
-    setCurrent(value);
-    value === "bun"
-      ? bun.current.scrollIntoView()
-      : value === "sauce"
-      ? sauce.current.scrollIntoView()
-      : main.current.scrollIntoView();
-  }
+  const handleClick = (value) => {
+    dispatch({
+      type: TAB_SWITCH,
+      value
+    })
+  };
 
-  const [openModalIngr, setOpenModalIngr] = useState(false);
+  useEffect(
+    () => {
+      currentTub === "bun"
+        ? bun.current.scrollIntoView()
+        : currentTub === "sauce"
+          ? sauce.current.scrollIntoView()
+          : main.current.scrollIntoView();
+    },
+    [currentTub]
+  );
+
   const [renderData, setRenderData] = useState([]);
 
   const onIngrClick = (data) => {
-    setOpenModalIngr(true);
+    dispatch({
+      type: TOGGLE_MODAL
+    })
     setRenderData({ data });
   };
 
   const onCloseBtnClick = () => {
-    setOpenModalIngr(false);
+    dispatch({
+      type: TOGGLE_MODAL
+    })
   };
 
   const handleEscKeydown = (e) => {
@@ -40,7 +53,7 @@ function BurgerIngredients() {
   };
   return (
     <>
-      {openModalIngr && (
+      {isModalOpen && (
         <>
           <Modal
             handleCloseClick={onCloseBtnClick}
@@ -56,13 +69,13 @@ function BurgerIngredients() {
       >
         <h1 className="text text_type_main-large mb-5"> Соберите бургер</h1>
         <div className={styles.ingredients__tab}>
-          <Tab value="bun" active={current === "bun"} onClick={handleClick}>
+          <Tab value="bun" active={currentTub === "bun"} onClick={handleClick}>
             Булки
           </Tab>
-          <Tab value="sauce" active={current === "sauce"} onClick={handleClick}>
+          <Tab value="sauce" active={currentTub === "sauce"} onClick={handleClick}>
             Соусы
           </Tab>
-          <Tab value="main" active={current === "main"} onClick={handleClick}>
+          <Tab value="main" active={currentTub === "main"} onClick={handleClick}>
             Начинка
           </Tab>
         </div>

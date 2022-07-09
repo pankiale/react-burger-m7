@@ -7,12 +7,15 @@ import { useContext, useState } from "react";
 import Modal from "../modals/modals";
 import OrderDetails from "../modals/order-details/order-details";
 import { BurgerIngredientsContext, TotalPriceContext } from "../../services/burgerConstructorContext";
-import { DataContext } from "../../services/dataContext";
+import { useSelector } from "react-redux";
 
 function BurgerConstructor() {
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const { ingredients } = useContext(DataContext);
+  const {ingredients}
+    = useSelector(
+    state => state.ingredients
+    );
   const initialSetOfIngredients = function() {
     let n = 0;
     const newArray = [];

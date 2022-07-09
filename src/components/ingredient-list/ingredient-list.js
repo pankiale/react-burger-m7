@@ -1,13 +1,14 @@
 import React from "react";
-import { useContext } from "react";
-import { DataContext } from "../../services/dataContext";
 import PropTypes from "prop-types";
-import { dataTypes } from "../../utils/const";
 import Card from "../card/card";
 import styles from "./ingredient-list.module.css";
+import { useSelector } from "react-redux";
 
 const IngredientList = React.forwardRef(({ title, ingredient, openModal }, ref) => {
-  const { ingredients } = useContext(DataContext);
+  const {ingredients}
+    = useSelector(
+    state => state.ingredients
+  );
 
   return (
     <div className={styles.ingredients__item}>

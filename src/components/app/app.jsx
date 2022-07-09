@@ -28,10 +28,8 @@ function App() {
       <main className={styles.app__main}>
         {ingredients.length && (
           <>
-            <DataContext.Provider value={{ingredients}}>
               <BurgerIngredients />
               <BurgerConstructor />
-            </DataContext.Provider>
           </>
         )}
       </main>
