@@ -9,8 +9,8 @@ import { TAB_SWITCH, TOGGLE_MODAL } from "../../services/actions/burgerIngredien
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const {currentTub, isModalOpen} = useSelector(state => state.burgerIngredients);
-
+  const currentTub = useSelector(state => state.burgerIngredients.currentTab);
+  const isModalOpen = useSelector(state => state.burgerIngredients.isModalOpen);
   const bun = useRef(null);
   const sauce = useRef(null);
   const main = useRef(null);

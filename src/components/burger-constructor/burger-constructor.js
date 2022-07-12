@@ -7,35 +7,40 @@ import { useContext, useState } from "react";
 import Modal from "../modals/modals";
 import OrderDetails from "../modals/order-details/order-details";
 import { BurgerIngredientsContext, TotalPriceContext } from "../../services/burgerConstructorContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import { INCREASE_ITEM } from "../../services/actions/ingredients";
+import { ADD_INGREDIENT } from "../../services/actions/burgerConstructor";
 
 function BurgerConstructor() {
 
-  const [totalPrice, setTotalPrice] = useState(0);
-  const {ingredients}
-    = useSelector(
-    state => state.ingredients
-    );
-  const initialSetOfIngredients = function() {
-    let n = 0;
-    const newArray = [];
-    ingredients.forEach(
-      (item) => {
-        if (item.type === "bun" && n < 1) {
-          newArray.push(item);
-          n += 1;
-        }
-        if (item.type === "bun" && n === 1) return;
-        else {
-          newArray.push(item);
-        }
-        ;
-      }
-    );
-    return newArray;
+  const dispatch = useDispatch();
+
+  const moveItem = (item) => {
+
+    dispatch({
+      type: INCREASE_ITEM,
+      item
+    });
+    dispatch({
+      type: ADD_INGREDIENT,
+      item
+    })
   };
 
-  const [burgerIngredients, setBurgerIngredients] = useState(initialSetOfIngredients);
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "items",
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    }),
+    drop (item) {
+      moveItem(item);
+    }
+  });
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const burgerIngredients = useSelector(state=>state.burgerConstructorIngredients);
   const [openModalOrder, setOpenModalOrder] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0);
 
@@ -60,7 +65,6 @@ function BurgerConstructor() {
   return (
     <>
       <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
-        <BurgerIngredientsContext.Provider value={{ burgerIngredients, setBurgerIngredients }}>
           {openModalOrder && (
             <>
               <Modal
@@ -72,7 +76,7 @@ function BurgerConstructor() {
               </Modal>
             </>
           )}
-          <section className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
+          <section ref={dropTarget} className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
             <IngredientSection />
             <div className={styles.ingredients__shopping_cart}>
               <TotalBill />
@@ -81,7 +85,6 @@ function BurgerConstructor() {
               </Button>
             </div>
           </section>
-        </BurgerIngredientsContext.Provider>
       </TotalPriceContext.Provider>
     </>
   );

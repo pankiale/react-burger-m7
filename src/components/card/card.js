@@ -2,15 +2,23 @@ import PropTypes from "prop-types";
 import styles from "./card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { dataTypes } from "../../utils/const"
+import { useDrag } from "react-dnd";
 
 const Card = ({ data, clicker}) => {
-
 const handleClick = () => {
   clicker(data)
 }
 
+  const [{ opacity }, ref] = useDrag({
+    type: 'items',
+    item: data,
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.5 : 1
+    })
+  });
+
   return (
-    <div onClick={handleClick} className={styles.card}>
+    <div ref={ref} onClick={handleClick} className={styles.card} style={{opacity}}>
       <img src={data.image} alt={data.name} className={styles.card__image} />
       <p
         className={`${styles.card__price} text text_type_digits-default mt-1 mb-1`}

@@ -2,13 +2,16 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
 import { useContext, useEffect, useState } from "react";
-import { BurgerIngredientsContext, TotalPriceContext } from "../../services/burgerConstructorContext";
+import { TotalPriceContext } from "../../services/burgerConstructorContext";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { DELETE_INGREDIENT } from "../../services/actions/burgerConstructor";
 
 const IngredientSection = () => {
 
   const {setTotalPrice} = useContext(TotalPriceContext);
-  const {burgerIngredients, setBurgerIngredients } = useContext(BurgerIngredientsContext);
-
+  const burgerIngredients = useSelector( state => state.burgerConstructorIngredients.burgerConstructorIngredients );
+  const dispatch = useDispatch();
+console.log(burgerIngredients)
   useEffect(()=> {
     let total = 0
     burgerIngredients.map((item) => {
@@ -18,7 +21,9 @@ const IngredientSection = () => {
   }, [burgerIngredients] )
 
   return (
-    <div className={`${styles.ingredients__item} pl-4`}>
+    <>
+    {  burgerIngredients.length && (
+      <div className={`${styles.ingredients__item} pl-4`}>
       <div className="pr-3">
         <ConstructorElement
           type="top"
@@ -32,16 +37,19 @@ const IngredientSection = () => {
       <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
         {burgerIngredients
           .filter(item=>item.type !== 'bun')
-          .map((item, index) => {
+          .map((item) => {
             return (
-              <li className={styles.ingredients__el} key={index}>
+              <li className={styles.ingredients__el} key={Math.random().toString(36).slice(2)}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   text={item.name}
                   price={item.price}
                   thumbnail={item.image}
                   isLocked={false}
-                  handleClose={()=>setBurgerIngredients(burgerIngredients.filter(ingr=>ingr._id !== item._id))}
+                  handleClose={()=>dispatch({
+                    type: DELETE_INGREDIENT,
+                    item
+                  })}
                 />
               </li>
             );
@@ -57,6 +65,13 @@ const IngredientSection = () => {
         />
       </div>
     </div>
+      )}
+      {  !burgerIngredients.length && (
+        <div className={`${styles.ingredients__item} pl-4`}>
+          <p> Put ingredients here </p>
+        </div>
+      )}
+    </>
   );
 };
 

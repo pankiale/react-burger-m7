@@ -1,0 +1,4 @@
+export const ADD_INGREDIENT = 'INCREASE_ITEM';
+export const DELETE_INGREDIENT = 'DECREASE_ITEM';
+
+
