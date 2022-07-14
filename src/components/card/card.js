@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./card.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { dataTypes } from "../../utils/const"
 import { useDrag } from "react-dnd";
 
@@ -20,6 +20,9 @@ const handleClick = () => {
   return (
     <div ref={ref} onClick={handleClick} className={styles.card} style={{opacity}}>
       <img src={data.image} alt={data.name} className={styles.card__image} />
+      { data.counter > 0 && (<div className={styles.card__counter}>
+      <Counter count={data.counter} size="default" />
+      </div>)}
       <p
         className={`${styles.card__price} text text_type_digits-default mt-1 mb-1`}
       >

@@ -5,18 +5,16 @@ import IngredientList from "../ingredient-list/ingredient-list";
 import Modal from "../modals/modals";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import { TAB_SWITCH, TOGGLE_MODAL } from "../../services/actions/burgerIngredients";
+import { TAB_SWITCH, TOGGLE_MODAL } from "../../services/actions/ingredients";
 import { useInView } from "react-intersection-observer";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const currentTub = useSelector(state => state.burgerIngredients.currentTab);
-  const isModalOpen = useSelector(state => state.burgerIngredients.isModalOpen);
+  const currentTub = useSelector(state => state.ingredients.currentTab);
+  const isModalOpen = useSelector(state => state.ingredients.isModalOpen);
 
   const handleClick = (value) => {
-
     document.querySelector('#' + value).scrollIntoView()
-
     dispatch({
       type: TAB_SWITCH,
       value: value
@@ -49,7 +47,7 @@ function BurgerIngredients() {
             type: TAB_SWITCH,
             value: "main"
           });
-    }
+    }, [dispatch]
   )
 
   const [renderData, setRenderData] = useState([]);

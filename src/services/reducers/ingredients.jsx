@@ -1,16 +1,17 @@
 import {
-  DELETE_ITEM,
-  DECREASE_ITEM,
-  INCREASE_ITEM,
+  DECREASE_COUNTER,
+  INCREASE_COUNTER,
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
-  GET_ITEMS_SUCCESS
+  GET_ITEMS_SUCCESS, TAB_SWITCH, TOGGLE_MODAL
 } from "../actions/ingredients";
 
 const initialState = {
   ingredients: [],
   ingredientsRequest: false,
-  ingredientsFailed: false
+  ingredientsFailed: false,
+  currentTab: "bun",
+  isModalOpen: false
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -33,26 +34,37 @@ export const ingredientsReducer = (state = initialState, action) => {
       return { ...state, ingredientsFailed: true, ingredientsRequest: false };
     }
 
-    case INCREASE_ITEM: {
+    case INCREASE_COUNTER: {
       return {
         ...state,
         ingredients: [...state.ingredients].map(item =>
-          item._id === action.item._id && action.item.type === 'bun'? { ...item, counter: item.counter + 2} :
-            item._id === action.item._id && action.item.type !== 'bun'? { ...item, counter: item.counter + 1} :
+          item._id === action.item._id && action.item.type === "bun" ? { ...item, counter: item.counter + 2 } :
+            item._id === action.item._id ? { ...item, counter: item.counter + 1 } :
               item
         )
       };
     }
-    case DECREASE_ITEM: {
+    case DECREASE_COUNTER: {
       return {
         ...state,
         ingredients: [...state.ingredients].map(item =>
-          item._id === action.item._id ? { ...item, qty: --item.qty } : item
+          item._id === action.item._id && action.item.type === "bun" ? { ...item, counter: item.counter - 2 } :
+            item._id === action.item._id ? { ...item, counter: item.counter - 1 } :
+            item
         )
       };
     }
-    case DELETE_ITEM: {
-      return { ...state, ingredients: [...state.ingredients].filter(item => item.id !== action.id) };
+    case TAB_SWITCH: {
+      return {
+        ...state,
+        currentTab: action.value
+      };
+    }
+    case TOGGLE_MODAL: {
+      return {
+        ...state,
+        isModalOpen: !state.isModalOpen
+      };
     }
     default: {
       return state;

@@ -1,12 +1,15 @@
 import api from "../../api/api";
 
-export const INCREASE_ITEM = 'INCREASE_ITEM';
-export const DECREASE_ITEM = 'DECREASE_ITEM';
-export const DELETE_ITEM = 'DELETE_ITEM';
+export const INCREASE_COUNTER = 'INCREASE_COUNTER';
+export const DECREASE_COUNTER = 'DECREASE_COUNTER';
 
 export const GET_ITEMS_REQUEST = 'GET_ITEMS_REQUEST';
 export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
 export const GET_ITEMS_FAILED = 'GET_ITEMS_FAILED';
+
+export const TAB_SWITCH = 'TAB_SWITCH';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';
+
 
 export function getItems() {
   return function(dispatch) {

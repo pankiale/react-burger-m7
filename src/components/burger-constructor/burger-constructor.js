@@ -9,7 +9,7 @@ import OrderDetails from "../modals/order-details/order-details";
 import { BurgerIngredientsContext, TotalPriceContext } from "../../services/burgerConstructorContext";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { INCREASE_ITEM } from "../../services/actions/ingredients";
+import { INCREASE_COUNTER } from "../../services/actions/ingredients";
 import { ADD_INGREDIENT } from "../../services/actions/burgerConstructor";
 
 function BurgerConstructor() {
@@ -17,12 +17,13 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const moveItem = (item) => {
+    const id = 
     dispatch({
       type: ADD_INGREDIENT,
       item
     })
     dispatch({
-      type: INCREASE_ITEM,
+      type: INCREASE_COUNTER,
       item
     });
 

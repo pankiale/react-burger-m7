@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Card from "../card/card";
 import styles from "./ingredient-list.module.css";
 import { useSelector } from "react-redux";
-import { useDrag } from "react-dnd";
 
 const IngredientList = React.forwardRef(({ title, id, ingredient, openModal }, ref) => {
   const {ingredients}
@@ -33,6 +32,7 @@ const IngredientList = React.forwardRef(({ title, id, ingredient, openModal }, r
 
 IngredientList.propTypes = {
   title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   ingredient: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
   openModal: PropTypes.func.isRequired
 };
