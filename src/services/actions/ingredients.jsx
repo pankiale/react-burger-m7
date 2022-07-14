@@ -1,4 +1,4 @@
-import { getItemsRequest} from '../fakeApi';
+import api from "../../api/api";
 
 export const INCREASE_ITEM = 'INCREASE_ITEM';
 export const DECREASE_ITEM = 'DECREASE_ITEM';
@@ -13,7 +13,7 @@ export function getItems() {
     dispatch({
       type: GET_ITEMS_REQUEST
     });
-    getItemsRequest().then(res => {
+    api.getIngredients().then(res => {
       if (res && res.success) {
         dispatch({
           type: GET_ITEMS_SUCCESS,
