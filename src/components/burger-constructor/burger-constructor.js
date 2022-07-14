@@ -17,15 +17,15 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const moveItem = (item) => {
-
-    dispatch({
-      type: INCREASE_ITEM,
-      item
-    });
     dispatch({
       type: ADD_INGREDIENT,
       item
     })
+    dispatch({
+      type: INCREASE_ITEM,
+      item
+    });
+
   };
 
   const [{ isHover }, dropTarget] = useDrop({
@@ -38,11 +38,11 @@ function BurgerConstructor() {
     }
   });
 
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState('');
 
   const burgerIngredients = useSelector(state=>state.burgerConstructorIngredients);
   const [openModalOrder, setOpenModalOrder] = useState(false);
-  const [orderNumber, setOrderNumber] = useState(0);
+  const [orderNumber, setOrderNumber] = useState('');
 
   const onOrderClick = () => {
     const Id = { "ingredients": burgerIngredients.map(item => item._id) };

@@ -11,7 +11,6 @@ const IngredientSection = () => {
   const {setTotalPrice} = useContext(TotalPriceContext);
   const burgerIngredients = useSelector( state => state.burgerConstructorIngredients.burgerConstructorIngredients );
   const dispatch = useDispatch();
-console.log(burgerIngredients)
   useEffect(()=> {
     let total = 0
     burgerIngredients.map((item) => {
@@ -22,29 +21,29 @@ console.log(burgerIngredients)
 
   return (
     <>
-    {  burgerIngredients.length && (
+    {  burgerIngredients.length ? (
       <div className={`${styles.ingredients__item} pl-4`}>
       <div className="pr-3">
         <ConstructorElement
           type="top"
-          text={`${burgerIngredients[0].name} (верх)`}
-          price={burgerIngredients[0].price}
-          thumbnail={burgerIngredients[0].image}
+          text={`${burgerIngredients[0]?.name} (верх)`}
+          price={burgerIngredients[0]?.price}
+          thumbnail={burgerIngredients[0]?.image}
           isLocked={true}
         />
       </div>
 
       <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
         {burgerIngredients
-          .filter(item=>item.type !== 'bun')
+          .filter(item=>item?.type !== 'bun')
           .map((item) => {
             return (
               <li className={styles.ingredients__el} key={Math.random().toString(36).slice(2)}>
                 <DragIcon type="primary" />
                 <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
+                  text={item?.name}
+                  price={item?.price}
+                  thumbnail={item?.image}
                   isLocked={false}
                   handleClose={()=>dispatch({
                     type: DELETE_INGREDIENT,
@@ -58,17 +57,17 @@ console.log(burgerIngredients)
       <div className="pr-3">
         <ConstructorElement
           type="bottom"
-          text={`${burgerIngredients[0].name} (низ)`}
-          price={burgerIngredients[0].price}
-          thumbnail={burgerIngredients[0].image}
+          text={`${burgerIngredients[0]?.name} (низ)`}
+          price={burgerIngredients[0]?.price}
+          thumbnail={burgerIngredients[0]?.image}
           isLocked={true}
         />
       </div>
     </div>
-      )}
-      {  !burgerIngredients.length && (
+      ) :
+      (
         <div className={`${styles.ingredients__item} pl-4`}>
-          <p> Put ingredients here </p>
+          <p> Чтобы оформить заказ начните добавлять ингредиенты бургера </p>
         </div>
       )}
     </>

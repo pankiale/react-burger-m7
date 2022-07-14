@@ -22,10 +22,12 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
     case GET_ITEMS_SUCCESS: {
-      return { ...state,
+      return {
+        ...state,
         ingredientsFailed: false,
-        ingredients: [...action.ingredients].map( item => ({ ...item, counter: 0 })),
-        ingredientsRequest: false };
+        ingredients: [...action.ingredients].map(item => ({ ...item, counter: 0 })),
+        ingredientsRequest: false
+      };
     }
     case GET_ITEMS_FAILED: {
       return { ...state, ingredientsFailed: true, ingredientsRequest: false };
@@ -35,7 +37,9 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: [...state.ingredients].map(item =>
-          item._id === action._id ? { ...item, counter: ++item.counter } : item
+          item._id === action.item._id && action.item.type === 'bun'? { ...item, counter: item.counter + 2} :
+            item._id === action.item._id && action.item.type !== 'bun'? { ...item, counter: item.counter + 1} :
+              item
         )
       };
     }
@@ -43,7 +47,7 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: [...state.ingredients].map(item =>
-          item.id === action.id ? { ...item, qty: --item.qty } : item
+          item._id === action.item._id ? { ...item, qty: --item.qty } : item
         )
       };
     }

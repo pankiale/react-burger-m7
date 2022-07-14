@@ -6,46 +6,65 @@ import Modal from "../modals/modals";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { TAB_SWITCH, TOGGLE_MODAL } from "../../services/actions/burgerIngredients";
+import { useInView } from "react-intersection-observer";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
   const currentTub = useSelector(state => state.burgerIngredients.currentTab);
   const isModalOpen = useSelector(state => state.burgerIngredients.isModalOpen);
-  const bun = useRef(null);
-  const sauce = useRef(null);
-  const main = useRef(null);
 
   const handleClick = (value) => {
+
+    document.querySelector('#' + value).scrollIntoView()
+
     dispatch({
       type: TAB_SWITCH,
-      value
-    })
+      value: value
+    });
   };
 
-  useEffect(
-    () => {
-      currentTub === "bun"
-        ? bun.current.scrollIntoView()
-        : currentTub === "sauce"
-          ? sauce.current.scrollIntoView()
-          : main.current.scrollIntoView();
-    },
-    [currentTub]
+  const [refBun, tabBun] = useInView(
+    { threshold: 0 }
   );
+  const [refSauce, tabSauce] = useInView(
+    { threshold: 0 }
+  );
+  const [refMain, tabMain] = useInView(
+    { threshold: 0 }
+  );
+
+  useEffect(
+    ()=> {
+      tabBun
+        ? dispatch({
+          type: TAB_SWITCH,
+          value: 'bun'
+        })
+        : tabSauce
+          ? dispatch({
+          type: TAB_SWITCH,
+          value: "sauce"
+          })
+          : dispatch({
+            type: TAB_SWITCH,
+            value: "main"
+          });
+    }
+  )
 
   const [renderData, setRenderData] = useState([]);
 
   const onIngrClick = (data) => {
     dispatch({
       type: TOGGLE_MODAL
-    })
+    });
     setRenderData({ data });
   };
 
   const onCloseBtnClick = () => {
     dispatch({
       type: TOGGLE_MODAL
-    })
+    });
   };
 
   const handleEscKeydown = (e) => {
@@ -80,25 +99,27 @@ function BurgerIngredients() {
           </Tab>
         </div>
         <div className={styles.ingredients__menu}>
-          <IngredientList
-            ref={bun}
-            title="Булки"
-            ingredient="bun"
-            openModal={onIngrClick}
-
-          />
-          <IngredientList
-            ref={sauce}
-            title="Соусы"
-            ingredient="sauce"
-            openModal={onIngrClick}
-          />
-          <IngredientList
-            ref={main}
-            title="Начинки"
-            ingredient="main"
-            openModal={onIngrClick}
-          />
+            <IngredientList
+              id={'bun'}
+              ref={refBun}
+              title="Булки"
+              ingredient="bun"
+              openModal={onIngrClick}
+            />
+            <IngredientList
+              id={'sauce'}
+              ref={refSauce}
+              title="Соусы"
+              ingredient="sauce"
+              openModal={onIngrClick}
+            />
+            <IngredientList
+              id={'main'}
+              ref={refMain}
+              title="Начинки"
+              ingredient="main"
+              openModal={onIngrClick}
+            />
         </div>
       </section>
     </>

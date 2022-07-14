@@ -5,7 +5,7 @@ import styles from "./ingredient-list.module.css";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 
-const IngredientList = React.forwardRef(({ title, ingredient, openModal }, refI) => {
+const IngredientList = React.forwardRef(({ title, id, ingredient, openModal }, ref) => {
   const {ingredients}
     = useSelector(
     state => state.ingredients
@@ -13,7 +13,7 @@ const IngredientList = React.forwardRef(({ title, ingredient, openModal }, refI)
 
   return (
     <div className={styles.ingredients__item}>
-      <p ref={refI} className="text text_type_main-medium">
+      <p id = {id} ref={ref} className="text text_type_main-medium">
         {title}
       </p>
       <ul className={`${styles.ingredients__list} pl-4 pr-4 pt-6`}>
