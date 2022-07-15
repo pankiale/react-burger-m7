@@ -14,7 +14,7 @@ function BurgerIngredients() {
   const isModalOpen = useSelector(state => state.ingredients.isModalOpen);
 
   const handleClick = (value) => {
-    document.querySelector('#' + value).scrollIntoView()
+    document.querySelector("#" + value).scrollIntoView();
     dispatch({
       type: TAB_SWITCH,
       value: value
@@ -32,23 +32,25 @@ function BurgerIngredients() {
   );
 
   useEffect(
-    ()=> {
-      tabBun
-        ? dispatch({
+    () => {
+      if (tabBun) {
+        dispatch({
           type: TAB_SWITCH,
-          value: 'bun'
-        })
-        : tabSauce
-          ? dispatch({
+          value: "bun"
+        });
+      } else if (tabSauce) {
+        dispatch({
           type: TAB_SWITCH,
           value: "sauce"
-          })
-          : dispatch({
-            type: TAB_SWITCH,
-            value: "main"
-          });
-    }, [dispatch]
-  )
+        });
+      } else if (tabMain) {
+        dispatch({
+          type: TAB_SWITCH,
+          value: "main"
+        });
+      }
+    }, [dispatch, tabBun, tabSauce, tabMain]
+  );
 
   const [renderData, setRenderData] = useState([]);
 
@@ -97,27 +99,27 @@ function BurgerIngredients() {
           </Tab>
         </div>
         <div className={styles.ingredients__menu}>
-            <IngredientList
-              id={'bun'}
-              ref={refBun}
-              title="Булки"
-              ingredient="bun"
-              openModal={onIngrClick}
-            />
-            <IngredientList
-              id={'sauce'}
-              ref={refSauce}
-              title="Соусы"
-              ingredient="sauce"
-              openModal={onIngrClick}
-            />
-            <IngredientList
-              id={'main'}
-              ref={refMain}
-              title="Начинки"
-              ingredient="main"
-              openModal={onIngrClick}
-            />
+          <IngredientList
+            id={"bun"}
+            ref={refBun}
+            title="Булки"
+            ingredient="bun"
+            openModal={onIngrClick}
+          />
+          <IngredientList
+            id={"sauce"}
+            ref={refSauce}
+            title="Соусы"
+            ingredient="sauce"
+            openModal={onIngrClick}
+          />
+          <IngredientList
+            id={"main"}
+            ref={refMain}
+            title="Начинки"
+            ingredient="main"
+            openModal={onIngrClick}
+          />
         </div>
       </section>
     </>

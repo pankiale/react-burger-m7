@@ -1,32 +1,56 @@
-import api from "../../api/api";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import IngredientSection from "../ingredient-section/ingredient-section";
 import TotalBill from "./total-bill";
-import { useContext, useState } from "react";
 import Modal from "../modals/modals";
 import OrderDetails from "../modals/order-details/order-details";
-import { BurgerIngredientsContext, TotalPriceContext } from "../../services/burgerConstructorContext";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { INCREASE_COUNTER } from "../../services/actions/ingredients";
-import { ADD_INGREDIENT } from "../../services/actions/burgerConstructor";
+import { DECREASE_COUNTER, INCREASE_COUNTER } from "../../services/actions/ingredients";
+import {
+  ADD_INGREDIENT,
+  DELETE_INGREDIENT,
+  placeOrder,
+  TOGGLE_ORDER_MODAL
+} from "../../services/actions/burgerConstructor";
 
 function BurgerConstructor() {
 
   const dispatch = useDispatch();
+  const burgerIngredients = useSelector(state => state.burgerConstructorIngredients.burgerConstructorIngredients);
+  const { isModalOpen } = useSelector(state => state.burgerConstructorIngredients);
 
   const moveItem = (item) => {
-    const id = 
-    dispatch({
-      type: ADD_INGREDIENT,
-      item
-    })
-    dispatch({
-      type: INCREASE_COUNTER,
-      item
-    });
-
+    if (item.type === "bun" && burgerIngredients.findIndex(item => item.type === "bun") !== -1) {
+      dispatch({
+        type: DELETE_INGREDIENT,
+        item: burgerIngredients.find(item => item.type === "bun")
+      });
+      dispatch({
+        type: DECREASE_COUNTER,
+        item: burgerIngredients.find(item => item.type === "bun")
+      });
+      const key = Math.random().toString(36).slice(2);
+      dispatch({
+        type: ADD_INGREDIENT,
+        item: { ...item, key: key }
+      });
+      dispatch({
+        type: INCREASE_COUNTER,
+        item: item
+      });
+    } else {
+      const key = Math.random().toString(36).slice(2);
+      dispatch({
+        type: ADD_INGREDIENT,
+        item: { ...item, key: key }
+      });
+      dispatch({
+        type: INCREASE_COUNTER,
+        item: item
+      });
+    }
+    ;
   };
 
   const [{ isHover }, dropTarget] = useDrop({
@@ -34,29 +58,20 @@ function BurgerConstructor() {
     collect: monitor => ({
       isHover: monitor.isOver()
     }),
-    drop (item) {
+    drop(item) {
       moveItem(item);
     }
   });
 
-  const [totalPrice, setTotalPrice] = useState('');
-
-  const burgerIngredients = useSelector(state=>state.burgerConstructorIngredients);
-  const [openModalOrder, setOpenModalOrder] = useState(false);
-  const [orderNumber, setOrderNumber] = useState('');
-
   const onOrderClick = () => {
-    const Id = { "ingredients": burgerIngredients.map(item => item._id) };
-    api.placeOrder(Id)
-      .then((response) => {
-        setOrderNumber(response.order.number);
-      })
-      .catch((err) => console.log(`Ошибка ${err.status}`));
-    setOpenModalOrder(true);
+    const IDs = { "ingredients": burgerIngredients.map(item => item._id) };
+    dispatch(placeOrder(IDs));
   };
 
   const onCloseBtnClick = () => {
-    setOpenModalOrder(false);
+    dispatch({
+      type: TOGGLE_ORDER_MODAL
+    });
   };
 
   const handleEscKeydown = (e) => {
@@ -65,30 +80,28 @@ function BurgerConstructor() {
 
   return (
     <>
-      <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
-          {openModalOrder && (
-            <>
-              <Modal
-                handleCloseClick={onCloseBtnClick}
-                onEscKeydown={handleEscKeydown}
-                header=""
-              >
-                <OrderDetails orderNumber={orderNumber} />
-              </Modal>
-            </>
-          )}
-          <section ref={dropTarget} className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
-            <IngredientSection />
-            <div className={styles.ingredients__shopping_cart}>
-              <TotalBill />
-              <Button onClick={onOrderClick} type="primary" size="large">
-                Оформить заказ
-              </Button>
-            </div>
-          </section>
-      </TotalPriceContext.Provider>
+      {isModalOpen && (
+        <>
+          <Modal
+            handleCloseClick={onCloseBtnClick}
+            onEscKeydown={handleEscKeydown}
+            header=""
+          >
+            <OrderDetails />
+          </Modal>
+        </>
+      )}
+      <section ref={dropTarget} className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
+        <IngredientSection />
+        <div className={styles.ingredients__shopping_cart}>
+          <TotalBill />
+          <Button onClick={onOrderClick} type="primary" size="large">
+            Оформить заказ
+          </Button>
+        </div>
+      </section>
     </>
   );
-}
+};
 
 export default BurgerConstructor;
