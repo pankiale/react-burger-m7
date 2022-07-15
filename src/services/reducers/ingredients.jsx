@@ -3,7 +3,7 @@ import {
   INCREASE_COUNTER,
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
-  GET_ITEMS_SUCCESS, TAB_SWITCH, TOGGLE_MODAL
+  GET_ITEMS_SUCCESS, TAB_SWITCH, TOGGLE_MODAL, RESET_COUNTER
 } from "../actions/ingredients";
 
 const initialState = {
@@ -51,6 +51,14 @@ export const ingredientsReducer = (state = initialState, action) => {
           item._id === action.item._id && action.item.type === "bun" ? { ...item, counter: item.counter - 2 } :
             item._id === action.item._id ? { ...item, counter: item.counter - 1 } :
             item
+        )
+      };
+    }
+    case RESET_COUNTER: {
+      return {
+        ...state,
+        ingredients: [...state.ingredients].map(item =>
+          ({ ...item, counter: 0 })
         )
       };
     }

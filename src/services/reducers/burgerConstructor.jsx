@@ -1,6 +1,12 @@
 import {
   ADD_INGREDIENT,
-  DELETE_INGREDIENT, MOVE_ELEMENT, PLACE_ORDER_FAILED, PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS,
+  DELETE_INGREDIENT,
+  MOVE_ELEMENT,
+  PLACE_ORDER_FAILED,
+  PLACE_ORDER_REQUEST,
+  PLACE_ORDER_SUCCESS,
+  RESET_ALL_INGREDIENTS,
+  RESET_TOTAL_PRICE,
   SET_TOTAL_PRICE,
   TOGGLE_ORDER_MODAL
 } from "../actions/burgerConstructor";
@@ -29,6 +35,12 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         burgerConstructorIngredients: [...state.burgerConstructorIngredients].filter(item => item.key !== action.item.key)
       };
     }
+    case RESET_ALL_INGREDIENTS: {
+      return {
+        ...state,
+        burgerConstructorIngredients: []
+      };
+    }
     case MOVE_ELEMENT: {
       const ingredients = [...state.burgerConstructorIngredients]
       ingredients.splice(action.data.dragIndex, 0, ingredients.splice(action.data.hoverIndex, 1)[0])
@@ -40,6 +52,12 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       return {
         ...state,
         totalPrice: action.value
+      };
+    }
+    case RESET_TOTAL_PRICE: {
+      return {
+        ...state,
+        totalPrice: 0
       };
     }
     case TOGGLE_ORDER_MODAL: {

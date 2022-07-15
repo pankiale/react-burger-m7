@@ -18,7 +18,7 @@ function BurgerConstructor() {
 
   const dispatch = useDispatch();
   const burgerIngredients = useSelector(state => state.burgerConstructorIngredients.burgerConstructorIngredients);
-  const { isModalOpen } = useSelector(state => state.burgerConstructorIngredients);
+  const { isModalOpen, orderRequest } = useSelector(state => state.burgerConstructorIngredients);
 
   const moveItem = (item) => {
     if (item.type === "bun" && burgerIngredients.findIndex(item => item.type === "bun") !== -1) {
@@ -79,8 +79,17 @@ function BurgerConstructor() {
   };
 
   return (
+
     <>
-      {isModalOpen && (
+      {orderRequest && (
+        <>
+          <Modal
+            header="Is loading ..."
+          >
+          </Modal>
+        </>
+      )}
+      {isModalOpen && !orderRequest && (
         <>
           <Modal
             handleCloseClick={onCloseBtnClick}
@@ -91,9 +100,12 @@ function BurgerConstructor() {
           </Modal>
         </>
       )}
+
       <section ref={dropTarget} className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
         <IngredientSection />
         <div className={styles.ingredients__shopping_cart}>
+          { burgerIngredients.length === 0 &&
+            <div className={styles.ingredients__button} ></div>}
           <TotalBill />
           <Button onClick={onOrderClick} type="primary" size="large">
             Оформить заказ
