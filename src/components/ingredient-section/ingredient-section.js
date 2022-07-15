@@ -1,19 +1,18 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DELETE_INGREDIENT, SET_TOTAL_PRICE } from "../../services/actions/burgerConstructor";
 import { DECREASE_COUNTER } from "../../services/actions/ingredients";
+import { useDrop } from "react-dnd";
+import Element from "./elements";
 
 const IngredientSection = () => {
   const dispatch = useDispatch();
   const burgerIngredients = useSelector(state => state.burgerConstructorIngredients.burgerConstructorIngredients);
   const buns = burgerIngredients.find(item => item.type === "bun") || [];
   const otherIngredients = burgerIngredients.filter(item => item.type !== "bun");
-
-  console.log(buns);
-  console.log(otherIngredients);
 
   useEffect(() => {
     let total = 0;
@@ -45,27 +44,13 @@ const IngredientSection = () => {
             )}
             <ul className={`${styles.ingredients__list} mt-4 mb-4 `}>
               {otherIngredients
-                .map((item) => {
+                .map((item, index) => {
                   return (
-                    <li className={styles.ingredients__el} key={Math.random().toString(36).slice(2)}>
-                      <DragIcon type="primary" />
-                      <ConstructorElement
-                        text={item?.name}
-                        price={item?.price}
-                        thumbnail={item?.image}
-                        isLocked={false}
-                        handleClose={() => {
-                          dispatch({
-                            type: DELETE_INGREDIENT,
-                            item
-                          });
-                          dispatch({
-                            type: DECREASE_COUNTER,
-                            item
-                          });
-                        }}
-                      />
-                    </li>
+                    <Element
+                      key={item.key}
+                      id={item.key}
+                      index={index}
+                      item={item} />
                   );
                 })}
             </ul>

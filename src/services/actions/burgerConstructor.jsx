@@ -9,6 +9,8 @@ export const PLACE_ORDER_REQUEST = 'PLACE_ORDER_REQUEST';
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
 export const PLACE_ORDER_FAILED = 'PLACE_ORDER_FAILED';
 
+export const MOVE_ELEMENT = 'MOVE_ELEMENT';
+
 export function placeOrder(IDs) {
   return function(dispatch) {
     dispatch({

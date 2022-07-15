@@ -1,6 +1,6 @@
 import {
   ADD_INGREDIENT,
-  DELETE_INGREDIENT, PLACE_ORDER_FAILED, PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS,
+  DELETE_INGREDIENT, MOVE_ELEMENT, PLACE_ORDER_FAILED, PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS,
   SET_TOTAL_PRICE,
   TOGGLE_ORDER_MODAL
 } from "../actions/burgerConstructor";
@@ -27,6 +27,13 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       return {
         ...state,
         burgerConstructorIngredients: [...state.burgerConstructorIngredients].filter(item => item.key !== action.item.key)
+      };
+    }
+    case MOVE_ELEMENT: {
+      const ingredients = [...state.burgerConstructorIngredients]
+      ingredients.splice(action.data.dragIndex, 0, ingredients.splice(action.data.hoverIndex, 1)[0])
+      return {
+        ...state, burgerConstructorIngredients: ingredients,
       };
     }
     case SET_TOTAL_PRICE: {
