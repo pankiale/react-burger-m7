@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients.module.css";
 import IngredientList from "../ingredient-list/ingredient-list";
@@ -10,8 +10,7 @@ import { useInView } from "react-intersection-observer";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const currentTub = useSelector(state => state.ingredients.currentTab);
-  const isModalOpen = useSelector(state => state.ingredients.isModalOpen);
+  const {currentTab, isModalOpen} = useSelector(state => state.ingredients);
 
   const handleClick = (value) => {
     document.querySelector("#" + value).scrollIntoView();
@@ -67,16 +66,12 @@ function BurgerIngredients() {
     });
   };
 
-  const handleEscKeydown = (e) => {
-    e.key === "Escape" && onCloseBtnClick();
-  };
   return (
     <>
       {isModalOpen && (
         <>
           <Modal
             handleCloseClick={onCloseBtnClick}
-            onEscKeydown={handleEscKeydown}
             header="Детали ингредиента"
           >
             <IngredientDetails data={renderData} />
@@ -88,13 +83,13 @@ function BurgerIngredients() {
       >
         <h1 className="text text_type_main-large mb-5"> Соберите бургер</h1>
         <div className={styles.ingredients__tab}>
-          <Tab value="bun" active={currentTub === "bun"} onClick={handleClick}>
+          <Tab value="bun" active={currentTab === "bun"} onClick={handleClick}>
             Булки
           </Tab>
-          <Tab value="sauce" active={currentTub === "sauce"} onClick={handleClick}>
+          <Tab value="sauce" active={currentTab === "sauce"} onClick={handleClick}>
             Соусы
           </Tab>
-          <Tab value="main" active={currentTub === "main"} onClick={handleClick}>
+          <Tab value="main" active={currentTab === "main"} onClick={handleClick}>
             Начинка
           </Tab>
         </div>

@@ -74,10 +74,6 @@ function BurgerConstructor() {
     });
   };
 
-  const handleEscKeydown = (e) => {
-    e.key === "Escape" && onCloseBtnClick();
-  };
-
   return (
 
     <>
@@ -93,7 +89,6 @@ function BurgerConstructor() {
         <>
           <Modal
             handleCloseClick={onCloseBtnClick}
-            onEscKeydown={handleEscKeydown}
             header=""
           >
             <OrderDetails />
