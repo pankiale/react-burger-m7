@@ -17,18 +17,18 @@ import {
 function BurgerConstructor() {
 
   const dispatch = useDispatch();
-  const burgerIngredients = useSelector(state => state.burgerConstructorIngredients.burgerConstructorIngredients);
-  const { isModalOpen, orderRequest } = useSelector(state => state.burgerConstructorIngredients);
+  const {
+    burgerConstructorIngredients: burgerIngredients,
+    isModalOpen,
+    orderRequest,
+    burgerConstructorBuns: buns
+  } = useSelector(state => state.burgerConstructorIngredients);
 
   const moveItem = (item) => {
-    if (item.type === "bun" && burgerIngredients.findIndex(item => item.type === "bun") !== -1) {
-      dispatch({
-        type: DELETE_INGREDIENT,
-        item: burgerIngredients.find(item => item.type === "bun")
-      });
+    if (item.type === "bun" && buns.length > 0) {
       dispatch({
         type: DECREASE_COUNTER,
-        item: burgerIngredients.find(item => item.type === "bun")
+        item: buns[0]
       });
       const key = Math.random().toString(36).slice(2);
       dispatch({
@@ -50,7 +50,6 @@ function BurgerConstructor() {
         item: item
       });
     }
-    ;
   };
 
   const [{ isHover }, dropTarget] = useDrop({
@@ -99,8 +98,8 @@ function BurgerConstructor() {
       <section ref={dropTarget} className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
         <IngredientSection />
         <div className={styles.ingredients__shopping_cart}>
-          { burgerIngredients.length === 0 &&
-            <div className={styles.ingredients__button} ></div>}
+          {(burgerIngredients.length === 0 || buns.length === 0) &&
+            <div className={styles.ingredients__button}></div>}
           <TotalBill />
           <Button onClick={onOrderClick} type="primary" size="large">
             Оформить заказ

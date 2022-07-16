@@ -40,8 +40,6 @@ const Element = ({ item, index, id }) => {
 
   drag(drop(ref));
 
- console.log(id)
-
   return (
     <li index={index} ref={ref} id={id} className={styles.ingredients__el}>
       <DragIcon type="primary" />

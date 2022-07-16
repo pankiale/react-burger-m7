@@ -13,21 +13,29 @@ import {
 
 const initialState = {
   burgerConstructorIngredients: [],
+  burgerConstructorBuns: [],
   totalPrice: "",
   isModalOpen: false,
   orderRequest: false,
   orderRequestFailed: false,
-  orderNumber: ''
+  orderNumber: ""
 };
 
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case ADD_INGREDIENT: {
-      return {
-        ...state,
-        burgerConstructorIngredients: [...state.burgerConstructorIngredients, action.item]
-      };
+      if (action.item.type !== "bun") {
+        return {
+          ...state,
+          burgerConstructorIngredients: [...state.burgerConstructorIngredients, action.item]
+        };
+      } else {
+        return {
+          ...state,
+          burgerConstructorBuns: [action.item]
+        };
+      }
     }
     case DELETE_INGREDIENT: {
       return {
@@ -38,14 +46,15 @@ export const burgerConstructorReducer = (state = initialState, action) => {
     case RESET_ALL_INGREDIENTS: {
       return {
         ...state,
-        burgerConstructorIngredients: []
+        burgerConstructorIngredients: [],
+        burgerConstructorBuns: []
       };
     }
     case MOVE_ELEMENT: {
-      const ingredients = [...state.burgerConstructorIngredients]
-      ingredients.splice(action.data.dragIndex, 0, ingredients.splice(action.data.hoverIndex, 1)[0])
+      const ingredients = [...state.burgerConstructorIngredients];
+      ingredients.splice(action.data.dragIndex, 0, ingredients.splice(action.data.hoverIndex, 1)[0]);
       return {
-        ...state, burgerConstructorIngredients: ingredients,
+        ...state, burgerConstructorIngredients: ingredients
       };
     }
     case SET_TOTAL_PRICE: {
