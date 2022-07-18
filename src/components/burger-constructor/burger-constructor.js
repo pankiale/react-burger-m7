@@ -82,7 +82,6 @@ function BurgerConstructor() {
             header="Is loading ..."
             handleCloseClick={onCloseBtnClick}
           >
-            <p></p>
           </Modal>
         </>
       )}
