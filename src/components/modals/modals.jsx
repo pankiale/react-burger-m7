@@ -6,15 +6,19 @@ import styles from "./modals.module.css";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 const modalsContainer = document.querySelector("#react-modals");
 
-const Modal = ({ header, children, handleCloseClick, onEscKeydown }) => {
+const Modal = ({ header, children, handleCloseClick }) => {
   const closePopup = () => {
     handleCloseClick();
   };
 
+  const handleEscKeydown = (e) => {
+    e.key === "Escape" && handleCloseClick();
+  };
+
   useEffect(() => {
-    document.addEventListener("keydown", onEscKeydown);
+    document.addEventListener("keydown", handleEscKeydown);
     return () => {
-      document.removeEventListener("keydown", onEscKeydown);
+      document.removeEventListener("keydown", handleEscKeydown);
     };
   }, []);
 
@@ -41,9 +45,8 @@ const Modal = ({ header, children, handleCloseClick, onEscKeydown }) => {
 
 Modal.propTypes = {
   header: PropTypes.string.isRequired,
-  children: PropTypes.object.isRequired,
-  handleCloseClick: PropTypes.func.isRequired,
-  onEscKeydown: PropTypes.func.isRequired,
+  children: PropTypes.object,
+  handleCloseClick: PropTypes.func.isRequired
 };
 
 export default Modal;

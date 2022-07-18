@@ -1,27 +1,25 @@
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import api from "../../api/api";
 import styles from "./app.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { useEffect, useState } from "react";
-import {DataContext} from "../../services/dataContext";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getItems } from "../../services/actions/ingredients";
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
-
-  useEffect(() => {
-    handleRequest();
-  }, []);
-
-  const handleRequest = () => {
-    api
-    .getIngredients()
-    .then((response) => {
-      const card = response.data.map((item) => item);
-      setIngredients(card);
-    })
-    .catch((err) => console.log(`Ошибка ${err.status}`));
-  };
+  const dispatch = useDispatch();
+  const {ingredients}
+    = useSelector(
+    state => state.ingredients
+  );
+  useEffect(
+    () => {
+      dispatch(getItems());
+    },
+    []
+  );
 
   return (
     <div className={styles.app}>
@@ -29,10 +27,10 @@ function App() {
       <main className={styles.app__main}>
         {ingredients.length && (
           <>
-            <DataContext.Provider value={{ingredients}}>
+          <DndProvider backend={HTML5Backend}>
               <BurgerIngredients />
               <BurgerConstructor />
-            </DataContext.Provider>
+          </DndProvider>
           </>
         )}
       </main>

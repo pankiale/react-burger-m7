@@ -1,7 +1,9 @@
 import styles from "./order_details.module.css";
 import done from "../../../images/done.svg"
-import PropTypes from "prop-types";
-const OrderDetails = ({orderNumber}) => {
+import { useSelector } from "react-redux";
+
+const OrderDetails = () => {
+  const {orderNumber} = useSelector(state => state.burgerConstructorIngredients);
   return (
     <section className={styles.ordr__card}>
       <p className={`${styles.ordr__number} text text_type_digits-large`}>
@@ -25,10 +27,6 @@ const OrderDetails = ({orderNumber}) => {
           </p>
     </section>
   );
-};
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
 };
 
 export default OrderDetails;
