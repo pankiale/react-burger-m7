@@ -1,39 +1,27 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "../../pages/home/home";
+import { LoginPage } from "../../pages/login/login";
+import { NotFound404 } from "../../pages/notFound/not-found";
+import styles from "../../pages/home/home.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import styles from "./app.module.css";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../../services/actions/ingredients";
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
 
 function App() {
-  const dispatch = useDispatch();
-  const {ingredients}
-    = useSelector(
-    state => state.ingredients
-  );
-  useEffect(
-    () => {
-      dispatch(getItems());
-    },
-    []
-  );
-
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={styles.app__main}>
-        {ingredients.length && (
-          <>
-          <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-          </DndProvider>
-          </>
-        )}
-      </main>
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/" exact={true}>
+            <Home />
+          </Route>
+          <Route path="*">
+            <NotFound404 />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

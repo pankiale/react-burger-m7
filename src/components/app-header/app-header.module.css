@@ -39,6 +39,9 @@
   cursor: pointer;
 }
 
+.header__button:last-child {
+  padding-left: 10px;
+}
 
 .header__button_active {
   cursor: default;
