@@ -30,9 +30,18 @@ class API {
           .then ( this._checkResponse)
     }
 
+    register (data) {
+        return fetch (`${this._url}/auth/register`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+          .then ( this._checkResponse)
+    }
 
 }
 const api = new API (config);
 
 export default api;
- 
+
