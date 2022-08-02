@@ -22,6 +22,11 @@ export function RegistrationPage() {
       api.register(form)
         .then (resp => {
           if (resp.success === 'true') {history.replace('/')}
+          else {
+            setValue({email: "", password: "", name: ""});
+            form.reset;
+            prompt('Что то пошло не так')
+          }
         })
     },
     [api, form]
