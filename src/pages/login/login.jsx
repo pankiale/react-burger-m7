@@ -1,36 +1,39 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css";
+import { getLogin } from "../../services/actions/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 export function LoginPage() {
-  /*  let auth = useAuth();*/
-
+  const dispatch = useDispatch();
+  const {loginSuccess} = useSelector(state => state.auth);
   const [form, setValue] = useState({ email: "", password: "" });
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
+  const isDisabled = Boolean(!form.email && !form.password);
+
   let login = useCallback(
     e => {
       e.preventDefault();
-      //  a/uth.signIn(form);
+      dispatch(getLogin(form));
     },
-    [/*auth,*/ form]
+    [form]
   );
 
-  /* if (auth.user) {
+  if (loginSuccess) {
     return (
       <Redirect
         to={{
           pathname: '/'
         }}
       />
-    );
-  }*/
+    )}
 
   return (
     <div className={styles.wrapper_container}>
@@ -46,7 +49,7 @@ export function LoginPage() {
               onChange={onChange}
             />
           </div>
-          <Button onClick={login} primary={true}>
+          <Button onClick={login} primary={true} disabled={isDisabled}>
             Войти
           </Button>
         </form>

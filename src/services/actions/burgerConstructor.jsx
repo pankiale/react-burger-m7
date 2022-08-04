@@ -1,4 +1,4 @@
-import api from "../../api/api";
+import api from "../api/api";
 import { RESET_COUNTER } from "./ingredients";
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";

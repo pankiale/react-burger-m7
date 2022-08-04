@@ -73,6 +73,8 @@ function BurgerConstructor() {
     });
   };
 
+  const isDisabled = Boolean(burgerIngredients.length === 0 || buns.length === 0);
+
   return (
 
     <>
@@ -99,10 +101,8 @@ function BurgerConstructor() {
       <section ref={dropTarget} className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
         <IngredientSection />
         <div className={styles.ingredients__shopping_cart}>
-          {(burgerIngredients.length === 0 || buns.length === 0) &&
-            <div className={styles.ingredients__button}></div>}
           <TotalBill />
-          <Button onClick={onOrderClick} type="primary" size="large">
+          <Button onClick={onOrderClick} type="primary" size="large" disabled={isDisabled}>
             Оформить заказ
           </Button>
         </div>

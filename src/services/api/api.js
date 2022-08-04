@@ -40,6 +40,16 @@ class API {
           .then ( this._checkResponse)
     }
 
+    login (data) {
+        return fetch (`${this._url}/auth/login`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+          .then ( this._checkResponse)
+    }
+
 }
 const api = new API (config);
 

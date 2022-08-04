@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "../../pages/home/home";
-import { LoginPage } from "../../pages/login/login";
-import { NotFound404 } from "../../pages/notFound/not-found";
-import styles from "../../pages/home/home.module.css";
-import AppHeader from "../app-header/app-header";
-import { RegistrationPage } from "../../pages/registration/registration";
-import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password";
-import { ResetPasswordPage } from "../../pages/reset-password/resett-password";
+import Home from "../pages/home/home";
+import { LoginPage } from "../pages/login/login";
+import { NotFound404 } from "../pages/notFound/not-found";
+import styles from "../pages/home/home.module.css";
+import AppHeader from "../components/app-header/app-header";
+import { RegistrationPage } from "../pages/registration/registration";
+import { ForgotPasswordPage } from "../pages/forgot-password/forgot-password";
+import { ResetPasswordPage } from "../pages/reset-password/resett-password";
 
 function App() {
   return (

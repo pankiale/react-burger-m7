@@ -17,13 +17,3 @@
   gap: 40px;
   position: relative;
 }
-.ingredients__button {
-  display: flex;
-  width: 213px;
-  height: 66px;
-  border-radius: 30px;
-  background-color: white;
-  opacity: .5;
-  position: absolute;
-  right: 0px;
-}

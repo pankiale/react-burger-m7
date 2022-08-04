@@ -1,46 +1,38 @@
 import React, { useCallback, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
-import api from "../../api/api";
+import { getRegistration } from "../../services/actions/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 export function RegistrationPage() {
-  /*  let auth = useAuth();*/
 
-  const history = useHistory();
+  const { regSuccess, regFailed } = useSelector(state => state.auth);
   const [form, setValue] = useState({ email: "", password: "", name: "" });
-
+  const dispatch = useDispatch();
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  let login = useCallback(
-    e => {
-      e.preventDefault()
-      api.register(form)
-        .then (resp => {
-          if (resp.success === 'true') {history.replace('/')}
-          else {
-            setValue({email: "", password: "", name: ""});
-            form.reset;
-            prompt('Что то пошло не так')
-          }
-        })
-    },
-    [api, form]
+  const isDisabled = Boolean(!form.email && !form.password);
+
+  let login = useCallback( e => {
+    e.preventDefault();
+    dispatch(getRegistration(form));
+  }, [form]
   );
 
-  /* if (auth.user) {
+  if (regSuccess) {
     return (
       <Redirect
         to={{
-          pathname: '/'
+          pathname: "/"
         }}
       />
     );
-  }*/
+  }
 
   return (
     <div className={styles.wrapper_container}>
@@ -49,22 +41,22 @@ export function RegistrationPage() {
           <h1 className={`text text_type_main-medium ${styles.header}`}>Регистрация</h1>
           <div className={styles.wrapper}>
             <Input
-              type={'text'}
-              placeholder={'Имя'}
+              type={"text"}
+              placeholder={"Имя"}
               onChange={onChange}
               value={form.name}
-              name={'name'}
-              errorText={'Ошибка'}
-              size={'default'}
+              name={"name"}
+              errorText={"Ошибка"}
+              size={"default"}
             />
             <Input
-              type={'email'}
-              placeholder={'Email'}
+              type={"email"}
+              placeholder={"Email"}
               onChange={onChange}
               value={form.email}
-              name={'email'}
-              errorText={'Ошибка'}
-              size={'default'}
+              name={"email"}
+              errorText={"Ошибка"}
+              size={"default"}
             />
             <PasswordInput
               placeholder="Password"
@@ -73,12 +65,13 @@ export function RegistrationPage() {
               onChange={onChange}
             />
           </div>
-          <Button onClick={login} primary={true}>
+          <Button onClick={login} primary={true} disabled={isDisabled}>
             Зарегистрироваться
           </Button>
         </form>
-        <p className={`text text_type_main-default text_color_inactive ${styles.paragraph}`}>Уже зарегистрированы? <Link to="/registration/login"
-                              className={`text text_type_main-default ${styles.link}`}>Войти</Link></p>
+        <p className={`text text_type_main-default text_color_inactive ${styles.paragraph}`}>Уже зарегистрированы? <Link
+          to="/registration/login"
+          className={`text text_type_main-default ${styles.link}`}>Войти</Link></p>
       </div>
     </div>
   );
