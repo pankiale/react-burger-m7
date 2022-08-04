@@ -1,4 +1,5 @@
 import api from "../api/api";
+import { setCookie } from "../../utils/cookie";
 
 export const GET_REG_REQUEST = "GET_REG_REQUEST";
 export const GET_REG_SUCCESS = "GET_REG_SUCCESS";
@@ -16,12 +17,15 @@ export function getLogin(data) {
     });
     api.login(data)
       .then(res => {
-        console.log(res)
         if (res && res.success) {
           dispatch({
             type: GET_LOGIN_SUCCESS,
             user: res.user
           });
+          const authToken = res["accessToken"].split("Bearer ")[1];
+          setCookie("token", authToken, 20);
+          const refreshToken = res["refreshToken"];
+          localStorage.setItem("refreshToken", refreshToken);
         } else {
           dispatch({
             type: GET_LOGIN_FAILED
