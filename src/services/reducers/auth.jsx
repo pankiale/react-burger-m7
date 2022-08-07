@@ -1,10 +1,12 @@
 import {
+  CHECK_TOKEN_FAILED,
+  CHECK_TOKEN_REQUEST, CHECK_TOKEN_SUCCESS,
   GET_LOGIN_FAILED,
   GET_LOGIN_REQUEST,
   GET_LOGIN_SUCCESS,
   GET_REG_FAILED,
   GET_REG_REQUEST,
-  GET_REG_SUCCESS
+  GET_REG_SUCCESS, IS_USER_LOADED, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS
 } from "../actions/auth";
 
 
@@ -17,7 +19,17 @@ const initialState = {
 
   loginRequest: false,
   loginFailed: false,
-  loginSuccess: false
+  loginSuccess: false,
+
+  tokenRequest: false,
+  tokenFailed: false,
+  tokenSuccess: false,
+
+  refreshTokenRequest: false,
+  refreshTokenFailed: false,
+  refreshTokenSuccess: false,
+
+  isUserLoaded: false
 
 };
 
@@ -56,9 +68,46 @@ export const authReducer = (state = initialState, action) => {
       };
     }
     case GET_LOGIN_FAILED: {
-      return { ...state, regFailed: true, regRequest: false };
+      return { ...state, loginFailed: true, loginRequest: false };
     }
-
+    case CHECK_TOKEN_REQUEST: {
+      return {
+        ...state,
+        tokenRequest: true
+      };
+    }
+    case CHECK_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        tokenFailed: false,
+        tokenRequest: false,
+        tokenSuccess: true,
+        user: action.user
+      };
+    }
+    case CHECK_TOKEN_FAILED: {
+      return { ...state, tokenFailed: true, tokenRequest: false };
+    }
+    case REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+        refreshTokenRequest: true
+      };
+    }
+    case REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        refreshTokenFailed: false,
+        refreshTokenRequest: false,
+        refreshTokenSuccess: true
+      };
+    }
+    case REFRESH_TOKEN_FAILED: {
+      return { ...state, refreshTokenFailed: true, refreshTokenRequest: false };
+    }
+    case IS_USER_LOADED: {
+      return { ...state, isUserLoaded: true };
+    }
     default: {
       return state;
     }

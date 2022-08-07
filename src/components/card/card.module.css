@@ -3,6 +3,9 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+  text-decoration: none;
+  color: unset;
+  cursor: unset;
 }
 
 .card__counter {

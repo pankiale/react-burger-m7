@@ -1,0 +1,65 @@
+.wrapper_container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	position: relative;
+	
+}
+.container {
+	width: 480px;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.header {
+	text-align: center;
+	margin: 24px 0 0;
+}
+
+.form {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	gap: 24px;
+	margin-bottom: 80px;
+}
+
+.wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 24px;
+}
+
+.wrapper div {
+	display: flex;
+	width: 100%;
+}
+
+.wrapper > div > div > input + div {
+	width: fit-content;
+}
+
+.link {
+	color: #4C4CFF;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.paragraph {
+	text-align: center;
+}
+
+.paragraph:last-child {
+	margin-top: 16px;
+}
+.button_wrapper {
+	display: flex;
+	justify-content: flex-end;
+}
