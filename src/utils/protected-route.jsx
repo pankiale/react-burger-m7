@@ -37,7 +37,7 @@ export function ProtectedRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/registration/login",
+              pathname: "/login",
               state: { from: location }
             }}
           />

@@ -70,7 +70,7 @@ export function RegistrationPage() {
           </Button>
         </form>
         <p className={`text text_type_main-default text_color_inactive ${styles.paragraph}`}>Уже зарегистрированы? <Link
-          to="/registration/login"
+          to="/login"
           className={`text text_type_main-default ${styles.link}`}>Войти</Link></p>
       </div>
     </div>

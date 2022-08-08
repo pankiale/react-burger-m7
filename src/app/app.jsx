@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Home from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
 import { NotFound404 } from "../pages/notFound/not-found";
@@ -9,36 +10,47 @@ import { ForgotPasswordPage } from "../pages/forgot-password/forgot-password";
 import { ResetPasswordPage } from "../pages/reset-password/resett-password";
 import { ProtectedRoute } from "../utils/protected-route";
 import { ProfilePage } from "../pages/profile/profile";
+import Modal from "../components/modals/modals";
+import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
+
 
 function App() {
+ const location = useLocation();
+  console.log(location)
+  // const history = useHistory();
+  const background = location.state?.background;
   return (
     <div className={styles.app}>
       <Router>
-        <Switch>
-          <Route path="/registration/login">
+        <AppHeader />
+        <Switch location={background || location}>
+          <Route path="/login" exact={true}>
             <LoginPage />
           </Route>
-          <Route path="/profile">
+          <Route path="/profile" exact={true}>
             <ProfilePage />
           </Route>
-          <ProtectedRoute path="/registration/registration" exact={true}>
+          <Route path="/registration" exact={true}>
             <RegistrationPage />
-          </ProtectedRoute>
-          <Route path="/registration/forgot-password" exact={true}>
+          </Route>
+          <Route path="/forgot-password" exact={true}>
             <ForgotPasswordPage />
           </Route>
-          <Route path="/registration/reset-password" exact={true}>
+          <Route path="/reset-password" exact={true}>
             <ResetPasswordPage />
           </Route>
           <Route path="/" exact={true}>
             <Home />
+          </Route>
+          <Route path="/ingredients/:ingredientId">
+            <IngredientDetails />
           </Route>
           <Route path="*">
             <NotFound404 />
           </Route>
         </Switch>
       </Router>
-    </div>
+   </div>
   );
 }
 

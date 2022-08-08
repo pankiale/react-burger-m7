@@ -3,13 +3,13 @@ import styles from "./card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { dataTypes } from "../../utils/const";
 import { useDrag } from "react-dnd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Card = ({ data, clicker }) => {
   const handleClick = () => {
     clicker(data);
   };
-
+  //const location = useLocation();
   const [{ opacity }, ref] = useDrag({
     type: "items",
     item: data,
@@ -19,7 +19,12 @@ const Card = ({ data, clicker }) => {
   });
 
   return (
-    <Link to={{pathname: `/ingredients/${data._id}`}} ref={ref} onClick={handleClick} className={styles.card} style={{ opacity }}>
+    <Link to={{
+      pathname: `/ingredients/${data._id}`/*,
+      state: { background: location }*/
+    }}
+          ref={ref} onClick={handleClick}
+          className={styles.card} style={{ opacity }}>
       <img src={data.image} alt={data.name} className={styles.card__image} />
       {data.counter > 0 && (<div className={styles.card__counter}>
         <Counter count={data.counter} size="default" />

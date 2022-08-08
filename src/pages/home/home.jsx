@@ -22,17 +22,15 @@ function Home() {
   );
 
   return (
-
-    <main className={styles.app__main}>
-      {ingredients.length && (
+      <main className={styles.app__main}>
+        {ingredients.length && (
           <DndProvider backend={HTML5Backend}>
-            <AppHeader children = {children}>
+
             <BurgerIngredients />
             <BurgerConstructor />
-            </AppHeader>
           </DndProvider>
-      )}
-    </main>
+        )}
+      </main>
   );
 }
 
