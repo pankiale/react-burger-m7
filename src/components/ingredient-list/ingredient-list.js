@@ -4,7 +4,7 @@ import Card from "../card/card";
 import styles from "./ingredient-list.module.css";
 import { useSelector } from "react-redux";
 
-const IngredientList = React.forwardRef(({ title, id, ingredient, openModal }, ref) => {
+const IngredientList = React.forwardRef(({ title, id, ingredient }, ref) => {
   const { ingredients }
     = useSelector(
     state => state.ingredients
@@ -21,7 +21,7 @@ const IngredientList = React.forwardRef(({ title, id, ingredient, openModal }, r
           .map((item) => {
             return (
               <li key={item._id}>
-                <Card data={item} clicker={openModal} />
+                <Card data={item} />
               </li>
             );
           })}

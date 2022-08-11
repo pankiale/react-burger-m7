@@ -29,6 +29,7 @@ function App() {
     []
   );
   return (
+    <>
     <div className={styles.app}>
         <AppHeader />
         <Switch location={background || location}>
@@ -58,6 +59,12 @@ function App() {
           </Route>
         </Switch>
    </div>
+  {background && <Route path="/ingredients/:ingredientId" children={
+    <Modal header = 'Детали Ингридиента'>
+      <IngredientDetails />
+    </Modal>
+  } />}
+    </>
   );
 }
 

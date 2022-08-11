@@ -11,7 +11,7 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   placeOrder,
-  TOGGLE_ORDER_MODAL
+  CLOSE_ORDER_MODAL
 } from "../../services/actions/burgerConstructor";
 
 function BurgerConstructor() {
@@ -67,11 +67,11 @@ function BurgerConstructor() {
     dispatch(placeOrder(IDs));
   };
 
-  const onCloseBtnClick = () => {
+  /*const onCloseBtnClick = () => {
     dispatch({
-      type: TOGGLE_ORDER_MODAL
+      type: CLOSE_ORDER_MODAL
     });
-  };
+  };*/
 
   const isDisabled = Boolean(burgerIngredients.length === 0 || buns.length === 0);
 
@@ -82,7 +82,7 @@ function BurgerConstructor() {
         <>
           <Modal
             header="Is loading ..."
-            handleCloseClick={onCloseBtnClick}
+            //handleCloseClick={onCloseBtnClick}
           >
           </Modal>
         </>
@@ -90,7 +90,7 @@ function BurgerConstructor() {
       {isModalOpen && !orderRequest && (
         <>
           <Modal
-            handleCloseClick={onCloseBtnClick}
+            //handleCloseClick={onCloseBtnClick}
             header=""
           >
             <OrderDetails />

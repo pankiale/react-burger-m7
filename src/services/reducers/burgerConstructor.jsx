@@ -8,7 +8,7 @@ import {
   RESET_ALL_INGREDIENTS,
   RESET_TOTAL_PRICE,
   SET_TOTAL_PRICE,
-  TOGGLE_ORDER_MODAL
+  CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL
 } from "../actions/burgerConstructor";
 
 const initialState = {
@@ -69,10 +69,16 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         totalPrice: 0
       };
     }
-    case TOGGLE_ORDER_MODAL: {
+    case OPEN_ORDER_MODAL: {
       return {
         ...state,
-        isModalOpen: !state.isModalOpen
+        isModalOpen: true
+      };
+    }
+    case CLOSE_ORDER_MODAL: {
+      return {
+        ...state,
+        isModalOpen: false
       };
     }
     case PLACE_ORDER_REQUEST: {

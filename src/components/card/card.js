@@ -5,10 +5,8 @@ import { dataTypes } from "../../utils/const";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
-const Card = ({ data, clicker }) => {
-  const handleClick = () => {
-    clicker(data);
-  };
+const Card = ({ data }) => {
+
   const location = useLocation();
   const [{ opacity }, ref] = useDrag({
     type: "items",
@@ -23,8 +21,7 @@ const Card = ({ data, clicker }) => {
       pathname: `/ingredients/${data._id}`,
       state: { background: location }
     }}
-          ref={ref} onClick={handleClick}
-          className={styles.card} style={{ opacity }}>
+          ref={ref} className={styles.card} style={{ opacity }}>
       <img src={data.image} alt={data.name} className={styles.card__image} />
       {data.counter > 0 && (<div className={styles.card__counter}>
         <Counter count={data.counter} size="default" />

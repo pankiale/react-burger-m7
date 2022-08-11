@@ -4,15 +4,34 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modals.module.css";
 import ModalOverlay from "./modal-overlay/modal-overlay";
+import { useDispatch } from "react-redux";
+import { CLOSE_ORDER_MODAL } from "../../services/actions/burgerConstructor";
+import { CLOSE_MODAL } from "../../services/actions/ingredients";
+import { useHistory } from "react-router-dom";
 const modalsContainer = document.querySelector("#react-modals");
 
-const Modal = ({ header, children, handleCloseClick }) => {
-  const closePopup = () => {
-    handleCloseClick();
+const Modal = ({ header, children }) => {
+
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const onCloseBtnClick = (e) => {
+      e.stopPropagation();
+      history.goBack();
+/*    dispatch({
+      type: CLOSE_ORDER_MODAL
+    });
+    dispatch({
+      type: CLOSE_MODAL
+    })*/
+  }
+
+  const closePopup = (e) => {
+    onCloseBtnClick(e);
   };
 
   const handleEscKeydown = (e) => {
-    e.key === "Escape" && handleCloseClick();
+    e.key === "Escape" && onCloseBtnClick(e);
   };
 
   useEffect(() => {
@@ -37,7 +56,7 @@ const Modal = ({ header, children, handleCloseClick }) => {
         </h1>
         {children}
       </section>
-      <ModalOverlay handleCloseClick={handleCloseClick} />
+      <ModalOverlay handleCloseClick={onCloseBtnClick} />
     </>,
     modalsContainer
   );

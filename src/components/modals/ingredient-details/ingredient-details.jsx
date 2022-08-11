@@ -2,18 +2,15 @@ import PropTypes from "prop-types";
 import { dataTypes } from "../../../utils/const";
 import styles from "./ingredient_details.module.css";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getItems } from "../../../services/actions/ingredients";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ data }) => {
-/*  const params = useParams()
+const IngredientDetails = () => {
   const { ingredientId } = useParams();
   const { ingredients }
     = useSelector(
     state => state.ingredients
   );
-  const data = ingredients.find(item => item._id === ingredientId);*/
+  const data = ingredients.find(item => item._id === ingredientId);
   return (
     <section className={styles.ingr__card}>
       <img

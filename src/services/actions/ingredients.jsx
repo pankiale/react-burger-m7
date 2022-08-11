@@ -9,7 +9,7 @@ export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
 export const GET_ITEMS_FAILED = "GET_ITEMS_FAILED";
 
 export const TAB_SWITCH = "TAB_SWITCH";
-export const TOGGLE_MODAL = "TOGGLE_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
 
 
 export function getItems() {
