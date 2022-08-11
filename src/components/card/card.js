@@ -9,7 +9,7 @@ const Card = ({ data, clicker }) => {
   const handleClick = () => {
     clicker(data);
   };
-  //const location = useLocation();
+  const location = useLocation();
   const [{ opacity }, ref] = useDrag({
     type: "items",
     item: data,
@@ -20,8 +20,8 @@ const Card = ({ data, clicker }) => {
 
   return (
     <Link to={{
-      pathname: `/ingredients/${data._id}`/*,
-      state: { background: location }*/
+      pathname: `/ingredients/${data._id}`,
+      state: { background: location }
     }}
           ref={ref} onClick={handleClick}
           className={styles.card} style={{ opacity }}>

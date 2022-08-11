@@ -42,6 +42,8 @@ export function ProfilePage() {
                      className={`text text_type_main-medium text_color_inactive ${styles.link}`}>Профиль</NavLink>
             <NavLink to={{pathname: '/profile/orders'}} activeClassName={styles.link_active}
                      className={`text text_type_main-medium text_color_inactive ${styles.link}`}>История Заказов</NavLink>
+            <NavLink to={{pathname: '/profile/logout'}} activeClassName={styles.link_active}
+                     className={`text text_type_main-medium text_color_inactive ${styles.link}`}>Выход</NavLink>
 
           </nav>
           <form className={styles.form}>

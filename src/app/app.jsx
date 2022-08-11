@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Home from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
@@ -12,16 +12,24 @@ import { ProtectedRoute } from "../utils/protected-route";
 import { ProfilePage } from "../pages/profile/profile";
 import Modal from "../components/modals/modals";
 import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getItems } from "../services/actions/ingredients";
 
 
 function App() {
  const location = useLocation();
-  console.log(location)
-  // const history = useHistory();
+  const history = useHistory();
   const background = location.state?.background;
+  const dispatch = useDispatch();
+  useEffect(
+    () => {
+      dispatch(getItems());
+    },
+    []
+  );
   return (
     <div className={styles.app}>
-      <Router>
         <AppHeader />
         <Switch location={background || location}>
           <Route path="/login" exact={true}>
@@ -49,7 +57,6 @@ function App() {
             <NotFound404 />
           </Route>
         </Switch>
-      </Router>
    </div>
   );
 }

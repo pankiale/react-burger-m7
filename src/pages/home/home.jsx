@@ -14,18 +14,11 @@ function Home() {
     = useSelector(
     state => state.ingredients
   );
-  useEffect(
-    () => {
-      dispatch(getItems());
-    },
-    []
-  );
 
   return (
       <main className={styles.app__main}>
         {ingredients.length && (
           <DndProvider backend={HTML5Backend}>
-
             <BurgerIngredients />
             <BurgerConstructor />
           </DndProvider>

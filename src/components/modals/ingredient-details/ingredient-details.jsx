@@ -6,21 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getItems } from "../../../services/actions/ingredients";
 
-const IngredientDetails = (/*{ data }*/) => {
-const dispatch = useDispatch();
-  useEffect(
-    () => {
-      dispatch(getItems());
-    },
-    []
-  );
-
-  const {ingredientId} = useParams();
+const IngredientDetails = ({ data }) => {
+/*  const params = useParams()
+  const { ingredientId } = useParams();
   const { ingredients }
     = useSelector(
     state => state.ingredients
   );
-  const data = ingredients.find(item => item._id === ingredientId);
+  const data = ingredients.find(item => item._id === ingredientId);*/
   return (
     <section className={styles.ingr__card}>
       <img
@@ -87,7 +80,7 @@ const dispatch = useDispatch();
 
 
 IngredientDetails.propTypes = {
-  data: PropTypes.objectOf(dataTypes).isRequired,
+  data: PropTypes.objectOf(dataTypes).isRequired
 };
 
 export default IngredientDetails;
