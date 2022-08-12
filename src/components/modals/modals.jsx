@@ -10,21 +10,10 @@ import { CLOSE_MODAL } from "../../services/actions/ingredients";
 import { useHistory } from "react-router-dom";
 const modalsContainer = document.querySelector("#react-modals");
 
-const Modal = ({ header, children }) => {
+const Modal = ({ header, children, onCloseBtnClick }) => {
 
   const dispatch = useDispatch()
   const history = useHistory()
-
-  const onCloseBtnClick = (e) => {
-      e.stopPropagation();
-      history.goBack();
-/*    dispatch({
-      type: CLOSE_ORDER_MODAL
-    });
-    dispatch({
-      type: CLOSE_MODAL
-    })*/
-  }
 
   const closePopup = (e) => {
     onCloseBtnClick(e);

@@ -18,10 +18,18 @@ import { getItems } from "../services/actions/ingredients";
 
 
 function App() {
- const location = useLocation();
+
+  const location = useLocation();
   const history = useHistory();
   const background = location.state?.background;
   const dispatch = useDispatch();
+
+
+  const onCloseBtnClick = (e) => {
+    e.stopPropagation();
+    history.goBack();}
+
+
   useEffect(
     () => {
       dispatch(getItems());
@@ -30,7 +38,7 @@ function App() {
   );
   return (
     <>
-    <div className={styles.app}>
+      <div className={styles.app}>
         <AppHeader />
         <Switch location={background || location}>
           <Route path="/login" exact={true}>
@@ -58,12 +66,12 @@ function App() {
             <NotFound404 />
           </Route>
         </Switch>
-   </div>
-  {background && <Route path="/ingredients/:ingredientId" children={
-    <Modal header = 'Детали Ингридиента'>
-      <IngredientDetails />
-    </Modal>
-  } />}
+      </div>
+      {background && <Route path="/ingredients/:ingredientId" children={
+        <Modal header="Детали Ингридиента" onCloseBtnClick={onCloseBtnClick}>
+          <IngredientDetails />
+        </Modal>
+      } />}
     </>
   );
 }

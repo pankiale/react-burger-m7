@@ -3,10 +3,10 @@ import styles from "./card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { dataTypes } from "../../utils/const";
 import { useDrag } from "react-dnd";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 const Card = ({ data }) => {
-
+  const history = useHistory()
   const location = useLocation();
   const [{ opacity }, ref] = useDrag({
     type: "items",

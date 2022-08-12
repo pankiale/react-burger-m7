@@ -67,11 +67,11 @@ function BurgerConstructor() {
     dispatch(placeOrder(IDs));
   };
 
-  /*const onCloseBtnClick = () => {
+  const onCloseBtnClick = () => {
     dispatch({
       type: CLOSE_ORDER_MODAL
     });
-  };*/
+  };
 
   const isDisabled = Boolean(burgerIngredients.length === 0 || buns.length === 0);
 
@@ -82,7 +82,7 @@ function BurgerConstructor() {
         <>
           <Modal
             header="Is loading ..."
-            //handleCloseClick={onCloseBtnClick}
+            onCloseBtnClick={onCloseBtnClick}
           >
           </Modal>
         </>
@@ -90,7 +90,7 @@ function BurgerConstructor() {
       {isModalOpen && !orderRequest && (
         <>
           <Modal
-            //handleCloseClick={onCloseBtnClick}
+            onCloseBtnClick={onCloseBtnClick}
             header=""
           >
             <OrderDetails />
