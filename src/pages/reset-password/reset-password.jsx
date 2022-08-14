@@ -1,15 +1,17 @@
 import React, { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getResetPassword } from "../../services/actions/auth";
 
 export function ResetPasswordPage() {
-  /*  let auth = useAuth();*/
 
-  const [form, setValue] = useState({ code: "", password: "" });
-
+  const [form, setValue] = useState({ password: "", token: "" });
+  const dispatch = useDispatch();
+  const {forgotPasswordSuccess, resetPasswordSuccess} = useSelector(state=>state.auth)
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
@@ -17,20 +19,30 @@ export function ResetPasswordPage() {
   let login = useCallback(
     e => {
       e.preventDefault();
-      //  auth.signIn(form);
+      dispatch(getResetPassword(form));
     },
     [/*auth,*/ form]
   );
 
-  /* if (auth.user) {
+  if (!forgotPasswordSuccess) {
     return (
       <Redirect
         to={{
-          pathname: '/'
+          pathname: '/forgot-password'
         }}
       />
     );
-  }*/
+  }
+  if (resetPasswordSuccess) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/login'
+        }}
+      />
+    );
+  }
+
 
   return (
     <div className={styles.wrapper_container}>
@@ -51,8 +63,8 @@ export function ResetPasswordPage() {
               type={"text"}
               placeholder={"Введите код из письма"}
               onChange={onChange}
-              value={form.code}
-              name={"code"}
+              value={form.token}
+              name={"token"}
               errorText={"Ошибка"}
               size={"default"}
             />

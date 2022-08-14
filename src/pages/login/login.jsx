@@ -28,16 +28,6 @@ export function LoginPage() {
     [form]
   );
 
-  /*if (loginSuccess) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/"
-        }}
-      />
-    );
-  }*/
-
   return (
       <div className={styles.wrapper_container}>
         <div className={styles.container}>

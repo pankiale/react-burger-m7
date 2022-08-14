@@ -68,6 +68,28 @@ class API {
       .then(this._checkResponse)
   }
 
+  forgotPassword(data) {
+    return fetch(`${this._url}/password-reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(this._checkResponse);
+  }
+
+  resetPassword(data) {
+    return fetch(`${this._url}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(this._checkResponse);
+  }
+
   checkToken() {
     return fetch(`${this._url}/auth/user`, {
       method: "GET",

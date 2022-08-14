@@ -9,6 +9,15 @@ export const GET_LOGIN_REQUEST = "GET_LOGIN_REQUEST";
 export const GET_LOGIN_SUCCESS = "GET_LOGIN_SUCCESS";
 export const GET_LOGIN_FAILED = "GET_LOGIN_FAILED";
 
+export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
+export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
+export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
+
+export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
+
+
 export const GET_LOGOUT_REQUEST = "GET_LOGOUT_REQUEST";
 export const GET_LOGOUT_SUCCESS = "GET_LOGOUT_SUCCESS";
 export const GET_LOGOUT_FAILED = "GET_LOGOUT_FAILED";
@@ -122,6 +131,63 @@ export function getLogin(data) {
   };
 }
 
+export function getForgotPassword(data) {
+  return function(dispatch) {
+    dispatch({
+      type: FORGOT_PASSWORD_REQUEST
+    });
+    return api.forgotPassword(data)
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: FORGOT_PASSWORD_SUCCESS,
+          })
+          return res;
+        } else {
+          dispatch({
+            type: FORGOT_PASSWORD_FAILED
+          })
+          return res;
+        }
+      })
+      .catch(err => {
+        console.error(err.message);
+        dispatch({
+          type: FORGOT_PASSWORD_FAILED
+        });
+        return err;
+      });
+  };
+}
+
+export function getResetPassword(data) {
+  return function(dispatch) {
+    dispatch({
+      type: RESET_PASSWORD_REQUEST
+    });
+    return api.resetPassword(data)
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: RESET_PASSWORD_SUCCESS,
+          })
+          return res;
+        } else {
+          dispatch({
+            type: RESET_PASSWORD_FAILED
+          })
+          return res;
+        }
+      })
+      .catch(err => {
+        console.error(err.message);
+        dispatch({
+          type: RESET_PASSWORD_FAILED
+        });
+        return err;
+      });
+  };
+}
 
 export function getLogout(data) {
   return function(dispatch) {

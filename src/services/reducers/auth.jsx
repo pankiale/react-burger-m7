@@ -1,12 +1,21 @@
 import {
   CHECK_TOKEN_FAILED,
-  CHECK_TOKEN_REQUEST, CHECK_TOKEN_SUCCESS,
+  CHECK_TOKEN_REQUEST,
+  CHECK_TOKEN_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS,
   GET_LOGIN_FAILED,
   GET_LOGIN_REQUEST,
-  GET_LOGIN_SUCCESS, GET_LOGOUT_FAILED, GET_LOGOUT_REQUEST, GET_LOGOUT_SUCCESS,
+  GET_LOGIN_SUCCESS,
+  GET_LOGOUT_FAILED,
+  GET_LOGOUT_REQUEST,
+  GET_LOGOUT_SUCCESS,
   GET_REG_FAILED,
   GET_REG_REQUEST,
-  GET_REG_SUCCESS, IS_USER_LOADED, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS
+  GET_REG_SUCCESS,
+  IS_USER_LOADED,
+  REFRESH_TOKEN_FAILED,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_SUCCESS,
+  RESET_PASSWORD_FAILED, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS
 } from "../actions/auth";
 
 
@@ -24,6 +33,14 @@ const initialState = {
   logoutRequest: false,
   logoutFailed: false,
   logoutSuccess: false,
+
+  forgotPasswordRequest: false,
+  forgotPasswordFailed: false,
+  forgotPasswordSuccess: false,
+
+  resetPasswordRequest: false,
+  resetPasswordFailed: false,
+  resetPasswordSuccess: false,
 
   tokenRequest: false,
   tokenFailed: false,
@@ -129,6 +146,42 @@ export const authReducer = (state = initialState, action) => {
     case REFRESH_TOKEN_FAILED: {
       return { ...state, refreshTokenFailed: true, refreshTokenRequest: false };
     }
+    case FORGOT_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        forgotPasswordRequest: true
+      };
+    }
+    case FORGOT_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        forgotPasswordFailed: false,
+        forgotPasswordRequest: false,
+        forgotPasswordSuccess: true
+      };
+    }
+    case FORGOT_PASSWORD_FAILED: {
+      return { ...state, forgotPasswordFailed: true, forgotPasswordRequest: false };
+    }
+
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPasswordRequest: true
+      };
+    }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        resetPasswordFailed: false,
+        resetPasswordRequest: false,
+        resetPasswordSuccess: true
+      };
+    }
+    case RESET_PASSWORD_FAILED: {
+      return { ...state, forgotPasswordFailed: true, forgotPasswordRequest: false };
+    }
+
     case IS_USER_LOADED: {
       return { ...state, isUserLoaded: true };
     }
