@@ -14,7 +14,7 @@ class API {
       return res.json();
     }
     return res.json().then(res => {
-      return res.message
+      throw res.message
     });
   }
 
@@ -57,6 +57,17 @@ class API {
       .then(this._checkResponse);
   }
 
+  logout(data) {
+    return fetch(`${this._url}/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({token: data})
+    })
+      .then(this._checkResponse)
+  }
+
   checkToken() {
     return fetch(`${this._url}/auth/user`, {
       method: "GET",
@@ -65,7 +76,10 @@ class API {
         Authorization: "Bearer " + getCookie("token")
       }
     })
-      .then(this._checkResponse);
+      .then(res => {
+        this._checkResponse(res)
+        return res
+      });
     }
 
   refreshToken() {

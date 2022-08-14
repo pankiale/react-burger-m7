@@ -3,7 +3,7 @@ import {
   CHECK_TOKEN_REQUEST, CHECK_TOKEN_SUCCESS,
   GET_LOGIN_FAILED,
   GET_LOGIN_REQUEST,
-  GET_LOGIN_SUCCESS,
+  GET_LOGIN_SUCCESS, GET_LOGOUT_FAILED, GET_LOGOUT_REQUEST, GET_LOGOUT_SUCCESS,
   GET_REG_FAILED,
   GET_REG_REQUEST,
   GET_REG_SUCCESS, IS_USER_LOADED, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS
@@ -20,6 +20,10 @@ const initialState = {
   loginRequest: false,
   loginFailed: false,
   loginSuccess: false,
+
+  logoutRequest: false,
+  logoutFailed: false,
+  logoutSuccess: false,
 
   tokenRequest: false,
   tokenFailed: false,
@@ -69,6 +73,26 @@ export const authReducer = (state = initialState, action) => {
     }
     case GET_LOGIN_FAILED: {
       return { ...state, loginFailed: true, loginRequest: false };
+    }
+
+    case GET_LOGOUT_REQUEST: {
+      return {
+        ...state,
+        logoutRequest: true
+      };
+    }
+    case GET_LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        logoutFailed: false,
+        logoutRequest: false,
+        logoutSuccess: true,
+        user: {},
+        loginSuccess: false
+      };
+    }
+    case GET_LOGOUT_FAILED: {
+      return { ...state, logoutFailed: true, logoutRequest: false };
     }
     case CHECK_TOKEN_REQUEST: {
       return {

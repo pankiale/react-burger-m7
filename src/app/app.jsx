@@ -23,7 +23,7 @@ function App() {
   const history = useHistory();
   const background = location.state?.background;
   const dispatch = useDispatch();
-
+console.log(location)
 
   const onCloseBtnClick = (e) => {
     e.stopPropagation();
@@ -41,22 +41,22 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <Switch location={background || location}>
-          <Route path="/login" exact={true}>
+          <ProtectedRoute notAuthOnly={true} path="/login" exact>
             <LoginPage />
-          </Route>
-          <Route path="/profile" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile" exact>
             <ProfilePage />
-          </Route>
-          <Route path="/registration" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute notAuthOnly={true} path="/registration" exact>
             <RegistrationPage />
-          </Route>
-          <Route path="/forgot-password" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute notAuthOnly={true} path="/forgot-password" exact>
             <ForgotPasswordPage />
-          </Route>
-          <Route path="/reset-password" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute notAuthOnly={true} path="/reset-password" exact>
             <ResetPasswordPage />
-          </Route>
-          <Route path="/" exact={true}>
+          </ProtectedRoute>
+          <Route path="/" exact>
             <Home />
           </Route>
           <Route path="/ingredients/:ingredientId">

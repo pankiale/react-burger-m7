@@ -1,5 +1,5 @@
 import api from "../api/api";
-import { setCookie } from "../../utils/cookie";
+import { deleteCookie, setCookie } from "../../utils/cookie";
 
 export const GET_REG_REQUEST = "GET_REG_REQUEST";
 export const GET_REG_SUCCESS = "GET_REG_SUCCESS";
@@ -8,6 +8,10 @@ export const GET_REG_FAILED = "GET_REG_FAILED";
 export const GET_LOGIN_REQUEST = "GET_LOGIN_REQUEST";
 export const GET_LOGIN_SUCCESS = "GET_LOGIN_SUCCESS";
 export const GET_LOGIN_FAILED = "GET_LOGIN_FAILED";
+
+export const GET_LOGOUT_REQUEST = "GET_LOGOUT_REQUEST";
+export const GET_LOGOUT_SUCCESS = "GET_LOGOUT_SUCCESS";
+export const GET_LOGOUT_FAILED = "GET_LOGOUT_FAILED";
 
 export const CHECK_TOKEN_REQUEST = "CHECK_TOKEN_REQUEST";
 export const CHECK_TOKEN_SUCCESS = "CHECK_TOKEN_SUCCESS";
@@ -88,7 +92,7 @@ export function getLogin(data) {
     dispatch({
       type: GET_LOGIN_REQUEST
     });
-    api.login(data)
+    return api.login(data)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -96,13 +100,16 @@ export function getLogin(data) {
             user: res.user
           });
           const authToken = res["accessToken"].split("Bearer ")[1];
-          setCookie("token", authToken, 20);
+          setCookie("token", authToken, 2000);
           const refreshToken = res["refreshToken"];
+          console.log(refreshToken)
           localStorage.setItem("refreshToken", refreshToken);
+          return res;
         } else {
           dispatch({
             type: GET_LOGIN_FAILED
           });
+          return res;
         }
       })
       .catch(err => {
@@ -110,21 +117,58 @@ export function getLogin(data) {
         dispatch({
           type: GET_LOGIN_FAILED
         });
+        return err;
       });
   };
 }
+
+
+export function getLogout(data) {
+  return function(dispatch) {
+    dispatch({
+      type: GET_LOGOUT_REQUEST
+    });
+    return api.logout(data)
+      .then(res => {
+        console.log(res)
+        if (res && res.success) {
+          dispatch({
+            type: GET_LOGOUT_SUCCESS,
+          });
+          deleteCookie("token");
+          localStorage.removeItem("refreshToken");
+          return res;
+        } else {
+          dispatch({
+            type: GET_LOGOUT_FAILED
+          });
+          console.log(res)
+          return res;
+        }
+      })
+      .catch(err => {
+        console.error('catch', err.message);
+        dispatch({
+          type: GET_LOGOUT_FAILED
+        });
+        return err;
+      });
+  };
+}
+
 
 export function getRegistration(data) {
   return function(dispatch) {
     dispatch({
       type: GET_REG_REQUEST
     });
-    api.register(data)
+    return api.register(data)
       .then(res => {
         if (res && res.success) {
           dispatch({
             type: GET_REG_SUCCESS
           });
+          return res;
         } else {
           dispatch({
             type: GET_REG_FAILED
@@ -136,6 +180,7 @@ export function getRegistration(data) {
         dispatch({
           type: GET_REG_FAILED
         });
+        return err;
       });
   };
 }

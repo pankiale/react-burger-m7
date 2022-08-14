@@ -28,7 +28,7 @@ export function LoginPage() {
     [form]
   );
 
-  if (loginSuccess) {
+  /*if (loginSuccess) {
     return (
       <Redirect
         to={{
@@ -36,7 +36,7 @@ export function LoginPage() {
         }}
       />
     );
-  }
+  }*/
 
   return (
       <div className={styles.wrapper_container}>
@@ -57,10 +57,10 @@ export function LoginPage() {
             </Button>
           </form>
           <p className={`text text_type_main-default text_color_inactive ${styles.paragraph}`}>Вы новый
-            пользователь? <Link to="/registration/registration"
+            пользователь? <Link to="/registration"
                                 className={`text text_type_main-default ${styles.link}`}>Зарегистрироваться</Link></p>
           <p className={`text text_type_main-default text_color_inactive ${styles.paragraph}`}>Забыли пароль? <Link
-            to="/registration/forgot-password"
+            to="/forgot-password"
             className={`text text_type_main-default ${styles.link}`}>Восстановить пароль</Link></p>
         </div>
       </div>

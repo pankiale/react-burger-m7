@@ -4,7 +4,7 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
-import { getRegistration } from "../../services/actions/auth";
+import { getLogout, getRegistration } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../../components/app-header/app-header";
 
@@ -16,6 +16,14 @@ export function ProfilePage() {
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  const handleLogout = () => {
+    dispatch(getLogout(refreshToken))
+      .catch((err) => {
+        console.error("Что то пошло не так", err)
+      })
+  }
 
   const isDisabled = Boolean(!form.email && !form.password);
 
@@ -42,10 +50,12 @@ export function ProfilePage() {
                      className={`text text_type_main-medium text_color_inactive ${styles.link}`}>Профиль</NavLink>
             <NavLink to={{pathname: '/profile/orders'}} activeClassName={styles.link_active}
                      className={`text text_type_main-medium text_color_inactive ${styles.link}`}>История Заказов</NavLink>
-            <NavLink to={{pathname: '/profile/logout'}} activeClassName={styles.link_active}
+            <NavLink to={{pathname: '/login'}} activeClassName={styles.link_active} onClick={handleLogout}
                      className={`text text_type_main-medium text_color_inactive ${styles.link}`}>Выход</NavLink>
-
+            <p className={"text text_type_main-small text_color_inactive mt-20"}>В этом разделе вы можете
+              изменить свои персональные данные</p>
           </nav>
+
           <form className={styles.form}>
             <div className={styles.wrapper}>
               <Input
