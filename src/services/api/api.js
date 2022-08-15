@@ -97,11 +97,9 @@ class API {
       },
       body: JSON.stringify(profileInfo)
     })
-      .then(res => {
-        this._checkResponse(res)
-        return res
-      });
+      .then(this._checkResponse);
   }
+
 
   checkToken() {
     return fetch(`${this._url}/auth/user`, {
@@ -111,11 +109,9 @@ class API {
         Authorization: "Bearer " + getCookie("token")
       }
     })
-      .then(res => {
-        this._checkResponse(res)
-        return res
-      });
-    }
+      .then(this._checkResponse);
+  }
+
 
   refreshToken() {
     return fetch(`${this._url}/auth/token`, {
