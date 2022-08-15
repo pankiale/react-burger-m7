@@ -23,7 +23,6 @@ function App() {
   const history = useHistory();
   const background = location.state?.background;
   const dispatch = useDispatch();
-console.log(location)
 
   const onCloseBtnClick = (e) => {
     e.stopPropagation();

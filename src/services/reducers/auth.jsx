@@ -1,4 +1,6 @@
 import {
+  CHANGE_USER_FAILED,
+  CHANGE_USER_REQUEST, CHANGE_USER_SUCCESS,
   CHECK_TOKEN_FAILED,
   CHECK_TOKEN_REQUEST,
   CHECK_TOKEN_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS,
@@ -49,6 +51,10 @@ const initialState = {
   refreshTokenRequest: false,
   refreshTokenFailed: false,
   refreshTokenSuccess: false,
+
+  changeUserRequest: false,
+  changeUserFailed: false,
+  changeUserSuccess: false,
 
   isUserLoaded: false
 
@@ -128,6 +134,24 @@ export const authReducer = (state = initialState, action) => {
     }
     case CHECK_TOKEN_FAILED: {
       return { ...state, tokenFailed: true, tokenRequest: false };
+    }
+    case CHANGE_USER_REQUEST: {
+      return {
+        ...state,
+        changeUserRequest: true
+      };
+    }
+    case CHANGE_USER_SUCCESS: {
+      return {
+        ...state,
+        changeUserFailed: false,
+        changeUserRequest: false,
+        changeUserSuccess: true,
+        user: action.user
+      };
+    }
+    case CHANGE_USER_FAILED: {
+      return { ...state, changeUserFailed: true, changeUserRequest: false };
     }
     case REFRESH_TOKEN_REQUEST: {
       return {

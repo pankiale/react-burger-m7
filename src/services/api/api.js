@@ -13,9 +13,7 @@ class API {
     if (res.status === 200) {
       return res.json();
     }
-    return res.json().then(res => {
-      throw res.message
-    });
+    return Promise.reject(res.status);
   }
 
 
@@ -88,6 +86,21 @@ class API {
       body: JSON.stringify(data)
     })
       .then(this._checkResponse);
+  }
+
+  changeUser(profileInfo) {
+    return fetch(`${this._url}/auth/user`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token")
+      },
+      body: JSON.stringify(profileInfo)
+    })
+      .then(res => {
+        this._checkResponse(res)
+        return res
+      });
   }
 
   checkToken() {
