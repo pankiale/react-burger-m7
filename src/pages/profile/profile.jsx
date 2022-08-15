@@ -11,23 +11,21 @@ import AppHeader from "../../components/app-header/app-header";
 export function ProfilePage() {
 
   const { regSuccess, regFailed, user } = useSelector(state => state.auth);
-  const [userTemp, setUserTemp] = useState(user);
-  const [form, setValue] = useState({ email: userTemp.email, password: "", name: userTemp.name });
+  const [form, setValue] = useState({ email: user.email, password: "", name: user.name });
   const dispatch = useDispatch();
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
   const onCancel = () => {
-    setValue({ email: userTemp.email, password: "", name: userTemp.name });
+    setValue({ email: user.email, password: "", name: user.name });
   };
   const changeUser = useCallback((e) => {
     debugger
     e.preventDefault();
     dispatch(getChangeUser(form))
-      .then(setUserTemp({email: form.email, password: "", name: form.name}))
   }, [form, dispatch, user]);
 
-  const isDisabled = Boolean(form.email === userTemp.email && form.name === userTemp.name);
+  const isDisabled = Boolean(form.email === user.email && form.name === user.name);
   const refreshToken = localStorage.getItem("refreshToken");
 
   const handleLogout = () => {
