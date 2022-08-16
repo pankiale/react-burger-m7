@@ -50,10 +50,12 @@ export function refreshToken() {
           setCookie("token", authToken, 20);
           const refreshToken = res["refreshToken"];
           localStorage.setItem("refreshToken", refreshToken);
+          return res
         } else {
           dispatch({
             type: REFRESH_TOKEN_FAILED
           });
+          return res
         }
       })
       .catch(err => {
@@ -61,7 +63,7 @@ export function refreshToken() {
         dispatch({
           type: REFRESH_TOKEN_FAILED
         });
-
+        return err
       });
   };
 }
@@ -77,22 +79,22 @@ export function checkToken() {
           dispatch({
             type: CHECK_TOKEN_SUCCESS,
             user: res.user
-          })
+          });
           return res;
         } else {
-          console.log('else', res)
+          console.log("else", res);
           dispatch({
             type: CHECK_TOKEN_FAILED
-          })
+          });
           throw res;
         }
       })
-/*      .catch(err => {
+      .catch(err => {
         dispatch({
           type: CHECK_TOKEN_FAILED
-        })
-        console.error(err.message)
-      });*/
+        });
+        console.error(err.message);
+      });
   };
 }
 
@@ -169,13 +171,13 @@ export function getForgotPassword(data) {
       .then(res => {
         if (res && res.success) {
           dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-          })
+            type: FORGOT_PASSWORD_SUCCESS
+          });
           return res;
         } else {
           dispatch({
             type: FORGOT_PASSWORD_FAILED
-          })
+          });
           return res;
         }
       })
@@ -198,13 +200,13 @@ export function getResetPassword(data) {
       .then(res => {
         if (res && res.success) {
           dispatch({
-            type: RESET_PASSWORD_SUCCESS,
-          })
+            type: RESET_PASSWORD_SUCCESS
+          });
           return res;
         } else {
           dispatch({
             type: RESET_PASSWORD_FAILED
-          })
+          });
           return res;
         }
       })
@@ -225,10 +227,10 @@ export function getLogout() {
     });
     return api.logout()
       .then(res => {
-        console.log(res)
+        console.log(res);
         if (res && res.success) {
           dispatch({
-            type: GET_LOGOUT_SUCCESS,
+            type: GET_LOGOUT_SUCCESS
           });
           deleteCookie("token");
           localStorage.removeItem("refreshToken");
@@ -237,17 +239,17 @@ export function getLogout() {
           dispatch({
             type: GET_LOGOUT_FAILED
           });
-          console.log(res)
+          console.log(res);
           return res;
         }
-      })
-/*      .catch(err => {
-        console.error('catch', err.message);
-        dispatch({
-          type: GET_LOGOUT_FAILED
-        });
-        return err;
-      });*/
+      });
+    /*      .catch(err => {
+            console.error('catch', err.message);
+            dispatch({
+              type: GET_LOGOUT_FAILED
+            });
+            return err;
+          });*/
   };
 }
 

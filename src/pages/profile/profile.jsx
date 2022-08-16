@@ -4,7 +4,13 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
-import { GET_LOGOUT_FAILED, getChangeUser, getLogout, getRegistration } from "../../services/actions/auth";
+import {
+  GET_LOGOUT_FAILED,
+  getChangeUser,
+  getLogout,
+  getRegistration,
+  refreshToken
+} from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../../components/app-header/app-header";
 
@@ -19,10 +25,11 @@ export function ProfilePage() {
   const onCancel = () => {
     setValue({ email: user.email, password: "", name: user.name });
   };
-  const changeUser = useCallback((e) => {
-    debugger
+  const changeUser = useCallback (async (e) => {
     e.preventDefault();
-    dispatch(getChangeUser(form))
+    await dispatch(refreshToken())
+    await dispatch(getChangeUser(form))
+      .catch((err)=> console.log(err))
   }, [form, dispatch, user]);
 
   const isDisabled = Boolean(form.email === user.email && form.name === user.name);

@@ -41,7 +41,6 @@ const Card = ({ data }) => {
 
 Card.propTypes = {
   data: dataTypes.isRequired,
-  clicker: PropTypes.func.isRequired
 };
 
 export default Card;

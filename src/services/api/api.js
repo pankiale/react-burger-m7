@@ -101,7 +101,7 @@ class API {
         Authorization: "Bearer " + getCookie("token")
       }
     })
-      .then(res=> res.json());
+      .then(this._checkResponse);
   }
 
   // requires refresh token //

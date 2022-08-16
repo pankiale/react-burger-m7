@@ -75,9 +75,4 @@ const IngredientDetails = () => {
   );
 };
 
-
-IngredientDetails.propTypes = {
-  data: PropTypes.objectOf(dataTypes).isRequired
-};
-
 export default IngredientDetails;

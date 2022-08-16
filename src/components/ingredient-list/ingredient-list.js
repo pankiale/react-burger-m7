@@ -34,7 +34,6 @@ IngredientList.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   ingredient: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-  openModal: PropTypes.func.isRequired
 };
 
 export default IngredientList;
