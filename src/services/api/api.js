@@ -1,4 +1,5 @@
 import { getCookie } from "../../utils/cookie";
+import { refreshToken } from "../actions/auth";
 
 const config = {
   url: "https://norma.nomoreparties.space/api"
@@ -13,7 +14,7 @@ class API {
     if (res.status === 200) {
       return res.json();
     }
-    return Promise.reject(res.status);
+    return Promise.reject(res);
   }
 
 
@@ -55,16 +56,6 @@ class API {
       .then(this._checkResponse);
   }
 
-  logout(data) {
-    return fetch(`${this._url}/auth/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({token: data})
-    })
-      .then(this._checkResponse)
-  }
 
   forgotPassword(data) {
     return fetch(`${this._url}/password-reset`, {
@@ -88,6 +79,7 @@ class API {
       .then(this._checkResponse);
   }
 
+  // requires authorisation token //
   changeUser(profileInfo) {
     return fetch(`${this._url}/auth/user`, {
       method: "PATCH",
@@ -109,25 +101,37 @@ class API {
         Authorization: "Bearer " + getCookie("token")
       }
     })
-      .then(this._checkResponse);
+      .then(res=> res.json());
   }
 
+  // requires refresh token //
 
   refreshToken() {
     return fetch(`${this._url}/auth/token`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-          token: localStorage.getItem('refreshToken'),
-        }),
+        token: localStorage.getItem("refreshToken")
+      })
     })
       .then(this._checkResponse);
   }
 
-
+  logout() {
+    return fetch(`${this._url}/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem("refreshToken")
+      })
+    })
+      .then(this._checkResponse);
   }
+}
 
 
 const api = new API(config);

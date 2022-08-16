@@ -77,23 +77,22 @@ export function checkToken() {
           dispatch({
             type: CHECK_TOKEN_SUCCESS,
             user: res.user
-          });
+          })
+          return res;
         } else {
+          console.log('else', res)
           dispatch({
             type: CHECK_TOKEN_FAILED
-          });
+          })
+          throw res;
         }
       })
-      .then(() => dispatch({
-        type: IS_USER_LOADED,
-        payload: true
-      }))
-      .catch(err => {
+/*      .catch(err => {
         dispatch({
           type: CHECK_TOKEN_FAILED
         })
         console.error(err.message)
-      });
+      });*/
   };
 }
 
@@ -219,12 +218,12 @@ export function getResetPassword(data) {
   };
 }
 
-export function getLogout(data) {
+export function getLogout() {
   return function(dispatch) {
     dispatch({
       type: GET_LOGOUT_REQUEST
     });
-    return api.logout(data)
+    return api.logout()
       .then(res => {
         console.log(res)
         if (res && res.success) {
@@ -242,13 +241,13 @@ export function getLogout(data) {
           return res;
         }
       })
-      .catch(err => {
+/*      .catch(err => {
         console.error('catch', err.message);
         dispatch({
           type: GET_LOGOUT_FAILED
         });
         return err;
-      });
+      });*/
   };
 }
 

@@ -15,6 +15,8 @@ import IngredientDetails from "../components/modals/ingredient-details/ingredien
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getItems } from "../services/actions/ingredients";
+import { CHECK_TOKEN_SUCCESS, checkToken, refreshToken } from "../services/actions/auth";
+import { getCookie } from "../utils/cookie";
 
 
 function App() {
@@ -23,10 +25,12 @@ function App() {
   const history = useHistory();
   const background = location.state?.background;
   const dispatch = useDispatch();
+  const token = getCookie('token')
 
   const onCloseBtnClick = (e) => {
     e.stopPropagation();
-    history.goBack();}
+    history.goBack();
+  };
 
 
   useEffect(
@@ -35,44 +39,61 @@ function App() {
     },
     []
   );
-  return (
-    <>
-      <div className={styles.app}>
-        <AppHeader />
-        <Switch location={background || location}>
-          <ProtectedRoute notAuthOnly={true} path="/login" exact>
-            <LoginPage />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile" exact>
-            <ProfilePage />
-          </ProtectedRoute>
-          <ProtectedRoute notAuthOnly={true} path="/registration" exact>
-            <RegistrationPage />
-          </ProtectedRoute>
-          <ProtectedRoute notAuthOnly={true} path="/forgot-password" exact>
-            <ForgotPasswordPage />
-          </ProtectedRoute>
-          <ProtectedRoute notAuthOnly={true} path="/reset-password" exact>
-            <ResetPasswordPage />
-          </ProtectedRoute>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/ingredients/:ingredientId">
-            <IngredientDetails />
-          </Route>
-          <Route path="*">
-            <NotFound404 />
-          </Route>
-        </Switch>
-      </div>
-      {background && <Route path="/ingredients/:ingredientId" children={
-        <Modal header="Детали Ингридиента" onCloseBtnClick={onCloseBtnClick}>
-          <IngredientDetails />
-        </Modal>
-      } />}
-    </>
-  );
-}
 
-export default App;
+  const checkUser = async () => {
+    try {return await dispatch(checkToken())}
+    catch (err) {
+        console.log(err)
+      await dispatch(refreshToken())
+      await dispatch(checkToken())
+      };
+  }
+
+  useEffect(
+    ()=> {
+        checkUser()
+          .catch(err=>{return console.log(err) });
+    }
+  )
+
+      return (
+        <>
+          <div className={styles.app}>
+            <AppHeader />
+            <Switch location={background || location}>
+              <ProtectedRoute notAuthOnly={true} path="/login" exact>
+                <LoginPage />
+              </ProtectedRoute>
+              <ProtectedRoute path="/profile" exact>
+                <ProfilePage />
+              </ProtectedRoute>
+              <ProtectedRoute notAuthOnly={true} path="/registration" exact>
+                <RegistrationPage />
+              </ProtectedRoute>
+              <ProtectedRoute notAuthOnly={true} path="/forgot-password" exact>
+                <ForgotPasswordPage />
+              </ProtectedRoute>
+              <ProtectedRoute notAuthOnly={true} path="/reset-password" exact>
+                <ResetPasswordPage />
+              </ProtectedRoute>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/ingredients/:ingredientId">
+                <IngredientDetails />
+              </Route>
+              <Route path="*">
+                <NotFound404 />
+              </Route>
+            </Switch>
+          </div>
+          {background && <Route path="/ingredients/:ingredientId" children={
+            <Modal header="Детали Ингридиента" onCloseBtnClick={onCloseBtnClick}>
+              <IngredientDetails />
+            </Modal>
+          } />}
+        </>
+      );
+    }
+
+    export default App;
