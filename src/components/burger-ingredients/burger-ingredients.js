@@ -5,7 +5,7 @@ import IngredientList from "../ingredient-list/ingredient-list";
 import Modal from "../modals/modals";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import { TAB_SWITCH, TOGGLE_MODAL } from "../../services/actions/ingredients";
+import { TAB_SWITCH, CLOSE_MODAL } from "../../services/actions/ingredients";
 import { useInView } from "react-intersection-observer";
 
 function BurgerIngredients() {
@@ -51,33 +51,24 @@ function BurgerIngredients() {
     }, [dispatch, tabBun, tabSauce, tabMain]
   );
 
-  const [renderData, setRenderData] = useState([]);
-
-  const onIngrClick = (data) => {
+/*  const onCloseBtnClick = () => {
     dispatch({
-      type: TOGGLE_MODAL
+      type: CLOSE_MODAL
     });
-    setRenderData({ data });
-  };
-
-  const onCloseBtnClick = () => {
-    dispatch({
-      type: TOGGLE_MODAL
-    });
-  };
+  };*/
 
   return (
     <>
-      {isModalOpen && (
+{/*      {isModalOpen && (
         <>
           <Modal
-            handleCloseClick={onCloseBtnClick}
+            //handleCloseClick={onCloseBtnClick}
             header="Детали ингредиента"
           >
-            <IngredientDetails data={renderData} />
+            <IngredientDetails />
           </Modal>
         </>
-      )}
+      )}*/}
       <section
         className={`${styles.ingredients__section} pl-4 pr-5 pt-10 pb-8`}
       >
@@ -99,21 +90,18 @@ function BurgerIngredients() {
             ref={refBun}
             title="Булки"
             ingredient="bun"
-            openModal={onIngrClick}
           />
           <IngredientList
             id={"sauce"}
             ref={refSauce}
             title="Соусы"
             ingredient="sauce"
-            openModal={onIngrClick}
           />
           <IngredientList
             id={"main"}
             ref={refMain}
             title="Начинки"
             ingredient="main"
-            openModal={onIngrClick}
           />
         </div>
       </section>

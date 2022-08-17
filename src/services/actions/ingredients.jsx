@@ -1,4 +1,4 @@
-import api from "../../api/api";
+import api from "../api/api";
 
 export const INCREASE_COUNTER = "INCREASE_COUNTER";
 export const DECREASE_COUNTER = "DECREASE_COUNTER";
@@ -9,7 +9,7 @@ export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
 export const GET_ITEMS_FAILED = "GET_ITEMS_FAILED";
 
 export const TAB_SWITCH = "TAB_SWITCH";
-export const TOGGLE_MODAL = "TOGGLE_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
 
 
 export function getItems() {

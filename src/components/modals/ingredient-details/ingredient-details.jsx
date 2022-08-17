@@ -1,17 +1,25 @@
 import PropTypes from "prop-types";
 import { dataTypes } from "../../../utils/const";
 import styles from "./ingredient_details.module.css";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ data }) => {
+const IngredientDetails = () => {
+  const { ingredientId } = useParams();
+  const { ingredients }
+    = useSelector(
+    state => state.ingredients
+  );
+  const data = ingredients.find(item => item._id === ingredientId);
   return (
     <section className={styles.ingr__card}>
       <img
-        src={data.data.image_large}
-        alt={data.data.name}
+        src={data?.image_large}
+        alt={data?.name}
         className={styles.ingr__image}
       />
       <p className={`${styles.ingr__title} text text_type_main-medium`}>
-        {data.data.name}
+        {data?.name}
       </p>
       <div className={styles.ingr__info_section}>
         <div className={styles.ingr__info_el}>
@@ -23,7 +31,7 @@ const IngredientDetails = ({ data }) => {
           <p
             className={`${styles.popup__price} text text_type_digits-default text_color_inactive`}
           >
-            {data.data.calories}
+            {data?.calories}
           </p>
         </div>
         <div className={styles.ingr__info_el}>
@@ -35,7 +43,7 @@ const IngredientDetails = ({ data }) => {
           <p
             className={`${styles.popup__price} text text_type_digits-default text_color_inactive`}
           >
-            {data.data.proteins}
+            {data?.proteins}
           </p>
         </div>
         <div className={styles.ingr__info_el}>
@@ -47,7 +55,7 @@ const IngredientDetails = ({ data }) => {
           <p
             className={`${styles.popup__price} text text_type_digits-default text_color_inactive`}
           >
-            {data.data.fat}
+            {data?.fat}
           </p>
         </div>
         <div className={styles.ingr__info_el}>
@@ -59,17 +67,12 @@ const IngredientDetails = ({ data }) => {
           <p
             className={`${styles.popup__price} text text_type_digits-default text_color_inactive`}
           >
-            {data.data.carbohydrates}
+            {data?.carbohydrates}
           </p>
         </div>
       </div>
     </section>
   );
-};
-
-
-IngredientDetails.propTypes = {
-  data: PropTypes.objectOf(dataTypes).isRequired,
 };
 
 export default IngredientDetails;

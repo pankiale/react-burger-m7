@@ -3,7 +3,7 @@ import {
   INCREASE_COUNTER,
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
-  GET_ITEMS_SUCCESS, TAB_SWITCH, TOGGLE_MODAL, RESET_COUNTER
+  GET_ITEMS_SUCCESS, TAB_SWITCH, CLOSE_MODAL, RESET_COUNTER
 } from "../actions/ingredients";
 
 const initialState = {
@@ -68,10 +68,10 @@ export const ingredientsReducer = (state = initialState, action) => {
         currentTab: action.value
       };
     }
-    case TOGGLE_MODAL: {
+    case CLOSE_MODAL: {
       return {
         ...state,
-        isModalOpen: !state.isModalOpen
+        isModalOpen: false
       };
     }
     default: {

@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import styles from "../modals.module.css";
 
 const ModalOverlay = ({ handleCloseClick }) => {
-  const closePopup = () => {
-    handleCloseClick();
+  const closePopup = (e) => {
+    handleCloseClick(e);
   };
 
   return (

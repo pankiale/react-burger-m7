@@ -1,4 +1,4 @@
-import api from "../../api/api";
+import api from "../api/api";
 import { RESET_COUNTER } from "./ingredients";
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
@@ -8,7 +8,8 @@ export const RESET_ALL_INGREDIENTS = 'RESET_ALL_INGREDIENTS';
 export const SET_TOTAL_PRICE = "SET_TOTAL_PRICE";
 export const RESET_TOTAL_PRICE = 'RESET_TOTAL_PRICE';
 
-export const TOGGLE_ORDER_MODAL = "TOGGLE_ORDER_MODAL";
+export const OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL';
+export const CLOSE_ORDER_MODAL = "CLOSE_ORDER_MODAL";
 
 export const PLACE_ORDER_REQUEST = "PLACE_ORDER_REQUEST";
 export const PLACE_ORDER_SUCCESS = "PLACE_ORDER_SUCCESS";
@@ -29,7 +30,7 @@ export function placeOrder(IDs) {
             payload: res.order.number
           });
           dispatch({
-            type: TOGGLE_ORDER_MODAL
+            type: OPEN_ORDER_MODAL
           });
         } else {
           dispatch({

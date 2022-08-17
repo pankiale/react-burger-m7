@@ -4,15 +4,23 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modals.module.css";
 import ModalOverlay from "./modal-overlay/modal-overlay";
+import { useDispatch } from "react-redux";
+import { CLOSE_ORDER_MODAL } from "../../services/actions/burgerConstructor";
+import { CLOSE_MODAL } from "../../services/actions/ingredients";
+import { useHistory } from "react-router-dom";
 const modalsContainer = document.querySelector("#react-modals");
 
-const Modal = ({ header, children, handleCloseClick }) => {
-  const closePopup = () => {
-    handleCloseClick();
+const Modal = ({ header, children, onCloseBtnClick }) => {
+
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const closePopup = (e) => {
+    onCloseBtnClick(e);
   };
 
   const handleEscKeydown = (e) => {
-    e.key === "Escape" && handleCloseClick();
+    e.key === "Escape" && onCloseBtnClick(e);
   };
 
   useEffect(() => {
@@ -37,7 +45,7 @@ const Modal = ({ header, children, handleCloseClick }) => {
         </h1>
         {children}
       </section>
-      <ModalOverlay handleCloseClick={handleCloseClick} />
+      <ModalOverlay handleCloseClick={onCloseBtnClick} />
     </>,
     modalsContainer
   );
@@ -46,7 +54,7 @@ const Modal = ({ header, children, handleCloseClick }) => {
 Modal.propTypes = {
   header: PropTypes.string.isRequired,
   children: PropTypes.object,
-  handleCloseClick: PropTypes.func.isRequired
+  onCloseBtnClick: PropTypes.func.isRequired
 };
 
 export default Modal;

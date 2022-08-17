@@ -9,13 +9,15 @@ import { useDrop } from "react-dnd";
 import { DECREASE_COUNTER, INCREASE_COUNTER } from "../../services/actions/ingredients";
 import {
   ADD_INGREDIENT,
-  DELETE_INGREDIENT,
   placeOrder,
-  TOGGLE_ORDER_MODAL
+  CLOSE_ORDER_MODAL
 } from "../../services/actions/burgerConstructor";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 function BurgerConstructor() {
-
+  const location = useLocation();
+  const history = useHistory();
+  const { user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const {
     burgerConstructorIngredients: burgerIngredients,
@@ -62,16 +64,22 @@ function BurgerConstructor() {
     }
   });
 
-  const onOrderClick = () => {
+  const onOrderClick = (e) => {
+    e.preventDefault();
+    if (Object.keys(user).length === 0) {
+     return history.push({ pathname: "/login"}, { from: location })
+    }
     const IDs = { "ingredients": burgerIngredients.map(item => item._id) };
     dispatch(placeOrder(IDs));
   };
 
   const onCloseBtnClick = () => {
     dispatch({
-      type: TOGGLE_ORDER_MODAL
+      type: CLOSE_ORDER_MODAL
     });
   };
+
+  const isDisabled = Boolean(burgerIngredients.length === 0 || buns.length === 0);
 
   return (
 
@@ -80,7 +88,7 @@ function BurgerConstructor() {
         <>
           <Modal
             header="Is loading ..."
-            handleCloseClick={onCloseBtnClick}
+            onCloseBtnClick={onCloseBtnClick}
           >
           </Modal>
         </>
@@ -88,7 +96,7 @@ function BurgerConstructor() {
       {isModalOpen && !orderRequest && (
         <>
           <Modal
-            handleCloseClick={onCloseBtnClick}
+            onCloseBtnClick={onCloseBtnClick}
             header=""
           >
             <OrderDetails />
@@ -99,10 +107,8 @@ function BurgerConstructor() {
       <section ref={dropTarget} className={`${styles.ingredients__section} pl-5 pr-4 pt-25`}>
         <IngredientSection />
         <div className={styles.ingredients__shopping_cart}>
-          {(burgerIngredients.length === 0 || buns.length === 0) &&
-            <div className={styles.ingredients__button}></div>}
           <TotalBill />
-          <Button onClick={onOrderClick} type="primary" size="large">
+          <Button onClick={onOrderClick} type="primary" size="large" disabled={isDisabled}>
             Оформить заказ
           </Button>
         </div>
