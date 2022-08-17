@@ -34,7 +34,9 @@ const AppHeader = () => {
             </li>
           </ul>
         </nav>
-        <Logo />
+        <NavLink to={{ pathname: "/" }} exact activeClassName={styles.header__logo_active}>
+          <Logo />
+        </NavLink>
         <nav>
           <ul className={styles.header__login}>
             <li className="pt-4 pb-4 pl-5 pr-5">

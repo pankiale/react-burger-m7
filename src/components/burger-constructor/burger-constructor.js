@@ -9,13 +9,15 @@ import { useDrop } from "react-dnd";
 import { DECREASE_COUNTER, INCREASE_COUNTER } from "../../services/actions/ingredients";
 import {
   ADD_INGREDIENT,
-  DELETE_INGREDIENT,
   placeOrder,
   CLOSE_ORDER_MODAL
 } from "../../services/actions/burgerConstructor";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 function BurgerConstructor() {
-
+  const location = useLocation();
+  const history = useHistory();
+  const { user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const {
     burgerConstructorIngredients: burgerIngredients,
@@ -62,7 +64,11 @@ function BurgerConstructor() {
     }
   });
 
-  const onOrderClick = () => {
+  const onOrderClick = (e) => {
+    e.preventDefault();
+    if (Object.keys(user).length === 0) {
+     return history.push({ pathname: "/login"}, { from: location })
+    }
     const IDs = { "ingredients": burgerIngredients.map(item => item._id) };
     dispatch(placeOrder(IDs));
   };

@@ -39,8 +39,14 @@
 	cursor: pointer;
 }
 
+
+.header__logo_active {
+	cursor: default;
+}
+
 .header__link_active {
 	color: white;
+	cursor: default;
 }
 
 .header__button:last-child {

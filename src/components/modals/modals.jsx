@@ -54,7 +54,7 @@ const Modal = ({ header, children, onCloseBtnClick }) => {
 Modal.propTypes = {
   header: PropTypes.string.isRequired,
   children: PropTypes.object,
-  handleCloseClick: PropTypes.func.isRequired
+  onCloseBtnClick: PropTypes.func.isRequired
 };
 
 export default Modal;

@@ -6,8 +6,6 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css";
 import { getLogin } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie } from "../../utils/cookie";
-import AppHeader from "../../components/app-header/app-header";
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -20,7 +18,7 @@ export function LoginPage() {
 
   const isDisabled = Boolean(!form.email && !form.password);
 
-  let login = useCallback(
+  const login = useCallback(
     e => {
       e.preventDefault();
       dispatch(getLogin(form));
@@ -31,7 +29,7 @@ export function LoginPage() {
   return (
     <div className={styles.wrapper_container}>
       <div className={styles.container}>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={login}>
           <h1 className={`text text_type_main-medium ${styles.header}`}>Вход</h1>
           <div className={styles.wrapper}>
             <EmailInput placeholder="Email" value={form.email} name="email" onChange={onChange} />
@@ -42,7 +40,7 @@ export function LoginPage() {
               onChange={onChange}
             />
           </div>
-          <Button onClick={login} primary={true} disabled={isDisabled}>
+          <Button primary={true} disabled={isDisabled}>
             Войти
           </Button>
         </form>

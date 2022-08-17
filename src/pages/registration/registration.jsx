@@ -18,7 +18,7 @@ export function RegistrationPage() {
 
   const isDisabled = Boolean(!form.email && !form.password);
 
-  let login = useCallback( e => {
+  const register = useCallback( e => {
     e.preventDefault();
     dispatch(getRegistration(form));
   }, [form]
@@ -37,7 +37,7 @@ export function RegistrationPage() {
   return (
     <div className={styles.wrapper_container}>
       <div className={styles.container}>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={register}>
           <h1 className={`text text_type_main-medium ${styles.header}`}>Регистрация</h1>
           <div className={styles.wrapper}>
             <Input
@@ -65,7 +65,7 @@ export function RegistrationPage() {
               onChange={onChange}
             />
           </div>
-          <Button onClick={login} primary={true} disabled={isDisabled}>
+          <Button primary={true} disabled={isDisabled}>
             Зарегистрироваться
           </Button>
         </form>

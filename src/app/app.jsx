@@ -8,16 +8,14 @@ import AppHeader from "../components/app-header/app-header";
 import { RegistrationPage } from "../pages/registration/registration";
 import { ForgotPasswordPage } from "../pages/forgot-password/forgot-password";
 import { ResetPasswordPage } from "../pages/reset-password/reset-password";
-import { ProtectedRoute } from "../utils/protected-route";
+import { ProtectedRoute } from "../components/protected-route/protected-route";
 import { ProfilePage } from "../pages/profile/profile";
 import Modal from "../components/modals/modals";
 import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getItems } from "../services/actions/ingredients";
-import { CHECK_TOKEN_SUCCESS, checkToken, refreshToken } from "../services/actions/auth";
-import { getCookie } from "../utils/cookie";
-
+import { checkToken, refreshToken } from "../services/actions/auth";
 
 function App() {
 
@@ -31,17 +29,9 @@ function App() {
     history.goBack();
   };
 
-
-  useEffect(
-    () => {
-      dispatch(getItems());
-    },
-    []
-  );
-
   useEffect(() => {
       async function checkUser() {
-        await dispatch(refreshToken())
+        await dispatch(refreshToken());
         await dispatch(checkToken());
 
       }
@@ -52,6 +42,8 @@ function App() {
             console.log(err);
           });
       }
+
+      dispatch(getItems());
 
     }, []
   );

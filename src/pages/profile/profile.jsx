@@ -58,7 +58,7 @@ export function ProfilePage() {
             изменить свои персональные данные</p>
         </nav>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={changeUser}>
           <div className={styles.wrapper}>
             <Input
               type={"text"}
@@ -95,7 +95,7 @@ export function ProfilePage() {
             <Button onClick={onCancel} type="secondary" disabled={isDisabled}>
               Отмена
             </Button>
-            <Button onClick={changeUser} primary={true} disabled={isDisabled}>
+            <Button primary={true} disabled={isDisabled}>
               Сохранить
             </Button>
           </div>
