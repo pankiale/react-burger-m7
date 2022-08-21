@@ -1,0 +1,39 @@
+.ingredients__section {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+}
+
+.ingredients__tab {
+  display: flex;
+}
+
+.ingredients__menu {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 244px);
+  overflow: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+.ingredients__menu::-webkit-scrollbar {
+  width: 12px;
+}
+.ingredients__menu::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.ingredients__menu::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px;
+}
+
+.ingredients__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  gap: 32px;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+

@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getItems } from "../services/actions/ingredients";
 import { checkToken, refreshToken } from "../services/actions/auth";
+import Feed from "../pages/feed/feed";
 
 function App() {
 
@@ -70,6 +71,9 @@ function App() {
           </ProtectedRoute>
           <Route path="/" exact>
             <Home />
+          </Route>
+          <Route path="/feed" exact>
+            <Feed />
           </Route>
           <Route path="/ingredients/:ingredientId">
             <IngredientDetails />
