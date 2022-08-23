@@ -1,26 +1,18 @@
 export const getCorrectDate = (inputDate) => {
+  let dayDiff;
   const date = new Date(inputDate);
-  const month = date.getMonth();
-  const day = date.getDate();
-  const dayOfWeek = date.getDay();
+  const time = date.toLocaleTimeString('ru', {timeZoneName: 'short'})
+  const currentDate = new Date()
+  const currentWeekDay = currentDate.getDay() === 0 ? 7 : currentDate.getDay();
+  const diff = Math.round((currentDate - date)/(24*60*60*1000))
 
-  const currentMonth = new Date().getMonth();
-  let weekDay = "";
+  if (diff === 0) dayDiff = 'Сегодня, '
+  else if (diff === 1) dayDiff = 'Вчера, '
+  else if (diff === 2) dayDiff = 'Позавчера, '
+  else if (diff <= currentWeekDay) dayDiff = 'На этой неделе, '
+  else if ((diff - currentWeekDay) <7) dayDiff = 'На прошлой неделе, '
+  else if ((diff - currentWeekDay) <14) dayDiff = 'Две недели назад, '
+  else dayDiff = 'Более двух недель назад, '
 
-  if (month !== currentMonth) return "В этом году";
-
-
-  const currentDay = new Date().getDate();
-  const difference = currentDay - day;
-
-  if (difference === 0) weekDay = "Сегодня";
-  else if (difference === 1) weekDay = "Вчера";
-  else if (difference === 2) weekDay = "Позавчера";
-  else if (difference >= 3 && difference < 7) weekDay = "На этой неделе";
-  else return "В этом месяце";
-
-  const hours = date.getHours();
-  const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-
-  return `${weekDay}, ${hours}:${minutes} i-GMT+3`;
-};
+  return `${dayDiff}${time}`
+}
