@@ -17,6 +17,8 @@ import { useEffect } from "react";
 import { getItems } from "../services/actions/ingredients";
 import { checkToken, refreshToken } from "../services/actions/auth";
 import Feed from "../pages/feed/feed";
+import OrderDetails from "../components/modals/order-details/order-details";
+import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
 
 function App() {
 
@@ -75,6 +77,9 @@ function App() {
           <Route path="/feed" exact>
             <Feed />
           </Route>
+          <Route path="/feed/:orderId">
+            <FeedOrderDetails />
+          </Route>
           <Route path="/ingredients/:ingredientId">
             <IngredientDetails />
           </Route>
@@ -86,6 +91,11 @@ function App() {
       {background && <Route path="/ingredients/:ingredientId" children={
         <Modal header="Детали Ингридиента" onCloseBtnClick={onCloseBtnClick}>
           <IngredientDetails />
+        </Modal>
+      } />}
+      {background && <Route path="/feed/:orderId" children={
+        <Modal header="" onCloseBtnClick={onCloseBtnClick}>
+          <FeedOrderDetails />
         </Modal>
       } />}
     </>

@@ -46,7 +46,7 @@ const OrderCard = ( {data} ) => {
 
   return (
     <Link to={{
-      pathname: `/ingredients/${data._id}`,
+      pathname: `/feed/${data._id}`,
       state: { background: location }
     }}
           className={styles.card}>
