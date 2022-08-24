@@ -24,7 +24,7 @@ function FeedOrders() {
         <h1 className="text text_type_main-large mb-5">Лента Заказов</h1>
 
         <div className={styles.ingredients__menu}>
-          <ul className={`${styles.ingredients__list} pl-4 pr-4 pt-6`}>
+          <ul className={`${styles.ingredients__list} pl-4 pr-4`}>
             {orders
               .map((item) => {
                 return (

@@ -93,14 +93,4 @@ const OrderCard = ( {data} ) => {
     </Link>
   );
 };
-
-OrderCard.propTypes = {
-  createdAt: PropTypes.string.isRequired,
-  ingredients: PropTypes.array.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
-  updatedAt: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired
-};
 export default OrderCard;

@@ -7,11 +7,12 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import { useEffect } from "react";
 import { WS_CLEAR_STORE, WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../../services/actions/ws";
 import FeedOrders from "../../components/feed/feed-orders";
+import FeedSummary from "../../components/feed/feed-summary";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const { orders } = useSelector((store) => store.ws);
-
+console.log(orders)
   //запускаем ws
   useEffect(() => {
     if (!orders) {
@@ -31,14 +32,12 @@ const Feed = () => {
     dispatch({ type: WS_CLEAR_STORE });
   }, [dispatch]);
 
-  console.log(orders);
-
   return (
     <main className={styles.app__main}>
       {orders && (
         <>
           <FeedOrders />
-
+          <FeedSummary />
         </>
       )}
     </main>

@@ -33,6 +33,9 @@ function App() {
   };
 
   useEffect(() => {
+
+    dispatch(getItems());
+
       async function checkUser() {
         await dispatch(refreshToken());
         await dispatch(checkToken());
@@ -45,8 +48,6 @@ function App() {
             console.log(err);
           });
       }
-
-      dispatch(getItems());
 
     }, []
   );
@@ -78,7 +79,7 @@ function App() {
             <Feed />
           </Route>
           <Route path="/feed/:orderId">
-            <FeedOrderDetails />
+            <FeedOrderDetails url={"/all"} />
           </Route>
           <Route path="/ingredients/:ingredientId">
             <IngredientDetails />
