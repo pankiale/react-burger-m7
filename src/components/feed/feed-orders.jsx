@@ -15,7 +15,7 @@ function FeedOrders() {
     = useSelector(
     store => store.ws
   );
-
+if (orders) {
   return (
     <>
       <section
@@ -38,6 +38,7 @@ function FeedOrders() {
       </section>
     </>
   );
+} else return null;
 }
 
 export default FeedOrders;

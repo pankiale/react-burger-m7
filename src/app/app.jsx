@@ -19,6 +19,7 @@ import { checkToken, refreshToken } from "../services/actions/auth";
 import Feed from "../pages/feed/feed";
 import OrderDetails from "../components/modals/order-details/order-details";
 import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
+import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
 
 function App() {
 
@@ -62,6 +63,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/profile" exact>
             <ProfilePage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders" exact>
+            <ProfileOrdersPage />
           </ProtectedRoute>
           <ProtectedRoute notAuthOnly={true} path="/registration" exact>
             <RegistrationPage />
