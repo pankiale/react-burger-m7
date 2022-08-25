@@ -13,14 +13,35 @@ function FeedSummary() {
 
   const ready = orders.filter(item => item.status === 'done');
   const notReady = orders.filter(item => item.status !== 'done');
-  console.log(ready)
-  console.log(notReady)
   return (
       <section className={`${styles.ingredients__section} pl-15 pt-25`}>
-        <div className={styles.ingredients__shopping_cart}>
-          {ready.map(item => {
-            return (<div>{item.number}</div>)
-          })}
+        <div className={styles.ingredients_container}>
+        <div className={styles.orders}>
+          <h3 className="text text_type_main-medium mb-3">Готовы:</h3>
+          <ul className={styles.orders_list}>
+            {ready.slice(0,10).map((item) => (
+              <li
+                className={`${styles.done} text text_type_digits-default`}
+                key={item._id}
+              >
+                {item.number}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles.orders}>
+          <h3 className="text text_type_main-medium mb-3">В работе:</h3>
+          <ul className={styles.orders_list}>
+            {notReady.slice(0,10).map((item) => (
+              <li
+                className={`${styles.pending} text text_type_digits-default`}
+                key={item._id}
+              >
+                {item.number}
+              </li>
+            ))}
+          </ul>
+        </div>
         </div>
         <div className={styles.ingredients__total}>
           <p className={`text text_type_main-medium`}>Выполнено за все время:</p>
