@@ -6,6 +6,7 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../../services/actions
 import { getCookie } from "../../utils/cookie";
 import { GET_LOGOUT_FAILED, getLogout } from "../../services/actions/auth";
 import FeedOrders from "../../components/feed/feed-orders";
+import ProfileOrders from "../../components/profile/profile-orders";
 
 export function ProfileOrdersPage() {
   const orders = useSelector((store) => store.ws.orders || undefined);
@@ -48,7 +49,7 @@ export function ProfileOrdersPage() {
         <div className={styles.form}>
           <div className={styles.wrapper}>
             <div>
-              <FeedOrders />
+              <ProfileOrders />
             </div>
 
           </div>

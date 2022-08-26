@@ -20,9 +20,10 @@ import Feed from "../pages/feed/feed";
 import OrderDetails from "../components/modals/order-details/order-details";
 import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
 import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
+import { getCookie } from "../utils/cookie";
 
 function App() {
-
+  const cookie = getCookie("token");
   const location = useLocation();
   const history = useHistory();
   const background = location.state?.background;
@@ -35,7 +36,7 @@ function App() {
 
   useEffect(() => {
 
-    dispatch(getItems());
+      dispatch(getItems());
 
       async function checkUser() {
         await dispatch(refreshToken());
@@ -66,6 +67,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/profile/orders" exact>
             <ProfileOrdersPage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:orderId" exact>
+            <FeedOrderDetails url={`?token=${cookie}`} />
           </ProtectedRoute>
           <ProtectedRoute notAuthOnly={true} path="/registration" exact>
             <RegistrationPage />
@@ -99,6 +103,11 @@ function App() {
         </Modal>
       } />}
       {background && <Route path="/feed/:orderId" children={
+        <Modal header="" onCloseBtnClick={onCloseBtnClick}>
+          <FeedOrderDetails />
+        </Modal>
+      } />}
+      {background && <Route path="/profile/orders/:orderId" children={
         <Modal header="" onCloseBtnClick={onCloseBtnClick}>
           <FeedOrderDetails />
         </Modal>

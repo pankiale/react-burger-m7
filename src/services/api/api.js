@@ -27,7 +27,8 @@ class API {
     return fetch(`${this._url}/orders`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token")
       },
       body: JSON.stringify(ingredients)
     })

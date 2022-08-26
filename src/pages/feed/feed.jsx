@@ -8,7 +8,6 @@ import FeedSummary from "../../components/feed/feed-summary";
 const Feed = () => {
   const dispatch = useDispatch();
   const { orders } = useSelector((store) => store.ws);
-console.log(orders)
 
   useEffect(() => {
     if (!orders) {
