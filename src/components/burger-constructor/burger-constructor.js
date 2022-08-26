@@ -67,9 +67,10 @@ function BurgerConstructor() {
   const onOrderClick = (e) => {
     e.preventDefault();
     if (Object.keys(user).length === 0) {
-     return history.push({ pathname: "/login"}, { from: location })
+      return history.push({ pathname: "/login" }, { from: location });
     }
-    const IDs = { "ingredients": burgerIngredients.map(item => item._id) };
+    const IngredientsForOrder = burgerIngredients.concat(buns);
+    const IDs = { "ingredients": IngredientsForOrder.map(item => item._id) };
     dispatch(placeOrder(IDs));
   };
 

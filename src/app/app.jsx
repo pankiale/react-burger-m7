@@ -16,9 +16,14 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getItems } from "../services/actions/ingredients";
 import { checkToken, refreshToken } from "../services/actions/auth";
+import Feed from "../pages/feed/feed";
+import OrderDetails from "../components/modals/order-details/order-details";
+import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
+import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
+import { getCookie } from "../utils/cookie";
 
 function App() {
-
+  const cookie = getCookie("token");
   const location = useLocation();
   const history = useHistory();
   const background = location.state?.background;
@@ -30,6 +35,9 @@ function App() {
   };
 
   useEffect(() => {
+
+      dispatch(getItems());
+
       async function checkUser() {
         await dispatch(refreshToken());
         await dispatch(checkToken());
@@ -42,8 +50,6 @@ function App() {
             console.log(err);
           });
       }
-
-      dispatch(getItems());
 
     }, []
   );
@@ -59,6 +65,12 @@ function App() {
           <ProtectedRoute path="/profile" exact>
             <ProfilePage />
           </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders" exact>
+            <ProfileOrdersPage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:orderId" exact>
+            <FeedOrderDetails url={`?token=${cookie}`} />
+          </ProtectedRoute>
           <ProtectedRoute notAuthOnly={true} path="/registration" exact>
             <RegistrationPage />
           </ProtectedRoute>
@@ -71,6 +83,12 @@ function App() {
           <Route path="/" exact>
             <Home />
           </Route>
+          <Route path="/feed" exact>
+            <Feed />
+          </Route>
+          <Route path="/feed/:orderId">
+            <FeedOrderDetails url={"/all"} />
+          </Route>
           <Route path="/ingredients/:ingredientId">
             <IngredientDetails />
           </Route>
@@ -82,6 +100,16 @@ function App() {
       {background && <Route path="/ingredients/:ingredientId" children={
         <Modal header="Детали Ингридиента" onCloseBtnClick={onCloseBtnClick}>
           <IngredientDetails />
+        </Modal>
+      } />}
+      {background && <Route path="/feed/:orderId" children={
+        <Modal header="" onCloseBtnClick={onCloseBtnClick}>
+          <FeedOrderDetails />
+        </Modal>
+      } />}
+      {background && <Route path="/profile/orders/:orderId" children={
+        <Modal header="" onCloseBtnClick={onCloseBtnClick}>
+          <FeedOrderDetails />
         </Modal>
       } />}
     </>
