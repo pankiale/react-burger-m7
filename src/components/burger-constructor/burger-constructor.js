@@ -13,9 +13,9 @@ import {
 import {
   ADD_INGREDIENT,
   placeOrder,
-  CLOSE_ORDER_MODAL
+  closeOrderModalAction
 } from "../../services/actions/burgerConstructor";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 function BurgerConstructor() {
   const location = useLocation();
@@ -69,9 +69,7 @@ function BurgerConstructor() {
   };
 
   const onCloseBtnClick = () => {
-    dispatch({
-      type: CLOSE_ORDER_MODAL
-    });
+    dispatch(closeOrderModalAction());
   };
 
   const isDisabled = Boolean(burgerIngredients.length === 0 || buns.length === 0);

@@ -2,7 +2,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from "./ingredient-section.module.css";
 import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_TOTAL_PRICE } from "../../services/actions/burgerConstructor";
+import { SET_TOTAL_PRICE, setTotalPriceAction } from "../../services/actions/burgerConstructor";
 import Element from "./elements";
 
 const IngredientSection = () => {
@@ -20,10 +20,7 @@ const IngredientSection = () => {
     if (buns.length > 0) {
       total += buns[0].price * 2;
     }
-    dispatch({
-      type: SET_TOTAL_PRICE,
-      value: total
-    });
+    dispatch(setTotalPriceAction(total));
   }, [burgerIngredients, buns]);
 
   return (
