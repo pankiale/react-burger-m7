@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients.module.css";
 import IngredientList from "../ingredient-list/ingredient-list";
-import Modal from "../modals/modals";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import { TAB_SWITCH, CLOSE_MODAL } from "../../services/actions/ingredients";
+import { tabSwitchAction } from "../../services/actions/ingredients";
 import { useInView } from "react-intersection-observer";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const {currentTab, isModalOpen} = useSelector(state => state.ingredients);
+  const {currentTab} = useSelector(state => state.ingredients);
 
   const handleClick = (value) => {
     document.querySelector("#" + value).scrollIntoView();
-    dispatch({
-      type: TAB_SWITCH,
-      value: value
-    });
+    dispatch(tabSwitchAction(value));
   };
 
   const [refBun, tabBun] = useInView(
@@ -33,42 +28,17 @@ function BurgerIngredients() {
   useEffect(
     () => {
       if (tabBun) {
-        dispatch({
-          type: TAB_SWITCH,
-          value: "bun"
-        });
+        dispatch(tabSwitchAction("bun"));
       } else if (tabSauce) {
-        dispatch({
-          type: TAB_SWITCH,
-          value: "sauce"
-        });
+        dispatch(tabSwitchAction("sauce"));
       } else if (tabMain) {
-        dispatch({
-          type: TAB_SWITCH,
-          value: "main"
-        });
+        dispatch(tabSwitchAction("main"));
       }
     }, [dispatch, tabBun, tabSauce, tabMain]
   );
 
-/*  const onCloseBtnClick = () => {
-    dispatch({
-      type: CLOSE_MODAL
-    });
-  };*/
-
   return (
     <>
-{/*      {isModalOpen && (
-        <>
-          <Modal
-            //handleCloseClick={onCloseBtnClick}
-            header="Детали ингредиента"
-          >
-            <IngredientDetails />
-          </Modal>
-        </>
-      )}*/}
       <section
         className={`${styles.ingredients__section} pl-4 pr-5 pt-10 pb-8`}
       >

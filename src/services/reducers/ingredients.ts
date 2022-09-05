@@ -3,18 +3,25 @@ import {
   INCREASE_COUNTER,
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
-  GET_ITEMS_SUCCESS, TAB_SWITCH, CLOSE_MODAL, RESET_COUNTER
+  GET_ITEMS_SUCCESS, TAB_SWITCH, RESET_COUNTER, TIngredientsActions
 } from "../actions/ingredients";
+import { TIngredients } from "../types/data";
 
-const initialState = {
+export type TIngredientsState = {
+  ingredients: ReadonlyArray<TIngredients>,
+  ingredientsRequest: boolean,
+  ingredientsFailed: boolean,
+  currentTab: string,
+};
+
+const initialState: TIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
   currentTab: "bun",
-  isModalOpen: false
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions):TIngredientsState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {
@@ -66,12 +73,6 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         currentTab: action.value
-      };
-    }
-    case CLOSE_MODAL: {
-      return {
-        ...state,
-        isModalOpen: false
       };
     }
     default: {

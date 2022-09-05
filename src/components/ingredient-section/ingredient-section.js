@@ -1,11 +1,8 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_INGREDIENT, SET_TOTAL_PRICE } from "../../services/actions/burgerConstructor";
-import { DECREASE_COUNTER } from "../../services/actions/ingredients";
-import { useDrop } from "react-dnd";
+import { SET_TOTAL_PRICE } from "../../services/actions/burgerConstructor";
 import Element from "./elements";
 
 const IngredientSection = () => {

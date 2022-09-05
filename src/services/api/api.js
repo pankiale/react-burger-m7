@@ -1,5 +1,4 @@
 import { getCookie } from "../../utils/cookie";
-import { refreshToken } from "../actions/auth";
 
 const config = {
   url: "https://norma.nomoreparties.space/api"

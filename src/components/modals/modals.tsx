@@ -1,25 +1,23 @@
-import { useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { FC, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modals.module.css";
 import ModalOverlay from "./modal-overlay/modal-overlay";
-import { useDispatch } from "react-redux";
-import { CLOSE_ORDER_MODAL } from "../../services/actions/burgerConstructor";
-import { CLOSE_MODAL } from "../../services/actions/ingredients";
-import { useHistory } from "react-router-dom";
-const modalsContainer = document.querySelector("#react-modals");
 
-const Modal = ({ header, children, onCloseBtnClick }) => {
+const modalsContainer: Element = document.querySelector("#react-modals") as Element;
 
-  const dispatch = useDispatch()
-  const history = useHistory()
+interface IModalProps {
+  header: string,
+  onCloseBtnClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent> |KeyboardEvent) => void
+}
 
-  const closePopup = (e) => {
+const Modal: FC<IModalProps> = ({ header, children, onCloseBtnClick }) => {
+
+  const closePopup = (e:  React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     onCloseBtnClick(e);
   };
 
-  const handleEscKeydown = (e) => {
+  const handleEscKeydown = (e: KeyboardEvent) => {
     e.key === "Escape" && onCloseBtnClick(e);
   };
 
@@ -38,7 +36,7 @@ const Modal = ({ header, children, onCloseBtnClick }) => {
           type="button"
           className={styles.popup__close_btn}
         >
-          <CloseIcon />
+          <CloseIcon type={"primary"} />
         </button>
         <h1 className={`${styles.popup__header} text text_type_main-large`}>
           {header}
@@ -49,12 +47,6 @@ const Modal = ({ header, children, onCloseBtnClick }) => {
     </>,
     modalsContainer
   );
-};
-
-Modal.propTypes = {
-  header: PropTypes.string.isRequired,
-  children: PropTypes.object,
-  onCloseBtnClick: PropTypes.func.isRequired
 };
 
 export default Modal;

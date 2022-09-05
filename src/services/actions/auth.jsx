@@ -243,16 +243,8 @@ export function getLogout() {
           return res;
         }
       });
-    /*      .catch(err => {
-            console.error('catch', err.message);
-            dispatch({
-              type: GET_LOGOUT_FAILED
-            });
-            return err;
-          });*/
   };
 }
-
 
 export function getRegistration(data) {
   return function(dispatch) {

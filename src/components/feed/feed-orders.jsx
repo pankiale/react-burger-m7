@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import React from "react";
 import styles from "./feed.module.css";
-import IngredientList from "../ingredient-list/ingredient-list";
-import Modal from "../modals/modals";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
-import { TAB_SWITCH, CLOSE_MODAL } from "../../services/actions/ingredients";
-import { useInView } from "react-intersection-observer";
-import Card from "../card/card";
+import { useSelector } from "react-redux";
 import OrderCard from "./order-card";
 
 function FeedOrders() {

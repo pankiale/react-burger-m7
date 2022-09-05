@@ -1,6 +1,6 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DELETE_INGREDIENT, MOVE_ELEMENT } from "../../services/actions/burgerConstructor";
-import { DECREASE_COUNTER } from "../../services/actions/ingredients";
+import { decreaseIngredientCounter } from "../../services/actions/ingredients";
 import styles from "./ingredient-section.module.css";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
@@ -53,10 +53,7 @@ const Element = ({ item, index, id }) => {
             type: DELETE_INGREDIENT,
             item
           });
-          dispatch({
-            type: DECREASE_COUNTER,
-            item
-          });
+          dispatch(decreaseIngredientCounter(item));
         }}
       />
     </li>);

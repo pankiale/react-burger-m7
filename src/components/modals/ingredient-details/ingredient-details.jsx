@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-import { dataTypes } from "../../../utils/const";
 import styles from "./ingredient_details.module.css";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";

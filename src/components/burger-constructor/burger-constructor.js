@@ -6,7 +6,10 @@ import Modal from "../modals/modals";
 import OrderDetails from "../modals/order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { DECREASE_COUNTER, INCREASE_COUNTER } from "../../services/actions/ingredients";
+import {
+  decreaseIngredientCounter,
+  increaseIngredientCounter
+} from "../../services/actions/ingredients";
 import {
   ADD_INGREDIENT,
   placeOrder,
@@ -28,29 +31,20 @@ function BurgerConstructor() {
 
   const moveItem = (item) => {
     if (item.type === "bun" && buns.length > 0) {
-      dispatch({
-        type: DECREASE_COUNTER,
-        item: buns[0]
-      });
+      dispatch(decreaseIngredientCounter(buns[0]));
       const key = Math.random().toString(36).slice(2);
       dispatch({
         type: ADD_INGREDIENT,
         item: { ...item, key: key }
       });
-      dispatch({
-        type: INCREASE_COUNTER,
-        item: item
-      });
+      dispatch(increaseIngredientCounter(item));
     } else {
       const key = Math.random().toString(36).slice(2);
       dispatch({
         type: ADD_INGREDIENT,
         item: { ...item, key: key }
       });
-      dispatch({
-        type: INCREASE_COUNTER,
-        item: item
-      });
+      dispatch(increaseIngredientCounter(item));
     }
   };
 

@@ -1,5 +1,5 @@
 import api from "../api/api";
-import { RESET_COUNTER } from "./ingredients";
+import { resetIngredientCounter } from "./ingredients";
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
@@ -42,9 +42,7 @@ export function placeOrder(IDs) {
         dispatch({
           type: RESET_ALL_INGREDIENTS
         });
-        dispatch({
-          type: RESET_COUNTER
-        });
+        dispatch(resetIngredientCounter());
         dispatch({
           type: RESET_TOTAL_PRICE
         });

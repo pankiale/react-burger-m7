@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Home from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
@@ -14,10 +14,9 @@ import Modal from "../components/modals/modals";
 import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getItems } from "../services/actions/ingredients";
+import { getItemsThunk } from "../services/actions/ingredients";
 import { checkToken, refreshToken } from "../services/actions/auth";
 import Feed from "../pages/feed/feed";
-import OrderDetails from "../components/modals/order-details/order-details";
 import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
 import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
 import { getCookie } from "../utils/cookie";
@@ -36,7 +35,7 @@ function App() {
 
   useEffect(() => {
 
-      dispatch(getItems());
+      dispatch(getItemsThunk());
 
       async function checkUser() {
         await dispatch(refreshToken());
