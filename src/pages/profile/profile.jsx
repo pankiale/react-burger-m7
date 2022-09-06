@@ -6,10 +6,10 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
 import {
   GET_LOGOUT_FAILED,
-  getChangeUser,
-  getLogout,
-  getRegistration,
-  refreshToken
+  getChangeUserThunk,
+  getLogoutThunk,
+  getRegistrationThunk,
+  refreshTokenThunk
 } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../../components/app-header/app-header";
@@ -27,15 +27,15 @@ export function ProfilePage() {
   };
   const changeUser = useCallback (async (e) => {
     e.preventDefault();
-    await dispatch(refreshToken())
-    await dispatch(getChangeUser(form))
+    await dispatch(refreshTokenThunk())
+    await dispatch(getChangeUserThunk(form))
       .catch((err)=> console.log(err))
   }, [form, dispatch, user]);
 
   const isDisabled = Boolean(form.email === user.email && form.name === user.name);
 
   const handleLogout = () => {
-    dispatch(getLogout())
+    dispatch(getLogoutThunk())
       .catch((err) => {
         console.error("Что то пошло не так", err);
         dispatch({

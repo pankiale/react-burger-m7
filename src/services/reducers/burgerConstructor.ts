@@ -8,20 +8,32 @@ import {
   RESET_ALL_INGREDIENTS,
   RESET_TOTAL_PRICE,
   SET_TOTAL_PRICE,
-  CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL
+  CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL, TConstructorActions
 } from "../actions/burgerConstructor";
+import { TItem } from "../types/data";
 
-const initialState = {
+export type TConstructorState = {
+  burgerConstructorIngredients: ReadonlyArray<TItem>,
+  burgerConstructorBuns: ReadonlyArray<TItem>,
+  totalPrice: number,
+  isModalOpen: boolean,
+  orderRequest: boolean,
+  orderRequestFailed: boolean,
+  orderNumber: string
+};
+
+
+const initialState: TConstructorState = {
   burgerConstructorIngredients: [],
   burgerConstructorBuns: [],
-  totalPrice: "",
+  totalPrice: 0,
   isModalOpen: false,
   orderRequest: false,
   orderRequestFailed: false,
   orderNumber: ""
 };
 
-export const burgerConstructorReducer = (state = initialState, action) => {
+export const burgerConstructorReducer = (state = initialState, action: TConstructorActions): TConstructorState => {
   switch (action.type) {
 
     case ADD_INGREDIENT: {
@@ -91,7 +103,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       return {
         ...state,
         orderRequestFailed: false,
-        orderNumber: action.payload,
+        orderNumber: action.orderNumber,
         orderRequest: false
       };
     }

@@ -17,9 +17,47 @@ import {
   REFRESH_TOKEN_FAILED,
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
-  RESET_PASSWORD_FAILED, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS
+  RESET_PASSWORD_FAILED, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, TAuthActions
 } from "../actions/auth";
+import { TUser } from "../types/data";
 
+export type TAuthState = {
+  user: TUser | {},
+
+  regRequest: boolean,
+  regFailed: boolean,
+  regSuccess: boolean,
+
+  loginRequest: boolean,
+  loginFailed: boolean,
+  loginSuccess: boolean,
+
+  logoutRequest: boolean,
+  logoutFailed: boolean,
+  logoutSuccess: boolean,
+
+  forgotPasswordRequest: boolean,
+  forgotPasswordFailed: boolean,
+  forgotPasswordSuccess: boolean,
+
+  resetPasswordRequest: boolean,
+  resetPasswordFailed: boolean,
+  resetPasswordSuccess: boolean,
+
+  tokenRequest: boolean,
+  tokenFailed: boolean,
+  tokenSuccess: boolean,
+
+  refreshTokenRequest: boolean,
+  refreshTokenFailed: boolean,
+  refreshTokenSuccess: boolean,
+
+  changeUserRequest: boolean,
+  changeUserFailed: boolean,
+  changeUserSuccess: boolean,
+
+  isUserLoaded: boolean
+};
 
 const initialState = {
   user: {},
@@ -60,7 +98,7 @@ const initialState = {
 
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions):TAuthState => {
   switch (action.type) {
     case GET_REG_REQUEST: {
       return {

@@ -5,7 +5,7 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getResetPassword } from "../../services/actions/auth";
+import { getResetPasswordThunk } from "../../services/actions/auth";
 
 export function ResetPasswordPage() {
 
@@ -19,7 +19,7 @@ export function ResetPasswordPage() {
   const resetPassword = useCallback(
     e => {
       e.preventDefault();
-      dispatch(getResetPassword(form));
+      dispatch(getResetPasswordThunk(form));
     },
     [/*auth,*/ form]
   );

@@ -11,9 +11,8 @@ import {
   increaseIngredientCounter
 } from "../../services/actions/ingredients";
 import {
-  ADD_INGREDIENT,
-  placeOrder,
-  closeOrderModalAction
+  placeOrderThunk,
+  closeOrderModalAction, addIngredientAction
 } from "../../services/actions/burgerConstructor";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -33,17 +32,11 @@ function BurgerConstructor() {
     if (item.type === "bun" && buns.length > 0) {
       dispatch(decreaseIngredientCounter(buns[0]));
       const key = Math.random().toString(36).slice(2);
-      dispatch({
-        type: ADD_INGREDIENT,
-        item: { ...item, key: key }
-      });
+      dispatch(addIngredientAction(item, key));
       dispatch(increaseIngredientCounter(item));
     } else {
       const key = Math.random().toString(36).slice(2);
-      dispatch({
-        type: ADD_INGREDIENT,
-        item: { ...item, key: key }
-      });
+      dispatch(addIngredientAction(item, key));
       dispatch(increaseIngredientCounter(item));
     }
   };
@@ -65,7 +58,7 @@ function BurgerConstructor() {
     }
     const IngredientsForOrder = burgerIngredients.concat(buns);
     const IDs = { "ingredients": IngredientsForOrder.map(item => item._id) };
-    dispatch(placeOrder(IDs));
+    dispatch(placeOrderThunk(IDs));
   };
 
   const onCloseBtnClick = () => {

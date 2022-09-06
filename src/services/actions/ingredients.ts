@@ -17,7 +17,7 @@ export interface IGetItemsRequestAction {
 }
 
 export interface IGetItemsSuccessAction {
-  readonly type: typeof GET_ITEMS_SUCCESS,
+  readonly type: typeof GET_ITEMS_SUCCESS;
   ingredients: ReadonlyArray<TIngredients>;
 }
 
@@ -26,22 +26,22 @@ export interface IGetItemsFailedAction {
 }
 
 export interface ITabSwitchAction {
-  readonly type: typeof TAB_SWITCH,
+  readonly type: typeof TAB_SWITCH;
   value: string;
 }
 
 export interface IIncreaseIngredientCount {
-  readonly type: typeof INCREASE_COUNTER,
+  readonly type: typeof INCREASE_COUNTER;
   item: TIngredients;
 }
 
 export interface IDecreaseIngredientCount {
-  readonly type: typeof DECREASE_COUNTER,
+  readonly type: typeof DECREASE_COUNTER;
   item: TIngredients;
 }
 
 export interface IResetIngredientCount {
-  readonly type: typeof RESET_COUNTER,
+  readonly type: typeof RESET_COUNTER;
 }
 
 const getItemsRequestAction = (): IGetItemsRequestAction => ({
@@ -96,4 +96,4 @@ export const getItemsThunk: AppThunk = () => {
         dispatch(getItemsFailedAction());
       });
   };
-}
+};

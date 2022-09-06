@@ -1,7 +1,5 @@
-import PropTypes from "prop-types";
 import styles from "./card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { dataTypes } from "../../utils/const";
 import { useDrag } from "react-dnd";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -37,10 +35,6 @@ const Card = ({ data }) => {
       </p>
     </Link>
   );
-};
-
-Card.propTypes = {
-  data: dataTypes.isRequired,
 };
 
 export default Card;

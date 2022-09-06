@@ -4,7 +4,7 @@ import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css";
-import { getLogin } from "../../services/actions/auth";
+import { getLoginThunk } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 export function LoginPage() {
@@ -21,7 +21,7 @@ export function LoginPage() {
   const login = useCallback(
     e => {
       e.preventDefault();
-      dispatch(getLogin(form));
+      dispatch(getLoginThunk(form));
     },
     [form]
   );

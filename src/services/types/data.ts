@@ -14,20 +14,19 @@ export type TIngredients = {
   readonly counter: number;
 };
 
-export type TRawUser = Omit<TIngredients, 'id'> & { _id: number };
+export type TItem = TIngredients & { key: string };
 
-export type TPrize = {
-  readonly year: string;
-  readonly category: string;
-  readonly share: string;
-  readonly motivation: string;
-  readonly affiliations: ReadonlyArray<TAffiliations>;
+export type TMoveElement = {
+  dragIndex: number;
+  hoverIndex: number;
 };
 
-export type TAffiliations = {
+export type TIDs = {
+ ingredients: string
+}
+export type TUser = {
   readonly name: string;
-  readonly city: string;
-  readonly country: string;
+  readonly email: string;
 };
 
 export type TCountry = {
@@ -48,5 +47,4 @@ export type TLaureate = {
   readonly diedCountryCode: string;
   readonly diedCity: string;
   readonly gender: string;
-  readonly prizes: ReadonlyArray<TPrize>;
 };

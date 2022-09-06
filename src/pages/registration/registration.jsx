@@ -4,7 +4,7 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
-import { getRegistration } from "../../services/actions/auth";
+import { getRegistrationThunk } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 export function RegistrationPage() {
@@ -20,7 +20,7 @@ export function RegistrationPage() {
 
   const register = useCallback( e => {
     e.preventDefault();
-    dispatch(getRegistration(form));
+    dispatch(getRegistrationThunk(form));
   }, [form]
   );
 

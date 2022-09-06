@@ -6,7 +6,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./forgot-password.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { useDispatch, useSelector } from "react-redux";
-import { getForgotPassword } from "../../services/actions/auth";
+import { getForgotPasswordThunk } from "../../services/actions/auth";
 
 export function ForgotPasswordPage() {
   /*  let auth = useAuth();*/
@@ -21,7 +21,7 @@ export function ForgotPasswordPage() {
   const resetPassword = useCallback(
     e => {
       e.preventDefault();
-      dispatch(getForgotPassword(form));
+      dispatch(getForgotPasswordThunk(form));
     },
     [/*auth,*/ form]
   );

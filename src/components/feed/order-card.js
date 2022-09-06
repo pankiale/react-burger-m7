@@ -1,11 +1,9 @@
 import styles from "./order-card.module.css";
-import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { dataTypes } from "../../utils/const";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { getCorrectDate } from "../../utils/date";
 import { useSelector } from "react-redux";
 import React from "react";
-import PropTypes from "prop-types";
 
 export const getIngrArray = (ingredientsOrder, ingredients) => {
   let ingredientsArray = [];

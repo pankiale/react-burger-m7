@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DELETE_INGREDIENT, MOVE_ELEMENT } from "../../services/actions/burgerConstructor";
+import { deleteIngredientAction, MOVE_ELEMENT, moveElementAction } from "../../services/actions/burgerConstructor";
 import { decreaseIngredientCounter } from "../../services/actions/ingredients";
 import styles from "./ingredient-section.module.css";
 import { useRef } from "react";
@@ -7,7 +7,6 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 
 const Element = ({ item, index, id }) => {
-
   const ref = useRef(null);
   const dispatch = useDispatch();
 
@@ -20,10 +19,7 @@ const Element = ({ item, index, id }) => {
       }
       const dragIndex = element.index;
       const hoverIndex = index;
-      dispatch({
-        type: MOVE_ELEMENT,
-        data: { dragIndex, hoverIndex },
-      });
+      dispatch(moveElementAction(dragIndex, hoverIndex));
       element.index = hoverIndex;
     },
   });
@@ -49,10 +45,7 @@ const Element = ({ item, index, id }) => {
         thumbnail={item?.image}
         isLocked={false}
         handleClose={() => {
-          dispatch({
-            type: DELETE_INGREDIENT,
-            item
-          });
+          dispatch(deleteIngredientAction(item));
           dispatch(decreaseIngredientCounter(item));
         }}
       />

@@ -15,7 +15,7 @@ import IngredientDetails from "../components/modals/ingredient-details/ingredien
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getItemsThunk } from "../services/actions/ingredients";
-import { checkToken, refreshToken } from "../services/actions/auth";
+import { checkTokenThunk, refreshTokenThunk } from "../services/actions/auth";
 import Feed from "../pages/feed/feed";
 import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
 import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
@@ -38,8 +38,8 @@ function App() {
       dispatch(getItemsThunk());
 
       async function checkUser() {
-        await dispatch(refreshToken());
-        await dispatch(checkToken());
+        await dispatch(refreshTokenThunk());
+        await dispatch(checkTokenThunk());
 
       }
 
