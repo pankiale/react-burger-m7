@@ -1,8 +1,8 @@
-export const getCorrectDate = (inputDate) => {
+export const getCorrectDate = (inputDate: string) => {
   let dayDiff;
-  const date = new Date(inputDate);
+  const date: any = new Date(inputDate);
   const time = date.toLocaleTimeString('ru', {timeZoneName: 'short'})
-  const currentDate = new Date()
+  const currentDate: any = new Date()
   const currentWeekDay = currentDate.getDay() === 0 ? 7 : currentDate.getDay();
   const diff = Math.round((currentDate - date)/(24*60*60*1000))
 

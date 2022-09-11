@@ -1,7 +1,7 @@
 import api from "../api/api";
 import { deleteCookie, setCookie } from "../../utils/cookie";
 import { AppDispatch, AppThunk } from "../types";
-import { TUser } from "../types/data";
+import { TRegistration, TUser } from "../types/data";
 import {
   IDecreaseIngredientCount,
   IGetItemsFailedAction,
@@ -282,7 +282,7 @@ export const refreshTokenThunk: AppThunk = () => {
       })
       .catch(err => {
         console.error(err.message);
-        dispatch(checkTokenFailedAction);
+        dispatch(checkTokenFailedAction());
         return err;
       });
   };
@@ -417,7 +417,7 @@ export const getLogoutThunk: AppThunk = () => {
   };
 };
 
-export const getRegistrationThunk: AppThunk = (data: any) => {
+export const getRegistrationThunk: AppThunk = (data: TRegistration) => {
   return function(dispatch: AppDispatch) {
     dispatch(getRegRequestAction());
     return api.register(data)

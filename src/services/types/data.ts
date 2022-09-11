@@ -24,27 +24,34 @@ export type TMoveElement = {
 export type TIDs = {
  ingredients: string
 }
+
 export type TUser = {
   readonly name: string;
   readonly email: string;
 };
 
-export type TCountry = {
-  readonly name: string;
-  readonly code: string;
+export type TRegistration = TUser & { password: string };
+
+
+export type TConfig= {
+  readonly url: string;
 };
 
-export type TLaureate = {
-  readonly id: string;
-  readonly firstname: string;
-  readonly surname: string;
-  readonly born: string;
-  readonly died: string;
-  readonly bornCountry: string;
-  readonly bornCountryCode: string;
-  readonly bornCity: string;
-  readonly diedCountry: string;
-  readonly diedCountryCode: string;
-  readonly diedCity: string;
-  readonly gender: string;
+export  type TLogin = Omit<TRegistration, 'name'>;
+
+export  type TForgotPassword = Omit<TUser, 'name'>;
+
+export type TResetPassword = {
+  password: string;
+  token: string;
+}
+
+export type TOrders = {
+  readonly _id: string;
+  readonly ingredients: Array<string>;
+  readonly status: string;
+  readonly name: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  readonly number: number;
 };

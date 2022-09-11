@@ -1,18 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Link, NavLink, Redirect } from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { NavLink} from "react-router-dom";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
 import {
   GET_LOGOUT_FAILED,
   getChangeUserThunk,
   getLogoutThunk,
-  getRegistrationThunk,
   refreshTokenThunk
 } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-import AppHeader from "../../components/app-header/app-header";
+import { AppDispatch } from "../../services/types";
 
 export function ProfilePage() {
 

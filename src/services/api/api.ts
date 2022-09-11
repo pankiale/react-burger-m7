@@ -1,29 +1,26 @@
 import { getCookie } from "../../utils/cookie";
+import { TConfig, TForgotPassword, TIDs, TIngredients, TRegistration, TResetPassword } from "../types/data";
 
-const config = {
+const  config = {
   url: "https://norma.nomoreparties.space/api"
 };
 
-class API {
-  constructor({ url }) {
-    this._url = url;
-  }
+const apiFunc = ({url}: TConfig) => {
 
-  _checkResponse(res) {
+  const checkResponse = (res: Response) => {
     if (res.status === 200) {
       return res.json();
     }
     return Promise.reject(res);
   }
 
-
-  getIngredients() {
-    return fetch(`${this._url}/ingredients`)
-      .then(this._checkResponse);
+  const getIngredients = () => {
+    return fetch(`${url}/ingredients`)
+      .then((res) => checkResponse(res));
   }
 
-  placeOrder(ingredients) {
-    return fetch(`${this._url}/orders`, {
+  const placeOrder = (ingredients: TIDs) => {
+    return fetch(`${url}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,57 +28,57 @@ class API {
       },
       body: JSON.stringify(ingredients)
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
-  register(data) {
-    return fetch(`${this._url}/auth/register`, {
+  const register = (data: TRegistration) => {
+    return fetch(`${url}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
-  login(data) {
-    return fetch(`${this._url}/auth/login`, {
+  const login = (data: TRegistration) => {
+    return fetch(`${url}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
 
-  forgotPassword(data) {
-    return fetch(`${this._url}/password-reset`, {
+  const forgotPassword = (data: TForgotPassword) => {
+    return fetch(`${url}/password-reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
-  resetPassword(data) {
-    return fetch(`${this._url}/password-reset/reset`, {
+  const resetPassword = (data: TResetPassword) => {
+    return fetch(`${url}/password-reset/reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
   // requires authorisation token //
-  changeUser(profileInfo) {
-    return fetch(`${this._url}/auth/user`, {
+  const changeUser = (profileInfo: TRegistration) => {
+    return fetch(`${url}/auth/user`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -89,25 +86,25 @@ class API {
       },
       body: JSON.stringify(profileInfo)
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
 
-  checkToken() {
-    return fetch(`${this._url}/auth/user`, {
+  const checkToken = () => {
+    return fetch(`${url}/auth/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + getCookie("token")
       }
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
   // requires refresh token //
 
-  refreshToken() {
-    return fetch(`${this._url}/auth/token`, {
+  const refreshToken= () => {
+    return fetch(`${url}/auth/token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -116,11 +113,11 @@ class API {
         token: localStorage.getItem("refreshToken")
       })
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
 
-  logout() {
-    return fetch(`${this._url}/auth/logout`, {
+  const logout = () => {
+    return fetch(`${url}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -129,12 +126,20 @@ class API {
         token: localStorage.getItem("refreshToken")
       })
     })
-      .then(this._checkResponse);
+      .then((res) => checkResponse(res));
   }
+return {
+  getIngredients: getIngredients,
+  placeOrder: placeOrder,
+  register: register,
+  login: login,
+  forgotPassword: forgotPassword,
+  resetPassword: resetPassword,
+  changeUser: changeUser,
+  checkToken: checkToken,
+  refreshToken: refreshToken,
+  logout: logout
 }
-
-
-const api = new API(config);
-
+}
+const api = apiFunc(config);
 export default api;
-

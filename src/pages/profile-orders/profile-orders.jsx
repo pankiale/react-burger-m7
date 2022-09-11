@@ -32,6 +32,8 @@ export function ProfileOrdersPage() {
         });
       });
   };
+  console.log(orders)
+
   return (
     <div className={styles.wrapper_container}>
       <div className={styles.container}>

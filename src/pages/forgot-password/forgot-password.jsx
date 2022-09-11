@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getForgotPasswordThunk } from "../../services/actions/auth";
 
 export function ForgotPasswordPage() {
-  /*  let auth = useAuth();*/
 
   const [form, setValue] = useState({ email: "" });
   const dispatch = useDispatch();
@@ -23,7 +22,7 @@ export function ForgotPasswordPage() {
       e.preventDefault();
       dispatch(getForgotPasswordThunk(form));
     },
-    [/*auth,*/ form]
+    [ form]
   );
 
   if (forgotPasswordSuccess) {
