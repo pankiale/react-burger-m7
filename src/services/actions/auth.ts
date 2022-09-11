@@ -1,15 +1,7 @@
 import api from "../api/api";
 import { deleteCookie, setCookie } from "../../utils/cookie";
 import { AppDispatch, AppThunk } from "../types";
-import { TRegistration, TUser } from "../types/data";
-import {
-  IDecreaseIngredientCount,
-  IGetItemsFailedAction,
-  IGetItemsRequestAction,
-  IGetItemsSuccessAction,
-  IIncreaseIngredientCount, IResetIngredientCount,
-  ITabSwitchAction
-} from "./ingredients";
+import { TUser } from "../types/data";
 
 export const GET_REG_REQUEST: "GET_REG_REQUEST" = "GET_REG_REQUEST";
 export const GET_REG_SUCCESS: "GET_REG_SUCCESS" = "GET_REG_SUCCESS";
@@ -309,7 +301,7 @@ export const checkTokenThunk: AppThunk = () => {
   };
 };
 
-export const getLoginThunk: AppThunk = (data: any) => {
+export const getLoginThunk: AppThunk = (data) => {
   return function(dispatch: AppDispatch) {
     dispatch(getLoginRequestAction());
     return api.login(data)
@@ -334,7 +326,7 @@ export const getLoginThunk: AppThunk = (data: any) => {
   };
 };
 
-export const getChangeUserThunk: AppThunk = (profileInfo: any) => {
+export const getChangeUserThunk: AppThunk = (profileInfo) => {
   return function(dispatch: AppDispatch) {
     dispatch(changeUserRequestAction());
     return api.changeUser(profileInfo)
@@ -355,7 +347,7 @@ export const getChangeUserThunk: AppThunk = (profileInfo: any) => {
   };
 };
 
-export const getForgotPasswordThunk: AppThunk = (data: any) => {
+export const getForgotPasswordThunk: AppThunk = (data) => {
   return function(dispatch: AppDispatch) {
     dispatch(forgotPasswordRequestAction());
     return api.forgotPassword(data)
@@ -376,7 +368,7 @@ export const getForgotPasswordThunk: AppThunk = (data: any) => {
   };
 };
 
-export const getResetPasswordThunk: AppThunk = (data: any) => {
+export const getResetPasswordThunk: AppThunk = (data) => {
   return function(dispatch: AppDispatch) {
     dispatch(resetPasswordRequestAction());
     return api.resetPassword(data)
@@ -417,7 +409,7 @@ export const getLogoutThunk: AppThunk = () => {
   };
 };
 
-export const getRegistrationThunk: AppThunk = (data: TRegistration) => {
+export const getRegistrationThunk: AppThunk = (data) => {
   return function(dispatch: AppDispatch) {
     dispatch(getRegRequestAction());
     return api.register(data)

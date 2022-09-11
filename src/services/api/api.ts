@@ -1,5 +1,56 @@
 import { getCookie } from "../../utils/cookie";
 import { TConfig, TForgotPassword, TIDs, TIngredients, TRegistration, TResetPassword } from "../types/data";
+import { ThunkDispatch } from "redux-thunk";
+import { EmptyObject } from "redux";
+import { TIngredientsState } from "../reducers/ingredients";
+import { TConstructorState } from "../reducers/burgerConstructor";
+import { TWsState } from "../reducers/ws";
+import { TAuthState } from "../reducers/auth";
+import {
+  IDecreaseIngredientCount,
+  IGetItemsFailedAction,
+  IGetItemsRequestAction,
+  IGetItemsSuccessAction, IIncreaseIngredientCount, IResetIngredientCount,
+  ITabSwitchAction
+} from "../actions/ingredients";
+import {
+  IAddIngredientAction,
+  ICloseOrderModalAction, IDeleteIngredientAction, IMoveElementAction,
+  IOpenOrderModalAction,
+  IPlaceOrderFailedAction,
+  IPlaceOrderRequestAction,
+  IPlaceOrderSuccessAction, IResetAllIngredientsAction, IResetTotalPriceAction, ISetTotalPriceAction
+} from "../actions/burgerConstructor";
+import {
+  IChangeUserFailedAction,
+  IChangeUserRequestAction, IChangeUserSuccessAction,
+  ICheckTokenFailedAction,
+  ICheckTokenRequestAction,
+  ICheckTokenSuccessAction,
+  IForgotPasswordFailedAction,
+  IForgotPasswordRequestAction,
+  IForgotPasswordSuccessAction,
+  IGetLoginFailedAction,
+  IGetLoginRequestAction,
+  IGetLoginSuccessAction,
+  IGetLogoutFailedAction,
+  IGetLogoutRequestAction,
+  IGetLogoutSuccessAction,
+  IGetRegFailedAction,
+  IGetRegRequestAction,
+  IGetRegSuccessAction, IIsUserLoadedAction, IRefreshTokenFailedAction,
+  IRefreshTokenRequestAction, IRefreshTokenSuccessAction,
+  IResetPasswordFailedAction,
+  IResetPasswordRequestAction,
+  IResetPasswordSuccessAction
+} from "../actions/auth";
+import {
+  IWsClearStoreAction,
+  IWsConnectionClosedAction, IWsConnectionErrorAction,
+  IWsConnectionInitAction,
+  IWsConnectionOpenAction,
+  IWsGetMessageAction
+} from "../actions/ws";
 
 const  config = {
   url: "https://norma.nomoreparties.space/api"
@@ -31,7 +82,7 @@ const apiFunc = ({url}: TConfig) => {
       .then((res) => checkResponse(res));
   }
 
-  const register = (data: TRegistration) => {
+  const register = (data: ThunkDispatch<(() => (EmptyObject & { ingredients: TIngredientsState; burgerConstructorIngredients: TConstructorState; ws: { total: null; orders: null; totalToday: null; wsConnection: boolean; error: undefined } | TWsState; auth: { forgotPasswordRequest: boolean; tokenSuccess: boolean; tokenFailed: boolean; regRequest: boolean; resetPasswordFailed: boolean; refreshTokenSuccess: boolean; regFailed: boolean; changeUserRequest: boolean; loginRequest: boolean; logoutRequest: boolean; loginFailed: boolean; refreshTokenFailed: boolean; isUserLoaded: boolean; logoutFailed: boolean; resetPasswordSuccess: boolean; forgotPasswordFailed: boolean; loginSuccess: boolean; forgotPasswordSuccess: boolean; regSuccess: boolean; resetPasswordRequest: boolean; tokenRequest: boolean; changeUserFailed: boolean; changeUserSuccess: boolean; user: {}; refreshTokenRequest: boolean; logoutSuccess: boolean } | TAuthState } & S)) & (() => S) extends ((...args: any) => infer R) ? R : any, unknown, IGetItemsRequestAction | IGetItemsSuccessAction | IGetItemsFailedAction | ITabSwitchAction | IIncreaseIngredientCount | IDecreaseIngredientCount | IResetIngredientCount | IPlaceOrderRequestAction | IPlaceOrderSuccessAction | IPlaceOrderFailedAction | IOpenOrderModalAction | ICloseOrderModalAction | IAddIngredientAction | IDeleteIngredientAction | IResetAllIngredientsAction | ISetTotalPriceAction | IResetTotalPriceAction | IMoveElementAction | IGetRegRequestAction | IGetRegSuccessAction | IGetRegFailedAction | IGetLoginRequestAction | IGetLoginSuccessAction | IGetLoginFailedAction | IGetLogoutRequestAction | IGetLogoutSuccessAction | IGetLogoutFailedAction | IForgotPasswordRequestAction | IForgotPasswordSuccessAction | IForgotPasswordFailedAction | IResetPasswordRequestAction | IResetPasswordSuccessAction | IResetPasswordFailedAction | ICheckTokenRequestAction | ICheckTokenSuccessAction | ICheckTokenFailedAction | IRefreshTokenRequestAction | IRefreshTokenSuccessAction | IRefreshTokenFailedAction | IChangeUserRequestAction | IChangeUserSuccessAction | IChangeUserFailedAction | IIsUserLoadedAction | IWsConnectionInitAction | IWsConnectionOpenAction | IWsGetMessageAction | IWsConnectionClosedAction | IWsConnectionErrorAction | IWsClearStoreAction>) => {
     return fetch(`${url}/auth/register`, {
       method: "POST",
       headers: {
@@ -42,7 +93,7 @@ const apiFunc = ({url}: TConfig) => {
       .then((res) => checkResponse(res));
   }
 
-  const login = (data: TRegistration) => {
+  const login = (data: ThunkDispatch<(() => (EmptyObject & { ingredients: TIngredientsState; burgerConstructorIngredients: TConstructorState; ws: { total: null; orders: null; totalToday: null; wsConnection: boolean; error: undefined } | TWsState; auth: { forgotPasswordRequest: boolean; tokenSuccess: boolean; tokenFailed: boolean; regRequest: boolean; resetPasswordFailed: boolean; refreshTokenSuccess: boolean; regFailed: boolean; changeUserRequest: boolean; loginRequest: boolean; logoutRequest: boolean; loginFailed: boolean; refreshTokenFailed: boolean; isUserLoaded: boolean; logoutFailed: boolean; resetPasswordSuccess: boolean; forgotPasswordFailed: boolean; loginSuccess: boolean; forgotPasswordSuccess: boolean; regSuccess: boolean; resetPasswordRequest: boolean; tokenRequest: boolean; changeUserFailed: boolean; changeUserSuccess: boolean; user: {}; refreshTokenRequest: boolean; logoutSuccess: boolean } | TAuthState } & S)) & (() => S) extends ((...args: any) => infer R) ? R : any, unknown, IGetItemsRequestAction | IGetItemsSuccessAction | IGetItemsFailedAction | ITabSwitchAction | IIncreaseIngredientCount | IDecreaseIngredientCount | IResetIngredientCount | IPlaceOrderRequestAction | IPlaceOrderSuccessAction | IPlaceOrderFailedAction | IOpenOrderModalAction | ICloseOrderModalAction | IAddIngredientAction | IDeleteIngredientAction | IResetAllIngredientsAction | ISetTotalPriceAction | IResetTotalPriceAction | IMoveElementAction | IGetRegRequestAction | IGetRegSuccessAction | IGetRegFailedAction | IGetLoginRequestAction | IGetLoginSuccessAction | IGetLoginFailedAction | IGetLogoutRequestAction | IGetLogoutSuccessAction | IGetLogoutFailedAction | IForgotPasswordRequestAction | IForgotPasswordSuccessAction | IForgotPasswordFailedAction | IResetPasswordRequestAction | IResetPasswordSuccessAction | IResetPasswordFailedAction | ICheckTokenRequestAction | ICheckTokenSuccessAction | ICheckTokenFailedAction | IRefreshTokenRequestAction | IRefreshTokenSuccessAction | IRefreshTokenFailedAction | IChangeUserRequestAction | IChangeUserSuccessAction | IChangeUserFailedAction | IIsUserLoadedAction | IWsConnectionInitAction | IWsConnectionOpenAction | IWsGetMessageAction | IWsConnectionClosedAction | IWsConnectionErrorAction | IWsClearStoreAction>) => {
     return fetch(`${url}/auth/login`, {
       method: "POST",
       headers: {
@@ -54,7 +105,7 @@ const apiFunc = ({url}: TConfig) => {
   }
 
 
-  const forgotPassword = (data: TForgotPassword) => {
+  const forgotPassword = (data: ThunkDispatch<(() => (EmptyObject & { ingredients: TIngredientsState; burgerConstructorIngredients: TConstructorState; ws: { total: null; orders: null; totalToday: null; wsConnection: boolean; error: undefined } | TWsState; auth: { forgotPasswordRequest: boolean; tokenSuccess: boolean; tokenFailed: boolean; regRequest: boolean; resetPasswordFailed: boolean; refreshTokenSuccess: boolean; regFailed: boolean; changeUserRequest: boolean; loginRequest: boolean; logoutRequest: boolean; loginFailed: boolean; refreshTokenFailed: boolean; isUserLoaded: boolean; logoutFailed: boolean; resetPasswordSuccess: boolean; forgotPasswordFailed: boolean; loginSuccess: boolean; forgotPasswordSuccess: boolean; regSuccess: boolean; resetPasswordRequest: boolean; tokenRequest: boolean; changeUserFailed: boolean; changeUserSuccess: boolean; user: {}; refreshTokenRequest: boolean; logoutSuccess: boolean } | TAuthState } & S)) & (() => S) extends ((...args: any) => infer R) ? R : any, unknown, IGetItemsRequestAction | IGetItemsSuccessAction | IGetItemsFailedAction | ITabSwitchAction | IIncreaseIngredientCount | IDecreaseIngredientCount | IResetIngredientCount | IPlaceOrderRequestAction | IPlaceOrderSuccessAction | IPlaceOrderFailedAction | IOpenOrderModalAction | ICloseOrderModalAction | IAddIngredientAction | IDeleteIngredientAction | IResetAllIngredientsAction | ISetTotalPriceAction | IResetTotalPriceAction | IMoveElementAction | IGetRegRequestAction | IGetRegSuccessAction | IGetRegFailedAction | IGetLoginRequestAction | IGetLoginSuccessAction | IGetLoginFailedAction | IGetLogoutRequestAction | IGetLogoutSuccessAction | IGetLogoutFailedAction | IForgotPasswordRequestAction | IForgotPasswordSuccessAction | IForgotPasswordFailedAction | IResetPasswordRequestAction | IResetPasswordSuccessAction | IResetPasswordFailedAction | ICheckTokenRequestAction | ICheckTokenSuccessAction | ICheckTokenFailedAction | IRefreshTokenRequestAction | IRefreshTokenSuccessAction | IRefreshTokenFailedAction | IChangeUserRequestAction | IChangeUserSuccessAction | IChangeUserFailedAction | IIsUserLoadedAction | IWsConnectionInitAction | IWsConnectionOpenAction | IWsGetMessageAction | IWsConnectionClosedAction | IWsConnectionErrorAction | IWsClearStoreAction>) => {
     return fetch(`${url}/password-reset`, {
       method: "POST",
       headers: {
@@ -65,7 +116,7 @@ const apiFunc = ({url}: TConfig) => {
       .then((res) => checkResponse(res));
   }
 
-  const resetPassword = (data: TResetPassword) => {
+  const resetPassword = (data: ThunkDispatch<(() => (EmptyObject & { ingredients: TIngredientsState; burgerConstructorIngredients: TConstructorState; ws: { total: null; orders: null; totalToday: null; wsConnection: boolean; error: undefined } | TWsState; auth: { forgotPasswordRequest: boolean; tokenSuccess: boolean; tokenFailed: boolean; regRequest: boolean; resetPasswordFailed: boolean; refreshTokenSuccess: boolean; regFailed: boolean; changeUserRequest: boolean; loginRequest: boolean; logoutRequest: boolean; loginFailed: boolean; refreshTokenFailed: boolean; isUserLoaded: boolean; logoutFailed: boolean; resetPasswordSuccess: boolean; forgotPasswordFailed: boolean; loginSuccess: boolean; forgotPasswordSuccess: boolean; regSuccess: boolean; resetPasswordRequest: boolean; tokenRequest: boolean; changeUserFailed: boolean; changeUserSuccess: boolean; user: {}; refreshTokenRequest: boolean; logoutSuccess: boolean } | TAuthState } & S)) & (() => S) extends ((...args: any) => infer R) ? R : any, unknown, IGetItemsRequestAction | IGetItemsSuccessAction | IGetItemsFailedAction | ITabSwitchAction | IIncreaseIngredientCount | IDecreaseIngredientCount | IResetIngredientCount | IPlaceOrderRequestAction | IPlaceOrderSuccessAction | IPlaceOrderFailedAction | IOpenOrderModalAction | ICloseOrderModalAction | IAddIngredientAction | IDeleteIngredientAction | IResetAllIngredientsAction | ISetTotalPriceAction | IResetTotalPriceAction | IMoveElementAction | IGetRegRequestAction | IGetRegSuccessAction | IGetRegFailedAction | IGetLoginRequestAction | IGetLoginSuccessAction | IGetLoginFailedAction | IGetLogoutRequestAction | IGetLogoutSuccessAction | IGetLogoutFailedAction | IForgotPasswordRequestAction | IForgotPasswordSuccessAction | IForgotPasswordFailedAction | IResetPasswordRequestAction | IResetPasswordSuccessAction | IResetPasswordFailedAction | ICheckTokenRequestAction | ICheckTokenSuccessAction | ICheckTokenFailedAction | IRefreshTokenRequestAction | IRefreshTokenSuccessAction | IRefreshTokenFailedAction | IChangeUserRequestAction | IChangeUserSuccessAction | IChangeUserFailedAction | IIsUserLoadedAction | IWsConnectionInitAction | IWsConnectionOpenAction | IWsGetMessageAction | IWsConnectionClosedAction | IWsConnectionErrorAction | IWsClearStoreAction>) => {
     return fetch(`${url}/password-reset/reset`, {
       method: "POST",
       headers: {
@@ -77,7 +128,7 @@ const apiFunc = ({url}: TConfig) => {
   }
 
   // requires authorisation token //
-  const changeUser = (profileInfo: TRegistration) => {
+  const changeUser = (profileInfo: ThunkDispatch<(() => (EmptyObject & { ingredients: TIngredientsState; burgerConstructorIngredients: TConstructorState; ws: { total: null; orders: null; totalToday: null; wsConnection: boolean; error: undefined } | TWsState; auth: { forgotPasswordRequest: boolean; tokenSuccess: boolean; tokenFailed: boolean; regRequest: boolean; resetPasswordFailed: boolean; refreshTokenSuccess: boolean; regFailed: boolean; changeUserRequest: boolean; loginRequest: boolean; logoutRequest: boolean; loginFailed: boolean; refreshTokenFailed: boolean; isUserLoaded: boolean; logoutFailed: boolean; resetPasswordSuccess: boolean; forgotPasswordFailed: boolean; loginSuccess: boolean; forgotPasswordSuccess: boolean; regSuccess: boolean; resetPasswordRequest: boolean; tokenRequest: boolean; changeUserFailed: boolean; changeUserSuccess: boolean; user: {}; refreshTokenRequest: boolean; logoutSuccess: boolean } | TAuthState } & S)) & (() => S) extends ((...args: any) => infer R) ? R : any, unknown, IGetItemsRequestAction | IGetItemsSuccessAction | IGetItemsFailedAction | ITabSwitchAction | IIncreaseIngredientCount | IDecreaseIngredientCount | IResetIngredientCount | IPlaceOrderRequestAction | IPlaceOrderSuccessAction | IPlaceOrderFailedAction | IOpenOrderModalAction | ICloseOrderModalAction | IAddIngredientAction | IDeleteIngredientAction | IResetAllIngredientsAction | ISetTotalPriceAction | IResetTotalPriceAction | IMoveElementAction | IGetRegRequestAction | IGetRegSuccessAction | IGetRegFailedAction | IGetLoginRequestAction | IGetLoginSuccessAction | IGetLoginFailedAction | IGetLogoutRequestAction | IGetLogoutSuccessAction | IGetLogoutFailedAction | IForgotPasswordRequestAction | IForgotPasswordSuccessAction | IForgotPasswordFailedAction | IResetPasswordRequestAction | IResetPasswordSuccessAction | IResetPasswordFailedAction | ICheckTokenRequestAction | ICheckTokenSuccessAction | ICheckTokenFailedAction | IRefreshTokenRequestAction | IRefreshTokenSuccessAction | IRefreshTokenFailedAction | IChangeUserRequestAction | IChangeUserSuccessAction | IChangeUserFailedAction | IIsUserLoadedAction | IWsConnectionInitAction | IWsConnectionOpenAction | IWsGetMessageAction | IWsConnectionClosedAction | IWsConnectionErrorAction | IWsClearStoreAction>) => {
     return fetch(`${url}/auth/user`, {
       method: "PATCH",
       headers: {

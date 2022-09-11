@@ -1,6 +1,9 @@
-export const socketMiddleware = (wsUrl, wsActions) => {
+import { IWsActions } from "../../utils/ws";
+import { Middleware } from "redux";
+
+export const socketMiddleware = (wsUrl:string, wsActions:IWsActions): Middleware => {
   return (store) => {
-    let socket = null;
+    let socket: WebSocket | null = null;
 
     const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
@@ -12,22 +15,22 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         socket = new WebSocket(`${wsUrl}${payload}`);
       }
 
-
       if (type === onClose) {
+        // @ts-ignore
         socket.close();
       }
 
       if (socket) {
-        socket.onopen = (event) => {
+        socket.onopen = (event:Event) => {
           dispatch({ type: onOpen, payload: event });
         };
 
-        socket.onerror = (event) => {
+        socket.onerror = (event:Event) => {
           dispatch({ type: onError, payload: event });
           console.log("Ошибка соединения");
         };
 
-        socket.onmessage = (event) => {
+        socket.onmessage = (event:MessageEvent) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
@@ -35,7 +38,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           dispatch({ type: onMessage, payload: restParsedData });
         };
 
-        socket.onclose = (event) => {
+        socket.onclose = (event:CloseEvent) => {
           dispatch({ type: onClose, payload: event });
         };
       }
