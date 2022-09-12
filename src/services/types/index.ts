@@ -4,13 +4,15 @@ import { store } from "../store";
 import { TConstructorActions } from "../actions/burgerConstructor";
 import { TAuthActions } from "../actions/auth";
 import { TWsActions } from "../actions/ws";
+import { Action, ActionCreator } from "redux";
 
 type TApplicationActions = TIngredientsActions | TConstructorActions | TAuthActions | TWsActions;
 export type RootState = ReturnType<typeof store.getState>;
-/*export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ActionCreator<
   ThunkAction<ReturnType, Action, RootState, TApplicationActions>
-  >;*/
+  >;
+/*
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
@@ -18,4 +20,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   TApplicationActions
   >;
 
-export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
+export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;*/

@@ -1,15 +1,15 @@
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed-summary.module.css";
-import IngredientSection from "../ingredient-section/ingredient-section";
-import { useDispatch, useSelector } from "react-redux";
-
+import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
+import { RootState } from "../../services/types";
+import { TOrders } from "../../services/types/data";
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 function FeedSummary() {
 
   const {
     orders,
     total,
     totalToday,
-  } = useSelector(state => state.ws);
+  }: {orders: Array<TOrders>, total: number, totalToday: number} = useSelector(state => state.ws);
 
   const ready = orders.filter(item => item.status === 'done');
   const notReady = orders.filter(item => item.status !== 'done');
@@ -53,6 +53,6 @@ function FeedSummary() {
         </div>
       </section>
   );
-};
+}
 
 export default FeedSummary;

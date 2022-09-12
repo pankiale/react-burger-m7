@@ -4,14 +4,18 @@ import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { TypedUseSelectorHook,
+  useSelector as selectorHook } from "react-redux";
+import { RootState } from "../../services/types";
+import { TUser } from "../../services/types/data";
 
 const AppHeader = () => {
   const { pathname } = useLocation();
   const typeBurgerIcon = pathname === "/" ? "primary" : "secondary";
   const typeProfileIcon = (pathname === "/profile" || pathname === "/profile/orders") ? "primary" : "secondary";
   const typeListIcon = pathname === "/feed" ? "primary" : "secondary";
-  const { user } = useSelector(state => state.auth);
+  const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+  const { user } = useSelector (state => state.auth) as {user: TUser};
   let profile = user?.name || "Личный кабинет";
   return (
     <>
