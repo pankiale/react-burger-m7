@@ -1,6 +1,6 @@
-export const getCorrectDate = (inputDate: string) => {
+export const getCorrectDate = (inputDate: string | undefined) => {
   let dayDiff;
-  const date: any = new Date(inputDate);
+  const date: any = new Date(inputDate as string);
   const time = date.toLocaleTimeString('ru', {timeZoneName: 'short'})
   const currentDate: any = new Date();
   const currentWeekDay = currentDate.getDay() === 0 ? 7 : currentDate.getDay();

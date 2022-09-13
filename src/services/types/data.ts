@@ -22,7 +22,7 @@ export type TMoveElement = {
 };
 
 export type TIDs = {
- ingredients: string
+  ingredients: string
 }
 
 export type TUser = {
@@ -33,13 +33,13 @@ export type TUser = {
 export type TRegistration = TUser & { password: string };
 
 
-export type TConfig= {
+export type TConfig = {
   readonly url: string;
 };
 
-export  type TLogin = Omit<TRegistration, 'name'>;
+export  type TLogin = Omit<TRegistration, "name">;
 
-export  type TForgotPassword = Omit<TUser, 'name'>;
+export  type TForgotPassword = Omit<TUser, "name">;
 
 export type TResetPassword = {
   password: string;
@@ -56,10 +56,15 @@ export type TOrders = {
   readonly number: number;
 };
 
-export type TIngredientsArray = {
+export type TOrderIngredientsObject = {
+  [key: string]: TOrderIngredients;
+}
+
+
+export type TOrderIngredients = {
   id: string,
   name: string
   link: string,
   price: number,
   counter: number
-}
+};

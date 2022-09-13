@@ -5,9 +5,13 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../../../services/actions/ws";
 import { getCorrectDate } from "../../../utils/date";
 import { useDispatch, useSelector } from "../../../services/hooks/hooks";
-import { TIngredients, TIngredientsArray } from "../../../services/types/data";
+import {
+  TIngredients,
+  TOrderIngredients,
+  TOrderIngredientsObject, TOrders
+} from "../../../services/types/data";
 
-export const getOrderIngrArray = (ingredientsOrder: Array<string>, ingredients: ReadonlyArray<TIngredients>) => {
+export const getOrderIngrArray = (ingredientsOrder: Array<string> | undefined, ingredients: ReadonlyArray<TIngredients>) => {
 
   let ingredientsArray:Array<TIngredients> = [];
   ingredientsOrder?.forEach((ingredient) => {
@@ -18,7 +22,7 @@ export const getOrderIngrArray = (ingredientsOrder: Array<string>, ingredients: 
     });
 
   });
-  const result = ingredientsArray?.reduce(function(prevVal: TIngredientsArray | {}, item) {
+  const result = ingredientsArray?.reduce(function(prevVal: TOrderIngredientsObject, item) {
     if (!prevVal[item._id] && item.type === "bun") {
       // если ключа ещё нет в объекте, значит это первое повторение
       prevVal[item._id] = { id: item._id, name: item.name, link: item.image_mobile, price: item.price, counter: 2 };
@@ -43,7 +47,7 @@ export const getOrderIngrArray = (ingredientsOrder: Array<string>, ingredients: 
   return Array.from(Object.values(result));
 };
 
-const price = (array) => {
+const price = (array: Array<TOrderIngredients>) => {
   return array.reduce(function(prevVal, item) {
     prevVal += item.price * item.counter
     return prevVal;
@@ -54,7 +58,7 @@ const FeedOrderDetails = ({ url }: {url:string}) => {
   const dispatch = useDispatch();
 
   const { orderId } = useParams<{orderId: string}>();
-  const { orders } = useSelector(store => store.ws);
+  const { orders } = useSelector(store => store.ws) as {orders: Array<TOrders>};
   const { ingredients }
     = useSelector(
     state => state.ingredients
