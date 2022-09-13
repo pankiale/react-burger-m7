@@ -1,19 +1,26 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { deleteIngredientAction, MOVE_ELEMENT, moveElementAction } from "../../services/actions/burgerConstructor";
+import { deleteIngredientAction, moveElementAction } from "../../services/actions/burgerConstructor";
 import { decreaseIngredientCounter } from "../../services/actions/ingredients";
 import styles from "./ingredient-section.module.css";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { TItem } from "../../services/types/data";
+import { useDispatch } from "../../services/hooks/hooks";
 
-const Element = ({ item, index, id }) => {
+interface DragItem {
+  index: number
+  id: string
+  type: string
+}
+
+const Element = ({ item, index, id }: {item: TItem, index: number, id: string}) => {
   const ref = useRef(null);
   const dispatch = useDispatch();
 
   //сортировка ингредиентов внутри конструктора
   const [, drop] = useDrop({
     accept: "item",
-    hover(element) {
+    hover(element:DragItem) {
       if (!ref.current) {
         return;
       }
@@ -37,7 +44,7 @@ const Element = ({ item, index, id }) => {
   drag(drop(ref));
 
   return (
-    <li index={index} ref={ref} id={id} className={styles.ingredients__el}>
+    <li ref={ref} id={id} className={styles.ingredients__el}>
       <DragIcon type="primary" />
       <ConstructorElement
         text={item?.name}

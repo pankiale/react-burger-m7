@@ -1,9 +1,9 @@
 import styles from "./ingredient_details.module.css";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../services/hooks/hooks";
 
 const IngredientDetails = () => {
-  const { ingredientId } = useParams();
+  const { ingredientId } = useParams<{ingredientId: string}>();
   const { ingredients }
     = useSelector(
     state => state.ingredients

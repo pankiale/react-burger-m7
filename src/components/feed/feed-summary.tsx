@@ -1,10 +1,8 @@
 import styles from "./feed-summary.module.css";
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
-import { RootState } from "../../services/types";
 import { TOrders } from "../../services/types/data";
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-function FeedSummary() {
+import { useSelector } from "../../services/hooks/hooks";
 
+function FeedSummary() {
   const {
     orders,
     total,

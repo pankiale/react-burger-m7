@@ -1,14 +1,15 @@
 import styles from "./feed_order_details.module.css";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../../../services/actions/ws";
 import { getCorrectDate } from "../../../utils/date";
+import { useDispatch, useSelector } from "../../../services/hooks/hooks";
+import { TIngredients, TIngredientsArray } from "../../../services/types/data";
 
-export const getOrderIngrArray = (ingredientsOrder, ingredients) => {
+export const getOrderIngrArray = (ingredientsOrder: Array<string>, ingredients: ReadonlyArray<TIngredients>) => {
 
-  let ingredientsArray = [];
+  let ingredientsArray:Array<TIngredients> = [];
   ingredientsOrder?.forEach((ingredient) => {
     ingredients?.forEach(element => {
       if (element._id === ingredient) {
@@ -17,7 +18,7 @@ export const getOrderIngrArray = (ingredientsOrder, ingredients) => {
     });
 
   });
-  const result = ingredientsArray?.reduce(function(prevVal, item) {
+  const result = ingredientsArray?.reduce(function(prevVal: TIngredientsArray | {}, item) {
     if (!prevVal[item._id] && item.type === "bun") {
       // если ключа ещё нет в объекте, значит это первое повторение
       prevVal[item._id] = { id: item._id, name: item.name, link: item.image_mobile, price: item.price, counter: 2 };
@@ -49,10 +50,10 @@ const price = (array) => {
   }, 0);
 }
 
-const FeedOrderDetails = ({ url }) => {
+const FeedOrderDetails = ({ url }: {url:string}) => {
   const dispatch = useDispatch();
 
-  const { orderId } = useParams();
+  const { orderId } = useParams<{orderId: string}>();
   const { orders } = useSelector(store => store.ws);
   const { ingredients }
     = useSelector(

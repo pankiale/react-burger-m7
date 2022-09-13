@@ -55,3 +55,11 @@ export type TOrders = {
   readonly updatedAt: string;
   readonly number: number;
 };
+
+export type TIngredientsArray = {
+  id: string,
+  name: string
+  link: string,
+  price: number,
+  counter: number
+}

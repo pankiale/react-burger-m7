@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "./feed.module.css";
-import { TypedUseSelectorHook, useSelector as selectorHook} from "react-redux";
 import OrderCard from "./order-card";
-import { RootState } from "../../services/types";
 import { TOrders } from "../../services/types/data";
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+import { useSelector } from "../../services/hooks/hooks";
+
 function FeedOrders() {
   const { orders }: {orders: Array<TOrders>}
     = useSelector(

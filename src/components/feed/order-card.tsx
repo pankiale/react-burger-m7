@@ -2,12 +2,10 @@ import styles from "./order-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { getCorrectDate } from "../../utils/date";
-import { TypedUseSelectorHook, useSelector as selectorHook } from "react-redux";
 import React from "react";
 import { TIngredients, TOrders } from "../../services/types/data";
-import { RootState } from "../../services/types";
+import { useSelector } from "../../services/hooks/hooks";
 
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export const getIngrArray = (ingredientsOrder: Array<string>, ingredients: ReadonlyArray<TIngredients>) => {
   let ingredientsArray: Array<TIngredients> = [];
   let price = 0;

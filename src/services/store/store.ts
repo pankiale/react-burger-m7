@@ -1,8 +1,8 @@
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import { socketMiddleware } from "./middleware/socket-middleware";
-import { wsActions, wsUrl } from "../utils/ws";
-import { rootReducer } from "./reducers";
+import { socketMiddleware } from "../middleware/socket-middleware";
+import { wsActions, wsUrl } from "../../utils/ws";
+import { rootReducer } from "../reducers";
 
 declare global {
   interface Window {

@@ -1,8 +1,6 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import { TypedUseSelectorHook, useSelector as selectorHook} from "react-redux";
-import { RootState } from "../../services/types";
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+import { useSelector } from "../../services/hooks/hooks";
 
 const TotalBill = () => {
 

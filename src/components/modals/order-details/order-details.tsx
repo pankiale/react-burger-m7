@@ -1,6 +1,6 @@
 import styles from "./order_details.module.css";
 import done from "../../../images/done.svg"
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../services/hooks/hooks";
 
 const OrderDetails = () => {
   const {orderNumber} = useSelector(state => state.burgerConstructorIngredients);

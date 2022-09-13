@@ -1,9 +1,9 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-section.module.css";
 import { useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SET_TOTAL_PRICE, setTotalPriceAction } from "../../services/actions/burgerConstructor";
+import { setTotalPriceAction } from "../../services/actions/burgerConstructor";
 import Element from "./elements";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 const IngredientSection = () => {
   const dispatch = useDispatch();
