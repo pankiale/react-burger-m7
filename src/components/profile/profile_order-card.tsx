@@ -2,11 +2,12 @@ import styles from "./profile_order-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { getCorrectDate } from "../../utils/date";
-import { useSelector } from "react-redux";
 import React from "react";
+import { useSelector } from "../../services/hooks/hooks";
+import { TIngredients, TOrders } from "../../services/types/data";
 
-export const getIngrArray = (ingredientsOrder, ingredients) => {
-  let ingredientsArray = [];
+export const getIngrArray = (ingredientsOrder: Array<string>, ingredients: ReadonlyArray<TIngredients>) => {
+  let ingredientsArray:Array<TIngredients>  = [];
   let price = 0;
   ingredientsOrder.forEach((ingredient) => {
 
@@ -22,20 +23,7 @@ export const getIngrArray = (ingredientsOrder, ingredients) => {
   return {ingredientsArray, price}
 }
 
-export const getIngrDataArray = (ingredientsOrder, ingredients) => {
-  let resultingArray = [];
-  ingredientsOrder.forEach((ingredient) => {
-    ingredients.forEach(element => {
-      if (element._id === ingredient) {
-        resultingArray.push({ element: element.image_mobile, id: element._id, price: element.price });
-      }
-    });
-  });
-  return resultingArray;
-};
-
-
-const ProfileOrderCard = ({data} ) => {
+const ProfileOrderCard = ({data}: {data:TOrders} ) => {
   const history = useHistory();
   const location = useLocation();
   const { ingredients } = useSelector(store => store.ingredients);
