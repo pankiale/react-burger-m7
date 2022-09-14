@@ -4,7 +4,9 @@ import React, { FC } from "react";
 
 
 interface IProtectedRouteProps {
-  notAuthOnly: boolean
+  notAuthOnly?: boolean;
+  path?: string;
+  exact?: boolean;
 }
 
 export const ProtectedRoute: FC<IProtectedRouteProps> = ({ notAuthOnly = false, children, ...rest }) => {

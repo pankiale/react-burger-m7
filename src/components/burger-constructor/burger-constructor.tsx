@@ -4,7 +4,6 @@ import IngredientSection from "../ingredient-section/ingredient-section";
 import TotalBill from "./total-bill";
 import Modal from "../modals/modals";
 import OrderDetails from "../modals/order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
   decreaseIngredientCounter,
@@ -15,6 +14,9 @@ import {
   closeOrderModalAction, addIngredientAction
 } from "../../services/actions/burgerConstructor";
 import { useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { TIngredients } from "../../services/types/data";
+import React from "react";
 
 function BurgerConstructor() {
   const location = useLocation();
@@ -28,7 +30,7 @@ function BurgerConstructor() {
     burgerConstructorBuns: buns
   } = useSelector(state => state.burgerConstructorIngredients);
 
-  const moveItem = (item) => {
+  const moveItem = (item: TIngredients) => {
     if (item.type === "bun" && buns.length > 0) {
       dispatch(decreaseIngredientCounter(buns[0]));
       const key = Math.random().toString(36).slice(2);
@@ -41,17 +43,22 @@ function BurgerConstructor() {
     }
   };
 
-  const [{ isHover }, dropTarget] = useDrop({
+  const [{ isHover }, dropTarget] = useDrop<
+    TIngredients,
+    void,
+    { isHover: boolean }
+>({
     accept: "items",
     collect: monitor => ({
       isHover: monitor.isOver()
     }),
     drop(item) {
+      console.log(item)
       moveItem(item);
     }
   });
 
-  const onOrderClick = (e) => {
+  const onOrderClick = (e: React.SyntheticEvent<Element,Event>) => {
     e.preventDefault();
     if (Object.keys(user).length === 0) {
       return history.push({ pathname: "/login" }, { from: location });

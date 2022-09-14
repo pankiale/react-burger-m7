@@ -2,16 +2,16 @@ import React, { useEffect} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients.module.css";
 import IngredientList from "../ingredient-list/ingredient-list";
-import { useDispatch, useSelector } from "react-redux";
 import { tabSwitchAction } from "../../services/actions/ingredients";
 import { useInView } from "react-intersection-observer";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
   const {currentTab} = useSelector(state => state.ingredients);
 
-  const handleClick = (value) => {
-    document.querySelector("#" + value).scrollIntoView();
+  const handleClick = (value: string) => {
+    (document.querySelector("#" + value) as HTMLDivElement).scrollIntoView();
     dispatch(tabSwitchAction(value));
   };
 

@@ -54,7 +54,7 @@ const price = (array: Array<TOrderIngredients>) => {
   }, 0);
 }
 
-const FeedOrderDetails = ({ url }: {url:string}) => {
+const FeedOrderDetails = ({ url }: {url?:string}) => {
   const dispatch = useDispatch();
 
   const { orderId } = useParams<{orderId: string}>();
