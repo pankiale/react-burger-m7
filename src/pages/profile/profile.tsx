@@ -9,15 +9,15 @@ import {
   getLogoutThunk,
   refreshTokenThunk
 } from "../../services/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../services/types";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { TRegistration, TUser } from "../../services/types/data";
 
 export function ProfilePage() {
 
-  const { regSuccess, regFailed, user } = useSelector(state => state.auth);
-  const [form, setValue] = useState({ email: user.email, password: "", name: user.name });
+  const { user } = useSelector(state => state.auth) as {user: TUser};
+  const [form, setValue] = useState<TRegistration>({ email: user.email, password: "", name: user.name });
   const dispatch = useDispatch();
-  const onChange = e => {
+  const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
   const onCancel = () => {
@@ -27,14 +27,14 @@ export function ProfilePage() {
     e.preventDefault();
     await dispatch(refreshTokenThunk())
     await dispatch(getChangeUserThunk(form))
-      .catch((err)=> console.log(err))
+      .catch((err: any)=> console.log(err))
   }, [form, dispatch, user]);
 
   const isDisabled = Boolean(form.email === user.email && form.name === user.name);
 
   const handleLogout = () => {
     dispatch(getLogoutThunk())
-      .catch((err) => {
+      .catch((err: any) => {
         console.error("Что то пошло не так", err);
         dispatch({
           type: GET_LOGOUT_FAILED
@@ -93,7 +93,7 @@ export function ProfilePage() {
             <Button onClick={onCancel} type="secondary" disabled={isDisabled}>
               Отмена
             </Button>
-            <Button primary={true} disabled={isDisabled}>
+            <Button type={"primary"} disabled={isDisabled}>
               Сохранить
             </Button>
           </div>

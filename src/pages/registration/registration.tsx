@@ -5,14 +5,14 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import { getRegistrationThunk } from "../../services/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function RegistrationPage() {
 
   const { regSuccess, regFailed } = useSelector(state => state.auth);
   const [form, setValue] = useState({ email: "", password: "", name: "" });
   const dispatch = useDispatch();
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -59,13 +59,13 @@ export function RegistrationPage() {
               size={"default"}
             />
             <PasswordInput
-              placeholder="Password"
+              /*placeholder="Password"*/
               value={form.password}
               name="password"
               onChange={onChange}
             />
           </div>
-          <Button primary={true} disabled={isDisabled}>
+          <Button type={"primary"} disabled={isDisabled}>
             Зарегистрироваться
           </Button>
         </form>

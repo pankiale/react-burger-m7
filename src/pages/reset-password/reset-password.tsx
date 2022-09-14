@@ -1,18 +1,17 @@
 import React, { useCallback, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { getResetPasswordThunk } from "../../services/actions/auth";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function ResetPasswordPage() {
 
   const [form, setValue] = useState({ password: "", token: "" });
   const dispatch = useDispatch();
   const {forgotPasswordSuccess, resetPasswordSuccess} = useSelector(state=>state.auth)
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -69,7 +68,7 @@ export function ResetPasswordPage() {
               size={"default"}
             />
           </div>
-          <Button primary={true}>
+          <Button type={"primary"}>
             Восстановить
           </Button>
         </form>

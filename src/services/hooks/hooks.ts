@@ -11,4 +11,4 @@ import { AppDispatch, AppThunk, RootState } from "../types";
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 // Хук не даст отправить экшен, который ему не знаком
-export const useDispatch = () => dispatchHook<AppDispatch & AppThunk>();
+export const useDispatch = () => dispatchHook<AppDispatch | AppThunk>();

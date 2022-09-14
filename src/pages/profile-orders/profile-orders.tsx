@@ -1,15 +1,14 @@
 import { NavLink} from "react-router-dom";
 import styles from "./profile_orders.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../../services/actions/ws";
 import { getCookie } from "../../utils/cookie";
 import { GET_LOGOUT_FAILED, getLogoutThunk } from "../../services/actions/auth";
-import FeedOrders from "../../components/feed/feed-orders";
 import ProfileOrders from "../../components/profile/profile-orders";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function ProfileOrdersPage() {
-  const orders = useSelector((store) => store.ws.orders || undefined);
+  const {orders} = useSelector((store) => store.ws || undefined);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export function ProfileOrdersPage() {
 
   const handleLogout = () => {
     dispatch(getLogoutThunk())
-      .catch((err) => {
+      .catch((err: any) => {
         console.error("Что то пошло не так", err);
         dispatch({
           type: GET_LOGOUT_FAILED
