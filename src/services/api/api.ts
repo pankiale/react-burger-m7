@@ -5,18 +5,28 @@ const config = {
   url: "https://norma.nomoreparties.space/api"
 };
 
+interface IOptions {
+  method?: string;
+  headers?: HeadersInit;
+  body?: any;
+};
+
 const apiFunc = ({ url }: TConfig) => {
+
+  function request(url: string, options: IOptions) {
+    return fetch(url, options).then(checkResponse)
+  }
+
   const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   };
 
   const getIngredients = () => {
-    return fetch(`${url}/ingredients`)
-      .then((res) => checkResponse(res));
+    return request(`${url}/ingredients`, {})
   };
 
   const placeOrder = (ingredients: TIDs) => {
-    return fetch(`${url}/orders`, {
+    return request(`${url}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,57 +34,52 @@ const apiFunc = ({ url }: TConfig) => {
       },
       body: JSON.stringify(ingredients)
     })
-      .then((res) => checkResponse(res));
   };
 
   const register = (data: TRegistration) => {
-    return fetch(`${url}/auth/register`, {
+    return request(`${url}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then((res) => checkResponse(res));
   };
 
   const login = (data: TLogin) => {
-    return fetch(`${url}/auth/login`, {
+    return request(`${url}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then((res) => checkResponse(res));
   };
 
 
   const forgotPassword = (data: TForgotPassword) => {
-    return fetch(`${url}/password-reset`, {
+    return request(`${url}/password-reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then((res) => checkResponse(res));
   };
 
   const resetPassword = (data: TResetPassword) => {
-    return fetch(`${url}/password-reset/reset`, {
+    return request(`${url}/password-reset/reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
-      .then((res) => checkResponse(res));
   };
 
   // requires authorisation token //
   const changeUser = (profileInfo: TRegistration) => {
-    return fetch(`${url}/auth/user`, {
+    return request(`${url}/auth/user`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -82,25 +87,23 @@ const apiFunc = ({ url }: TConfig) => {
       },
       body: JSON.stringify(profileInfo)
     })
-      .then((res) => checkResponse(res));
   };
 
 
   const checkToken = () => {
-    return fetch(`${url}/auth/user`, {
+    return request(`${url}/auth/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + getCookie("token")
       }
     })
-      .then((res) => checkResponse(res));
   };
 
   // requires refresh token //
 
   const refreshToken = () => {
-    return fetch(`${url}/auth/token`, {
+    return request(`${url}/auth/token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -109,11 +112,10 @@ const apiFunc = ({ url }: TConfig) => {
         token: localStorage.getItem("refreshToken")
       })
     })
-      .then((res) => checkResponse(res));
   };
 
   const logout = () => {
-    return fetch(`${url}/auth/logout`, {
+    return request(`${url}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -122,8 +124,8 @@ const apiFunc = ({ url }: TConfig) => {
         token: localStorage.getItem("refreshToken")
       })
     })
-      .then((res) => checkResponse(res));
   };
+
   return {
     getIngredients: getIngredients,
     placeOrder: placeOrder,

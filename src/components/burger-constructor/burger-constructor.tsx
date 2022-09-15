@@ -53,7 +53,6 @@ function BurgerConstructor() {
       isHover: monitor.isOver()
     }),
     drop(item) {
-      console.log(item)
       moveItem(item);
     }
   });
