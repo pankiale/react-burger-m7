@@ -12,7 +12,6 @@ import { ProtectedRoute } from "../components/protected-route/protected-route";
 import { ProfilePage } from "../pages/profile/profile";
 import Modal from "../components/modals/modals";
 import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
-import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 import { getItemsThunk } from "../services/actions/ingredients";
 import { checkTokenThunk, refreshTokenThunk } from "../services/actions/auth";
@@ -20,6 +19,7 @@ import Feed from "../pages/feed/feed";
 import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
 import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
 import { getCookie } from "../utils/cookie";
+import { useDispatch } from "../services/hooks/hooks";
 
 function App() {
   const cookie = getCookie("token");

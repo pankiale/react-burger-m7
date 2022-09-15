@@ -18,7 +18,7 @@ export function RegistrationPage() {
 
   const isDisabled = Boolean(!form.email && !form.password);
 
-  const register = useCallback( e => {
+  const register = useCallback( (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(getRegistrationThunk(form));
   }, [form]

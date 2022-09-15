@@ -16,7 +16,7 @@ export function ResetPasswordPage() {
   };
 
   const resetPassword = useCallback(
-    e => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(getResetPasswordThunk(form));
     },

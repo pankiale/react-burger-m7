@@ -19,7 +19,7 @@ export function LoginPage() {
   const isDisabled = Boolean(!form.email && !form.password);
 
   const login = useCallback(
-    e => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(getLoginThunk(form));
     },

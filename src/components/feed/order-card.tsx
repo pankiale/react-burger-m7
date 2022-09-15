@@ -23,19 +23,6 @@ export const getIngrArray = (ingredientsOrder: Array<string>, ingredients: Reado
   return {ingredientsArray, price}
 }
 
-/*export const getIngrDataArray = (ingredientsOrder, ingredients: TIngredients) => {
-  let resultingArray = [];
-  ingredientsOrder.forEach((ingredient) => {
-    ingredients.forEach(element => {
-      if (element._id === ingredient) {
-        resultingArray.push({ element: element.image_mobile, id: element._id, price: element.price });
-      }
-    });
-  });
-  return resultingArray;
-};*/
-
-
 const OrderCard = ( {data}: {data: TOrders} ) => {
   const history = useHistory();
   const location = useLocation();

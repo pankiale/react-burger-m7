@@ -23,7 +23,7 @@ export function ProfilePage() {
   const onCancel = () => {
     setValue({ email: user.email, password: "", name: user.name });
   };
-  const changeUser = useCallback (async (e) => {
+  const changeUser = useCallback (async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dispatch(refreshTokenThunk())
     await dispatch(getChangeUserThunk(form))

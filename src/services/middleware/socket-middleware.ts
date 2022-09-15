@@ -1,8 +1,10 @@
 import { IWsActions } from "../../utils/ws";
-import { Middleware } from "redux";
+import { Middleware, MiddlewareAPI } from "redux";
+import { AppDispatch, RootState } from "../types";
 
 export const socketMiddleware = (wsUrl:string, wsActions:IWsActions): Middleware => {
-  return (store) => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+    //при добавлении типизации стор возникает ошибка типизации диспатча error лечится заментой Event to any. в чем причина?
     let socket: WebSocket | null = null;
 
     const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
@@ -15,17 +17,17 @@ export const socketMiddleware = (wsUrl:string, wsActions:IWsActions): Middleware
         socket = new WebSocket(`${wsUrl}${payload}`);
       }
 
-      if (type === onClose) {
-        // @ts-ignore
-        socket.close();
-      }
-
       if (socket) {
         socket.onopen = (event:Event) => {
           dispatch({ type: onOpen, payload: event });
         };
 
-        socket.onerror = (event:Event) => {
+        if (type === onClose) {
+          socket.close();
+        };
+
+        socket.onerror = (event:any) => {
+          console.log(event)
           dispatch({ type: onError, payload: event });
           console.log("Ошибка соединения");
         };
