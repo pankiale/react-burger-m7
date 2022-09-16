@@ -17,9 +17,10 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "../../services/hooks/hooks";
 import { TIngredients } from "../../services/types/data";
 import React from "react";
+import { ILocation } from "../../app/app";
 
 function BurgerConstructor() {
-  const location = useLocation();
+  const location = useLocation<ILocation>();
   const history = useHistory();
   const { user } = useSelector(state => state.auth);
   const dispatch = useDispatch();

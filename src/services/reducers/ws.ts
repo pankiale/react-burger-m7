@@ -12,7 +12,7 @@ export type TWsState = {
   orders: Array<TOrders> | null;
   total: number | null;
   totalToday: number | null
-  error: Response | undefined;
+  error: Event | undefined;
 }
 
 const initialState = {

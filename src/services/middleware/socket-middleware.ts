@@ -26,7 +26,7 @@ export const socketMiddleware = (wsUrl:string, wsActions:IWsActions): Middleware
           socket.close();
         };
 
-        socket.onerror = (event:any) => {
+        socket.onerror = (event:Event) => {
           dispatch({ type: onError, payload: event });
           console.log("Ошибка соединения");
         };

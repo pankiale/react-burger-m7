@@ -21,9 +21,15 @@ import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
 import { getCookie } from "../utils/cookie";
 import { useDispatch } from "../services/hooks/hooks";
 
+export interface ILocation {
+  from: Location;
+  background?: Location&{state: Location};
+  pathname?: string;
+}
+ //пришлось добавить в интерфейс state иначе ломается switch
 function App() {
   const cookie = getCookie("token");
-  const location = useLocation<any>();
+  const location = useLocation<ILocation>();
     const history = useHistory();
     const background = location.state?.background;
     const dispatch = useDispatch();

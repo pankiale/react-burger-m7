@@ -27,7 +27,7 @@ export interface IWsConnectionClosedAction {
 }
 export interface IWsConnectionErrorAction {
   readonly type: typeof WS_CONNECTION_ERROR;
-  payload: Response;
+  payload: Event;
 }
 export interface IWsClearStoreAction {
   readonly type: typeof WS_CLEAR_STORE;

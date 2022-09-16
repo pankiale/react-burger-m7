@@ -5,6 +5,7 @@ import { getCorrectDate } from "../../utils/date";
 import React from "react";
 import { TIngredients, TOrders } from "../../services/types/data";
 import { useSelector } from "../../services/hooks/hooks";
+import { ILocation } from "../../app/app";
 
 export const getIngrArray = (ingredientsOrder: Array<string>, ingredients: ReadonlyArray<TIngredients>) => {
   let ingredientsArray: Array<TIngredients> = [];
@@ -25,7 +26,7 @@ export const getIngrArray = (ingredientsOrder: Array<string>, ingredients: Reado
 
 const OrderCard = ( {data}: {data: TOrders} ) => {
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<ILocation>();
   const { ingredients } = useSelector(store => store.ingredients);
   const { ingredientsArray, price } = getIngrArray(data.ingredients, ingredients);
   const length = ingredientsArray.length > 6 ? `+${ingredientsArray.length - 6}` : "";
