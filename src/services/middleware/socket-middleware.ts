@@ -4,7 +4,6 @@ import { AppDispatch, RootState } from "../types";
 
 export const socketMiddleware = (wsUrl:string, wsActions:IWsActions): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
-    //при добавлении типизации стор возникает ошибка типизации диспатча error лечится заментой Event to any. в чем причина?
     let socket: WebSocket | null = null;
 
     const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
