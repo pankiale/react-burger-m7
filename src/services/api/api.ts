@@ -14,15 +14,32 @@ interface IOptions {
 const apiFunc = ({ url }: TConfig) => {
 
   function request(url: string, options: IOptions) {
-    return fetch(url, options).then(checkResponse)
+    return fetch(url, options).then(checkResponse);
   }
+
+  const fetchWithRefresh = async (url: string, options: IOptions) => {
+    try {
+      const resp = await fetch(url, options);
+      return await checkResponse(resp);
+    } catch (err) {
+      if (err.message === "jwt expired") {
+        const refreshData = await refreshToken() as any;
+        options.headers.authorization = refreshData.accessToken;
+        const resp = await fetch(url, options);
+        return await checkResponse(resp);
+      } else {
+        return Promise.reject(err)
+      }
+    }
+  };
+
 
   const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   };
 
   const getIngredients = () => {
-    return request(`${url}/ingredients`, {})
+    return request(`${url}/ingredients`, {});
   };
 
   const placeOrder = (ingredients: TIDs) => {
@@ -33,7 +50,7 @@ const apiFunc = ({ url }: TConfig) => {
         Authorization: "Bearer " + getCookie("token")
       },
       body: JSON.stringify(ingredients)
-    })
+    });
   };
 
   const register = (data: TRegistration) => {
@@ -43,7 +60,7 @@ const apiFunc = ({ url }: TConfig) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    })
+    });
   };
 
   const login = (data: TLogin) => {
@@ -53,7 +70,7 @@ const apiFunc = ({ url }: TConfig) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    })
+    });
   };
 
 
@@ -64,7 +81,7 @@ const apiFunc = ({ url }: TConfig) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    })
+    });
   };
 
   const resetPassword = (data: TResetPassword) => {
@@ -74,7 +91,7 @@ const apiFunc = ({ url }: TConfig) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    })
+    });
   };
 
   // requires authorisation token //
@@ -86,18 +103,18 @@ const apiFunc = ({ url }: TConfig) => {
         Authorization: "Bearer " + getCookie("token")
       },
       body: JSON.stringify(profileInfo)
-    })
+    });
   };
 
 
-  const checkToken = () => {
+  const getUser = () => {
     return request(`${url}/auth/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + getCookie("token")
       }
-    })
+    });
   };
 
   // requires refresh token //
@@ -111,7 +128,7 @@ const apiFunc = ({ url }: TConfig) => {
       body: JSON.stringify({
         token: localStorage.getItem("refreshToken")
       })
-    })
+    });
   };
 
   const logout = () => {
@@ -123,7 +140,7 @@ const apiFunc = ({ url }: TConfig) => {
       body: JSON.stringify({
         token: localStorage.getItem("refreshToken")
       })
-    })
+    });
   };
 
   return {
@@ -134,7 +151,7 @@ const apiFunc = ({ url }: TConfig) => {
     forgotPassword: forgotPassword,
     resetPassword: resetPassword,
     changeUser: changeUser,
-    checkToken: checkToken,
+    getUser: getUser,
     refreshToken: refreshToken,
     logout: logout
   };

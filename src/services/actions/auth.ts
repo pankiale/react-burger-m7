@@ -283,7 +283,7 @@ export const refreshTokenThunk: AppThunk = () => {
 export const checkTokenThunk: AppThunk = () => {
   return function(dispatch: AppDispatch) {
     dispatch(checkTokenRequestAction());
-    api.checkToken()
+    api.getUser()
       .then(res => {
         if (res && res.success) {
           dispatch(checkTokenSuccessAction(res.user));
