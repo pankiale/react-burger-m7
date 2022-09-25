@@ -17,7 +17,7 @@ const apiFunc = ({ url }: TConfig) => {
     return fetch(url, options).then(checkResponse);
   }
 
-  const fetchWithRefresh = async (url: string, options: IOptions) => {
+  const fetchWithRefresh = async (url: string, options: any) => {
     try {
       const resp = await fetch(url, options);
       return await checkResponse(resp);
@@ -43,7 +43,7 @@ const apiFunc = ({ url }: TConfig) => {
   };
 
   const placeOrder = (ingredients: TIDs) => {
-    return request(`${url}/orders`, {
+    return fetchWithRefresh(`${url}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +96,7 @@ const apiFunc = ({ url }: TConfig) => {
 
   // requires authorisation token //
   const changeUser = (profileInfo: TRegistration) => {
-    return request(`${url}/auth/user`, {
+    return fetchWithRefresh(`${url}/auth/user`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +108,7 @@ const apiFunc = ({ url }: TConfig) => {
 
 
   const getUser = () => {
-    return request(`${url}/auth/user`, {
+    return fetchWithRefresh(`${url}/auth/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

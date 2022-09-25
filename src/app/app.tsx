@@ -14,7 +14,7 @@ import Modal from "../components/modals/modals";
 import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
 import React, { useEffect } from "react";
 import { getItemsThunk } from "../services/actions/ingredients";
-import { checkTokenThunk, refreshTokenThunk } from "../services/actions/auth";
+import { checkTokenThunk, getChangeUserThunk, refreshTokenThunk } from "../services/actions/auth";
 import Feed from "../pages/feed/feed";
 import FeedOrderDetails from "../components/modals/feed-order-details/feed-order-details";
 import { ProfileOrdersPage } from "../pages/profile-orders/profile-orders";
@@ -40,22 +40,8 @@ function App() {
     };
 
     useEffect(() => {
-
         dispatch(getItemsThunk());
-
-        async function checkUser() {
-          await dispatch(refreshTokenThunk());
-          await dispatch(checkTokenThunk());
-
-        }
-
-        if (token) {
-          checkUser()
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-
+        dispatch(checkTokenThunk())
       }, []
     );
 
